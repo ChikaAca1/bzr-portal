@@ -52,6 +52,7 @@ Per plan.md, this is a web application:
 - [X] T012 Initialize Drizzle ORM in backend/src/db/index.ts
 - [X] T013 Configure Drizzle Kit for migrations in drizzle.config.ts
 - [X] T014 Create base Drizzle schema file backend/src/db/schema/index.ts
+- [ ] T014a [P] Create PostgreSQL RLS policies migration in backend/src/db/migrations/YYYYMMDD_add_rls_policies.sql for all tenant tables (companies, work_positions, risk_assessments, ppe, training, medical_exams, employees, documents, audit_logs) with company_id isolation policy and Admin BYPASSRLS grant per constitution Principle VI
 
 ### Authentication Infrastructure
 
@@ -66,6 +67,9 @@ Per plan.md, this is a web application:
 - [X] T020 [P] Create structured error response utility in backend/src/api/middleware/error-handler.ts
 - [X] T021 [P] Setup Pino structured logging in backend/src/lib/logger.ts
 - [X] T022 [P] Create rate limiting middleware in backend/src/api/middleware/rate-limit.ts
+- [ ] T022a [P] Create RBAC middleware in backend/src/api/middleware/rbac.ts with permission matrix (Admin: all operations, BZR Officer: own company CRUD, HR Manager: employee data read/write, Viewer: read-only) and checkPermission(user, resource, action) helper per constitution Principle III
+- [ ] T022b [P] Add role-based route protection to API endpoints using requireRole(['Admin', 'BZR Officer']) wrapper for write operations
+- [ ] T022c [P] Create frontend <Can permission="action:resource"> component in frontend/src/components/auth/Can.tsx for role-based UI rendering
 
 ### Frontend Infrastructure
 
@@ -124,6 +128,9 @@ Per plan.md, this is a web application:
 
 - [X] T049 [P] [US1] Create auth.register tRPC procedure in backend/src/api/routes/auth.ts (trial account creation)
 - [X] T050 [P] [US1] Create auth.login tRPC procedure in backend/src/api/routes/auth.ts (JWT issuance)
+- [ ] T050a [P] [US1] Setup Resend email service integration (install @resend/node, configure RESEND_API_KEY in .env, create backend/templates/emails/ directory) per constitution Principle III security gate requirement
+- [ ] T050b [P] [US1] Create auth.verifyEmail tRPC procedure in backend/src/api/routes/auth.ts with JWT verification token generation (24h expiry), add verification_token and verification_token_expires columns to users table
+- [ ] T050c [P] [US1] Create Serbian Cyrillic email verification template in backend/templates/emails/verify-email.html (subject: "Potvrda email adrese - BZR Portal", button: "Potvrdite email adresu")
 - [X] T051 [P] [US1] Create companies.create tRPC procedure in backend/src/api/routes/companies.ts
 - [X] T052 [P] [US1] Create companies.getById tRPC procedure in backend/src/api/routes/companies.ts
 - [X] T053 [P] [US1] Create positions.create tRPC procedure (exists in backend/src/api/routes/positions.ts)
@@ -154,7 +161,7 @@ Per plan.md, this is a web application:
 ### Integration & Polish for User Story 1
 
 - [ ] T071 [US1] Add error handling and Serbian Cyrillic error messages throughout US1 endpoints
-- [ ] T072 [US1] Add audit logging for company/position/risk CRUD operations (FR-033)
+- [ ] T072 [US1] Add audit logging for ALL critical operations: company/position/risk CRUD + document generation + auth events (login, logout, registration, failed attempts) per FR-033 and constitution Principle III
 - [ ] T073 [US1] Verify all US1 tests pass with 80%+ coverage for risk calculation
 - [ ] T074 [US1] Test document generation with Serbian Cyrillic special characters (Ђ, Ћ, Љ, Њ, Џ, Ж, Ш)
 - [ ] T075 [US1] Verify trial account limits enforced (1 company, 3 positions, 5 documents)

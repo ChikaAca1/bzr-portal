@@ -13,8 +13,8 @@ Build a SaaS platform for Serbian Occupational Health & Safety (BZR) compliance 
 
 **Language/Version**: TypeScript 5.0+ (strict mode), Node.js 20+ / Bun runtime
 **Primary Dependencies**:
-  - Frontend: React 18+, TanStack Query, Zustand, shadcn/ui, Tailwind CSS
-  - Backend: Fastify or Hono (API framework), Drizzle ORM (PostgreSQL)
+  - Frontend: Vite + React 18+ (NOT Next.js for MVP - simpler deployment), TanStack Query, Zustand, shadcn/ui, Tailwind CSS
+  - Backend: Hono (lightweight API framework for Vercel serverless), Drizzle ORM (PostgreSQL)
   - Document Generation: docx-templates (Mustache-based DOCX templating)
   - AI: Anthropic Claude API (Phase 2 - hazard prediction)
 
@@ -23,7 +23,7 @@ Build a SaaS platform for Serbian Occupational Health & Safety (BZR) compliance 
   - Document Storage: Vercel Blob Storage (or Cloudflare R2 fallback)
   - Template Storage: Git-versioned DOCX template in backend/templates/
 
-**Testing**: NEEDS CLARIFICATION (likely: Vitest for unit, Playwright for E2E, target 80%+ code coverage per SC-010)
+**Testing**: Vitest (unit/integration tests), Playwright (E2E tests), target 80%+ code coverage per SC-010 and constitution Principle II (Test-Driven Development)
 
 **Target Platform**:
   - Deployment: Vercel serverless functions + static hosting
