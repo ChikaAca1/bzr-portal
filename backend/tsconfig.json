@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "lib": ["ES2022"],
+    "moduleResolution": "bundler",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": false,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "outDir": "./dist",
+    "baseUrl": "./src",
+    "paths": {
+      "@/*": ["./*"],
+      "@/db/*": ["./db/*"],
+      "@/services/*": ["./services/*"],
+      "@/api/*": ["./api/*"],
+      "@/lib/*": ["./lib/*"]
+    },
+    "types": ["node", "vitest/globals"],
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": false
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist", "tests", "src/test-*.ts", "src/services/ai-cache.service.ts", "src/lib/ai/**/*", "../shared/**/*"]
+}

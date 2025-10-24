@@ -1,0 +1,29 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+build/
+.next/
+out/
+
+# Test outputs
+coverage/
+playwright-report/
+test-results/
+
+# Generated files
+drizzle/
+.drizzle/
+
+# Config files
+*.config.js
+*.config.ts
+
+# Environment
+.env*
+
+# Temporary
+*.tmp
+temp/
+tmp/

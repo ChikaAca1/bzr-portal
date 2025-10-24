@@ -1,0 +1,34 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+build/
+.next/
+out/
+
+# Test outputs
+coverage/
+playwright-report/
+test-results/
+
+# Generated files
+drizzle/
+.drizzle/
+
+# Lock files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Environment
+.env*
+
+# Temporary
+*.tmp
+temp/
+tmp/
+
+# Markdown (formatted separately)
+*.md
+!docs/**/*.md
