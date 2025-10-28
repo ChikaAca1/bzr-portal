@@ -62,3 +62,6 @@ drizzle/
 uploads/
 documents/
 storage/
+
+# SSH Deploy Keys
+deploy-key*

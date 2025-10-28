@@ -14,14 +14,20 @@ jobs:
         with:
           fetch-depth: 0  # Full history for proper mirroring
 
-      - name: Mirror to target repo
+      - name: Setup SSH key
         env:
-          TARGET_REPO: chikaAcaFaca/bzr-portal1
-          TARGET_TOKEN: ${{ secrets.TARGET_PAT }}
+          DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
+        run: |
+          mkdir -p ~/.ssh
+          echo "$DEPLOY_KEY" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
+
+      - name: Mirror to target repo
         run: |
           git config --global user.name "GitHub Sync Bot"
           git config --global user.email "syncbot@example.com"
-          git remote add target https://x-access-token:${TARGET_TOKEN}@github.com/${TARGET_REPO}.git
+          git remote add target git@github.com:chikaAcaFaca/bzr-portal1.git
           git push --force target main
 
       - name: Notify sync success
