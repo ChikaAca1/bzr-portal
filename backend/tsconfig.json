@@ -21,7 +21,7 @@
       "@/api/*": ["./api/*"],
       "@/lib/*": ["./lib/*"]
     },
-    "types": ["node", "vitest/globals"],
+    "types": ["node"],
     "noUnusedLocals": false,
     "noUnusedParameters": false,
     "noFallthroughCasesInSwitch": true,
