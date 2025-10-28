@@ -1,0 +1,33 @@
+name: Sync to Vercel Repo
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source repo
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Full history for proper mirroring
+
+      - name: Mirror to target repo
+        env:
+          TARGET_REPO: chikaAcaFaca/bzr-portal1
+          TARGET_TOKEN: ${{ secrets.TARGET_PAT }}
+        run: |
+          git config --global user.name "GitHub Sync Bot"
+          git config --global user.email "syncbot@example.com"
+          git remote add target https://x-access-token:${TARGET_TOKEN}@github.com/${TARGET_REPO}.git
+          git push --force target main
+
+      - name: Notify sync success
+        if: success()
+        run: echo "✅ Successfully synced to chikaAcaFaca/bzr-portal1"
+
+      - name: Notify sync failure
+        if: failure()
+        run: echo "❌ Failed to sync to chikaAcaFaca/bzr-portal1"

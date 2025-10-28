@@ -1,17 +1,22 @@
 {
   "version": 2,
-  "buildCommand": "npm run build",
-  "outputDirectory": "frontend/dist",
-  "framework": null,
-  "regions": ["fra1"],
-  "functions": {
-    "backend/src/index.ts": {
-      "runtime": "nodejs20.x",
-      "maxDuration": 60,
-      "memory": 1024,
-      "includeFiles": "backend/templates/**"
+  "name": "bzr-portal",
+  "builds": [
+    {
+      "src": "backend/src/index.ts",
+      "use": "@vercel/node",
+      "config": {
+        "maxDuration": 10
+      }
+    },
+    {
+      "src": "frontend/package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "dist"
+      }
     }
-  },
+  ],
   "routes": [
     {
       "src": "/api/(.*)",
@@ -19,59 +24,16 @@
     },
     {
       "src": "/(.*)",
-      "dest": "frontend/dist/$1"
+      "dest": "frontend/$1"
     }
   ],
   "env": {
     "NODE_ENV": "production"
   },
-  "build": {
-    "env": {
-      "NODE_ENV": "production"
+  "functions": {
+    "backend/src/index.ts": {
+      "maxDuration": 10,
+      "memory": 1024
     }
-  },
-  "headers": [
-    {
-      "source": "/api/(.*)",
-      "headers": [
-        {
-          "key": "Access-Control-Allow-Credentials",
-          "value": "true"
-        },
-        {
-          "key": "Access-Control-Allow-Origin",
-          "value": "*"
-        },
-        {
-          "key": "Access-Control-Allow-Methods",
-          "value": "GET,OPTIONS,PATCH,DELETE,POST,PUT"
-        },
-        {
-          "key": "Access-Control-Allow-Headers",
-          "value": "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, Authorization"
-        }
-      ]
-    },
-    {
-      "source": "/(.*)",
-      "headers": [
-        {
-          "key": "X-Content-Type-Options",
-          "value": "nosniff"
-        },
-        {
-          "key": "X-Frame-Options",
-          "value": "DENY"
-        },
-        {
-          "key": "X-XSS-Protection",
-          "value": "1; mode=block"
-        },
-        {
-          "key": "Referrer-Policy",
-          "value": "strict-origin-when-cross-origin"
-        }
-      ]
-    }
-  ]
+  }
 }

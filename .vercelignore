@@ -1,33 +1,54 @@
-# Node modules
-node_modules/
+# Dependencies
+node_modules
+npm-debug.log
+.pnpm-debug.log*
 
-# Test files
+# Testing
+coverage
+*.log
+.nyc_output
+backend/tests
+frontend/tests
+tests
 **/*.test.ts
 **/*.test.tsx
 **/*.spec.ts
 **/*.spec.tsx
-tests/
-playwright-report/
-test-results/
-coverage/
 
-# Development files
+# Build artifacts
+.turbo
+dist
+build
+.next
+.vercel
+
+# Development
 .env.local
-.env.development
-.env.test
+.env.development.local
+.env.test.local
+.env.production.local
+*.local
 
-# Documentation
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docs and session files
 *.md
 !README.md
+SESSION_*.md
+ARCHITECTURE_*.md
+IMPLEMENTATION_*.md
 
-# Editor
-.vscode/
-.idea/
-
-# Temporary
+# Temp files
 *.tmp
-temp/
-tmp/
-
-# Source maps (if not needed in production)
-# *.map
+*.bak
+*.timestamp-*
+nul
