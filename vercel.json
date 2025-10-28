@@ -29,11 +29,5 @@
   ],
   "env": {
     "NODE_ENV": "production"
-  },
-  "functions": {
-    "backend/src/index.ts": {
-      "maxDuration": 10,
-      "memory": 1024
-    }
   }
 }
