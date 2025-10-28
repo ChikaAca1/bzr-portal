@@ -27,6 +27,7 @@ jobs:
         run: |
           git config --global user.name "GitHub Sync Bot"
           git config --global user.email "syncbot@example.com"
+          git remote remove target 2>/dev/null || true
           git remote add target git@github.com:chikaAcaFaca/bzr-portal1.git
           git push --force target main
 
