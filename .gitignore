@@ -65,3 +65,23 @@ storage/
 
 # SSH Deploy Keys
 deploy-key*
+PRIVATE_KEY_FOR_SECRET.txt
+show-keys.ps1
+test-token.*
+
+# Troubleshooting/Debug files
+CHECK_SSH_SETUP.md
+DEBUG_SYNC.md
+DEPLOYMENT_GUIDE.md
+GITHUB_ACTIONS_FIX.md
+SWITCH_TO_SSH.md
+VERIFY_TOKEN.md
+SESSION_*.md
+ARCHITECTURE_UPDATE.md
+IMPLEMENTATION_PROGRESS.md
+
+# Vitest temp files
+*.timestamp-*.mjs
+
+# Other temp
+nul
