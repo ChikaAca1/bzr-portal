@@ -3,12 +3,13 @@ import ReactDOM from 'react-dom/client';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { trpc, getTRPCClient } from './services/api';
+import './lib/i18n'; // Initialize i18n (T037)
 import './index.css';
 
 /**
  * BZR Portal Frontend Entry Point
  *
- * Sets up tRPC client, TanStack Query, and React Router.
+ * Sets up tRPC client, TanStack Query, React Router, and i18n.
  */
 
 // Create TanStack Query client
@@ -28,7 +29,7 @@ const trpcClient = getTRPCClient();
 import { Dashboard } from './pages/Dashboard';
 import { Login } from './pages/Login';
 import { Register } from './pages/Register';
-import { useAuthStore } from './store/auth';
+import { useAuthStore } from './stores/authStore'; // T038
 import { Navigate } from 'react-router-dom';
 
 // Protected Route wrapper

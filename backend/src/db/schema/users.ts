@@ -1,4 +1,4 @@
-import { pgTable, serial, varchar, timestamp, pgEnum } from 'drizzle-orm/pg-core';
+import { pgTable, serial, varchar, timestamp, pgEnum, boolean } from 'drizzle-orm/pg-core';
 
 /**
  * User Roles Enum (RBAC per FR-029, FR-053b)
@@ -11,20 +11,27 @@ import { pgTable, serial, varchar, timestamp, pgEnum } from 'drizzle-orm/pg-core
 export const userRoleEnum = pgEnum('user_role', ['admin', 'bzr_officer', 'hr_manager', 'viewer']);
 
 /**
- * Users Table (Phase 2.5: T040b)
+ * Account Tier Enum (Trial vs Full Access per FR-028)
+ */
+export const accountTierEnum = pgEnum('account_tier', ['trial', 'verified', 'premium']);
+
+/**
+ * Users Table (Phase 2: T012)
  *
  * Stores user authentication and authorization data.
  * Implements JWT-based auth with RBAC (FR-028, FR-029, FR-030).
+ * Trial account limits enforced at application layer.
  */
 export const users = pgTable('users', {
   id: serial('id').primaryKey(),
 
   // Authentication
   email: varchar('email', { length: 255 }).notNull().unique(),
-  passwordHash: varchar('password_hash', { length: 255 }).notNull(), // bcrypt/argon2 hash
+  passwordHash: varchar('password_hash', { length: 255 }).notNull(), // bcrypt hash
+  emailVerified: boolean('email_verified').default(false).notNull(),
 
   // Authorization (RBAC)
-  role: userRoleEnum('role').default('viewer').notNull(),
+  role: userRoleEnum().default('viewer').notNull(),
 
   // Multi-tenancy: Row-Level Security (FR-030)
   // User can only access data from their assigned company
@@ -33,6 +40,10 @@ export const users = pgTable('users', {
   // Profile
   firstName: varchar('first_name', { length: 100 }),
   lastName: varchar('last_name', { length: 100 }),
+
+  // Trial Account Management (FR-028a-d)
+  accountTier: accountTierEnum().default('trial').notNull(),
+  trialExpiryDate: timestamp('trial_expiry_date'), // 14 days from registration
 
   // Audit fields
   createdAt: timestamp('created_at').defaultNow().notNull(),

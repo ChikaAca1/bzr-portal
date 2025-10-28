@@ -92,6 +92,39 @@ A company has existing Excel file with job systematization (sistematizacija) lis
 
 ---
 
+### User Story 6 - Storage Quotas & Referral System (Priority: P6 - Post-MVP)
+
+A user wants to upgrade their account to paid tier and invite colleagues to earn additional cloud storage space for digital file backup (beyond just generated documents).
+
+**Why this priority**: This is a viral growth mechanism (Dropbox-style referral) and retention strategy. Not essential for MVP risk assessment workflow, but critical for long-term customer acquisition and storage monetization. Deferred to Phase 4+.
+
+**Independent Test**: User can upgrade account, receive storage quota increase, generate referral code, track referred users, and earn bonus storage while both accounts remain active paid subscriptions.
+
+**Acceptance Scenarios**:
+
+1. **Given** free trial account, **When** user views storage usage, **Then** system displays "1GB besplatnog prostora: {used}MB / 1GB iskorišćeno"
+2. **Given** trial account approaching 1GB limit, **When** storage reaches 900MB, **Then** system shows warning: "Približavate se limitu od 1GB. Nadogradite nalog za više prostora."
+3. **Given** trial account, **When** user upgrades to paid subscription, **Then** storage quota increases to 11GB (10GB base + 1GB loyalty bonus while subscription active)
+4. **Given** paid account, **When** user generates referral code, **Then** system creates unique referral link: "https://bzr-portal.com/register?ref={code}"
+5. **Given** referral link, **When** new user registers and upgrades to paid account, **Then** both referrer and referee receive notification: "Čestitamo! Dobili ste +5GB prostora."
+6. **Given** active paid account with 3 successful referrals, **When** user views storage quota, **Then** system displays: "Ukupno: 26GB (10GB base + 1GB loyalty + 15GB referral bonusi)"
+7. **Given** referred user with active paid subscription, **When** referred user cancels subscription, **Then** referrer's bonus storage (-5GB) is removed with 30-day grace period notification
+8. **Given** user with 100+ referrals (viral success scenario), **When** calculating storage quota, **Then** system supports unlimited referral bonuses (e.g., 515GB = 10+1+500GB referrals)
+9. **Given** paid account, **When** user uploads personal file (not generated document), **Then** file is stored in `user-files/{user_id}/{file_id}` folder on Wasabi, counted toward quota
+10. **Given** user approaching storage quota, **When** uploading file would exceed limit, **Then** system shows error: "Nedovoljno prostora. Oslobodite {needed}MB ili pozovite prijatelje za dodatni prostor."
+
+**Storage Quota Rules**:
+- **Free/Trial**: 1GB (for generated documents only initially)
+- **Paid Base**: 10GB
+- **Loyalty Bonus**: +1GB (while paid subscription active)
+- **Referral Bonus**: +5GB per successful referral (while both users have active paid subscriptions)
+- **Grace Period**: 30 days after referral cancellation before bonus storage removed
+- **No Referral Limit**: User can earn unlimited storage through referrals (100, 1000+ users supported)
+
+**Future Feature (Phase 4+)**: Full digital file storage UI (upload, folders, sharing, version history) - Dropbox-like experience integrated into BZR Portal. For MVP, architecture must support this but UI deferred.
+
+---
+
 ### Edge Cases
 
 - What happens when user tries to save residual risk R ≥ initial risk Ri? (Validation error: "Residual risk must be lower than initial risk after corrective measures")
@@ -105,6 +138,12 @@ A company has existing Excel file with job systematization (sistematizacija) lis
 - What happens when trial account reaches 5 documents limit? (Show modal: "Dostigli ste limit od 5 generisanih dokumenata. Kontaktirajte nas za nadogradnju naloga.")
 - What happens when trial period expires (14 days)? (User can log in but cannot create/edit data, see modal: "Vaš probni period je istekao. Kontaktirajte podršku za aktivaciju punog pristupa." with read-only access to existing data)
 - What happens when user tries to register with already-used email? (Show error: "Email adresa već postoji. Pokušajte da se prijavite ili koristite drugu email adresu.")
+- What happens when user exceeds storage quota? (Upload blocked with error: "Prekoračili ste limit od {quota}GB. Oslobodite prostor ili pozovite prijatelje za +5GB po pozivu.")
+- What happens when user with 50GB referral storage downgrades to free? (Grace period: 30 days to download files, then oldest files deleted to fit 1GB quota, email warnings sent at 30d, 14d, 7d, 1d before deletion)
+- What happens when referred user cancels subscription? (Referrer gets email: "Korisnik {name} je otkazao pretplatu. Vaš bonus od 5GB će biti uklonjen za 30 dana osim ako ne produže pretplatu." Grace period allows re-activation)
+- What happens when user tries to use someone else's referral code? (Code validated, if invalid show error: "Referral kod nije validan ili je istekao.")
+- What happens when user tries to refer themselves? (Validation error: "Ne možete koristiti sopstveni referral kod.")
+- What happens when 100+ users sign up via one referral code? (System supports unlimited referrals, quota calculation sums all active bonuses, database indexed on referrer_id for performance)
 
 ## Requirements *(mandatory)*
 
@@ -158,6 +197,9 @@ A company has existing Excel file with job systematization (sistematizacija) lis
 - **FR-028e**: After verification call, support/admin MUST upgrade account to full access (remove trial limits, extend expiration)
 - **FR-028f**: Password requirements: minimum 8 characters, must include uppercase, lowercase, number, special character
 - **FR-028g**: System MUST require email verification via confirmation link before trial account activation
+- **FR-028h**: System MUST use Resend as email service provider for all transactional emails (verification links, trial expiry notifications, document deletion warnings, data export notifications, support contact forms)
+- **FR-028i**: Email templates MUST be in Serbian language (Cyrillic or Latin based on user preference if implemented)
+- **FR-028j**: System MUST handle email delivery failures gracefully with retry logic (up to 3 attempts with exponential backoff) and log failures for manual follow-up
 
 **Security & Compliance:**
 - **FR-029**: System MUST implement role-based access control (RBAC) with roles: Admin, BZR Officer, HR Manager, Viewer
@@ -166,9 +208,32 @@ A company has existing Excel file with job systematization (sistematizacija) lis
 - **FR-032**: System MUST comply with GDPR for personal data handling (export, deletion)
 - **FR-033**: System MUST maintain audit logs for all document generations and data modifications
 
+**Storage Quotas & Referral System (Phase 4+):**
+- **FR-056**: System MUST track storage usage per user in bytes (generated documents + user files)
+- **FR-056a**: Free/trial accounts MUST have 1GB storage quota
+- **FR-056b**: Paid accounts MUST have base 10GB + 1GB loyalty bonus (total 11GB while subscription active)
+- **FR-056c**: System MUST generate unique referral code per user (8-character alphanumeric, e.g., "A3X9K2P7")
+- **FR-056d**: System MUST award +5GB storage bonus to referrer when referee upgrades to paid account
+- **FR-056e**: System MUST award +5GB storage bonus to referee upon paid upgrade
+- **FR-056f**: Referral bonuses MUST remain active only while both referrer and referee have active paid subscriptions
+- **FR-056g**: System MUST implement 30-day grace period before removing referral bonus storage after subscription cancellation
+- **FR-056h**: System MUST support unlimited referral bonuses (no cap on number of referrals per user)
+- **FR-056i**: System MUST calculate total storage quota dynamically: `base + loyalty + (active_referrals_count × 5GB)`
+- **FR-056j**: System MUST block file uploads when storage quota exceeded with error message in Serbian
+- **FR-056k**: System MUST display storage usage widget: "Iskorišćeno: {used}GB / {quota}GB ({percentage}%)"
+- **FR-056l**: System MUST send email warnings at 90%, 95%, 100% storage usage thresholds
+- **FR-056m**: System MUST store user files in Wasabi S3 with folder structure: `user-files/{user_id}/{file_id}.{ext}`
+- **FR-056n**: System MUST track file metadata: filename, size_bytes, mime_type, upload_date, file_category (document|backup|other)
+- **FR-056o**: System MUST prevent self-referral (user cannot use own referral code)
+- **FR-056p**: System MUST validate referral code exists and belongs to different user before registration
+- **FR-056q**: System MUST track referral relationship: referrer_id, referee_id, referral_date, referee_subscription_status, bonus_active
+- **FR-056r**: System MUST implement cron job to check referral bonus eligibility daily (both users paid?) and update storage quotas
+- **FR-056s**: System MUST notify referrer via email when referee cancels subscription with 30-day grace period warning
+- **FR-056t**: System MUST implement downgrade storage reconciliation: if user downgrades and exceeds new quota, 30-day grace period to download files, then delete oldest files to fit quota with email warnings at 30d, 14d, 7d, 1d intervals
+
 ### Key Entities *(include if feature involves data)*
 
-- **User**: Represents a system user; attributes include email, password_hash, first_name, last_name, role (Admin/BZR Officer/HR Manager/Viewer), company_id, account_tier (trial/full), trial_expiry_date, email_verified, created_at; relationships: belongs to Company
+- **User**: Represents a system user; attributes include email, password_hash, first_name, last_name, role (Admin/BZR Officer/HR Manager/Viewer), company_id, account_tier (trial/full), trial_expiry_date, email_verified, storage_quota_gb (calculated dynamically), storage_used_bytes, referral_code (unique 8-char alphanumeric), referred_by_user_id (nullable), created_at; relationships: belongs to Company, has many Referrals (as referrer), has many UserFiles
 - **Company**: Represents the employer organization; attributes include name, address, activity_code, director, bzr_officer, account_tier (trial/full), trial_expiry_date, document_generation_count, work_position_count; relationships: has many WorkPositions, has many Users
 - **WorkPosition**: Represents a job role within the company; attributes include position_name, position_code, department, required_education, required_experience, employee_counts, work_hours, job_description; relationships: belongs to Company, has many RiskAssessments, has many PPE items, has many Training requirements
 - **HazardType**: Reference data for standardized hazard codes (06, 07, 10, 15, 29, 33, 34, 35, 36, etc.); attributes include hazard_code, hazard_category (mechanical/electrical/ergonomic/psychosocial), hazard_name_sr, hazard_description
@@ -177,6 +242,8 @@ A company has existing Excel file with job systematization (sistematizacija) lis
 - **Training**: Training requirements for a position; attributes include position_id, training_type, frequency, duration, required_before_work; relationships: belongs to WorkPosition
 - **MedicalExam**: Medical examination requirements; attributes include position_id, exam_type, frequency, exam_scope; relationships: belongs to WorkPosition
 - **Employee** (optional, can be anonymized): Individual worker; attributes include first_name, last_name, jmbg (encrypted), position_id, hire_date, contract_type; relationships: belongs to WorkPosition
+- **Referral** (Phase 4+): Tracks referral relationships for storage bonuses; attributes include referrer_user_id, referee_user_id, referral_code_used, referral_date, referee_upgraded_date (nullable), referee_subscription_status (trial/paid/cancelled), bonus_active (boolean), bonus_expiry_date (nullable - 30 days after cancellation), created_at; relationships: referrer belongs to User, referee belongs to User
+- **UserFile** (Phase 4+): Stores user-uploaded digital files (beyond generated documents); attributes include user_id, file_id (UUID), filename, file_path_s3 (`user-files/{user_id}/{file_id}.{ext}`), file_size_bytes, mime_type, file_category (document|backup|other), upload_date, last_accessed_date, is_deleted (soft delete), deleted_date; relationships: belongs to User; indexes: user_id, file_category, upload_date, is_deleted
 
 ## Success Criteria *(mandatory)*
 
@@ -192,6 +259,7 @@ A company has existing Excel file with job systematization (sistematizacija) lis
 - **SC-008**: AI hazard prediction accuracy (when implemented in Phase 2) exceeds 70% relevance score based on user acceptance of suggestions
 - **SC-009**: Excel import success rate (when implemented in Phase 3) exceeds 85% for files matching expected format
 - **SC-010**: System achieves 80%+ code coverage for critical business logic (risk calculation, document generation, data validation)
+- **SC-011** (Phase 4+): Referral program achieves 20%+ viral coefficient (average 20+ successful referrals per 100 paid users within 6 months of launch), with storage quota calculation performance < 200ms for users with 100+ referrals
 
 ---
 
@@ -204,6 +272,17 @@ A company has existing Excel file with job systematization (sistematizacija) lis
 - Q: Which Node.js library should be used for DOCX generation? → A: docx-templates (template-based)
 - Q: How should user registration work (open self-registration vs admin-invited vs hybrid)? → A: Hybrid (self-registration creates trial, upgrade after verification)
 - Q: What cloud platform should be used for deployment? → A: Vercel
+
+### Session 2025-10-27
+
+- Q: When a document generation or data save operation fails mid-process, how should the system handle partial state? → A: Partial rollback - Keep user input data, rollback only document generation attempts, show specific error with retry option
+- Q: For MVP deployment with 10 pilot companies and expected 30-50 concurrent users, what should be the initial PostgreSQL connection pool configuration? → A: Balanced MVP - 10-20 connections
+- Q: What monitoring and observability solution should be used for MVP? → A: Platform-native - Vercel Analytics + native logging
+- Q: Which email service provider should be used for transactional emails (verification, notifications)? → A: Resend
+- Q: Which PostgreSQL service provider should be used for MVP database? → A: Supabase
+- Q: Which storage service should be used for generated documents? → A: Wasabi (S3-compatible, no egress fees)
+- Q: What is the budget constraint for deployment infrastructure during MVP phase? → A: MUST use Vercel Free plan until ~100 paying customers; upgrade to paid services only after achieving revenue milestone
+- Q: What is the storage quota and referral incentive model? → A: Free users get 1GB, paid users get 11GB (10GB base + 1GB loyalty), +5GB per referral (unlimited), bonuses active only while both users have paid subscriptions, 30-day grace period on cancellation. Dropbox-style viral growth mechanism - users can store personal files beyond just generated documents (Phase 4+)
 
 ---
 
@@ -556,6 +635,7 @@ System MUST include signature block with:
 - System MUST use docx-templates library with Mustache syntax ({{variable}}, {{#loop}}...{{/loop}}, {{#if}}...{{/if}})
 - IF Mustache template syntax error or missing variable: Log error with template variable name, show user message "Greška prilikom generisanja dokumenta. Molimo kontaktirajte podršku. (Error ID: {uuid})"
 - System MUST retry up to 3 times for transient errors (network failures, temporary file system issues) with exponential backoff (1s, 2s, 4s)
+- System MUST implement partial rollback strategy: Keep all user input data (company info, work positions, risk assessments, PPE, training) in database, rollback only document generation attempts, preserve form state for immediate retry
 - System MUST log full error stack trace with Error ID for support debugging
 - Progress indicator MUST show real-time status: "Generisanje dokumenta... 45% završeno"
 
@@ -569,9 +649,11 @@ System MUST include signature block with:
 - IF generated DOCX > 100 MB: Show error "Dokument prelazi 100MB. Molimo smanjite broj radnih mesta u jednom dokumentu."
 
 **FR-045d - Storage failure**:
-- IF Vercel Blob upload fails: Retry with exponential backoff (3 attempts: 1s, 2s, 4s)
+- IF Wasabi S3 upload fails: Retry with exponential backoff (3 attempts: 1s, 2s, 4s)
 - IF all retries fail: Return document directly to browser as download (bypass storage) and show message "Dokument je generisan ali ne može biti sačuvan u облаку. Molimo preuzmite ga odmah."
-- Note: Vercel serverless functions have no persistent local storage; cannot save to backend/uploads/
+- Note: Vercel serverless functions have no persistent local storage; cannot save to backend/uploads/; must use cloud object storage (Wasabi)
+- Storage quota monitoring: Track storage usage in database (document_files table with file_size_bytes column); display current usage in admin dashboard: "Iskorišćeno skladište: {used}MB / 1TB"
+- Wasabi billing notes: 1TB minimum commitment ($6.99/month); no overage charges for storage below 1TB; no egress/bandwidth fees regardless of download volume
 
 ### FR-046: Concurrent Edit Conflict Handling
 
@@ -679,10 +761,18 @@ System MUST include signature block with:
 - Template file MUST be version-controlled in git repository
 
 **FR-050b - Document storage**:
-- Generated DOCX files MUST be stored in Vercel Blob Storage with signed URLs
-- Signed URLs MUST expire after 1 hour
+- Generated DOCX files MUST be stored in Wasabi S3-compatible object storage with pre-signed URLs
+- Pre-signed URLs MUST expire after 1 hour for security
 - Documents MUST be retained for 90 days minimum (per Pravilnik archival requirements)
-- Alternative: If Vercel Blob costs exceed budget, may use Cloudflare R2 with Vercel as compute platform
+- System MUST use AWS SDK for JavaScript v3 (`@aws-sdk/client-s3`, `@aws-sdk/s3-request-presigner`) with custom endpoint configuration
+- Wasabi endpoint configuration example: `endpoint: "https://s3.eu-central-1.wasabisys.com"` (or appropriate region)
+- Storage bucket MUST be configured with company_id-based folder structure for multi-tenant isolation: `documents/{company_id}/{document_id}.docx`
+- Bucket policy MUST restrict public access; only pre-signed URLs allow document downloads
+- Environment variables required: `WASABI_ACCESS_KEY_ID`, `WASABI_SECRET_ACCESS_KEY`, `WASABI_BUCKET_NAME`, `WASABI_REGION`, `WASABI_ENDPOINT`
+- **Wasabi pricing**: $6.99/TB/month (1TB minimum), no egress/bandwidth charges, no API request fees
+- **Capacity planning**: Average document size ~500KB; 1TB = ~2,000,000 documents; MVP with 10 companies × 10 documents/month × 3 months = ~300 documents = ~150MB (well below 1TB minimum)
+- **Cost efficiency**: Wasabi cheaper than alternatives at scale (no egress fees vs. Supabase $0.09/GB egress after 2GB, or Cloudflare R2 $0.36/million Class B operations)
+- **Rationale**: Wasabi selected for predictable costs (flat rate, no surprise bandwidth charges), S3 compatibility (standard API, easy migration path), and long-term scalability
 
 **FR-050c - Document retrieval**:
 - User MUST be able to list all generated documents for their company
@@ -720,18 +810,25 @@ System MUST include signature block with:
 - DELETE requests: < 150ms
 - IF exceeded: Log slow query, trigger performance alert
 
-**FR-052b - Document Generation Times** (synchronous processing):
-- Single position document (1-10 pages): < 15 seconds
-- Multi-position document (10-30 pages): < 45 seconds
-- Large document (30-100 pages): < 120 seconds (requires Vercel Pro plan for 60s+ function timeout)
+**FR-052b - Document Generation Times** (synchronous processing with Vercel Free plan constraint):
+- Vercel Free plan serverless function timeout: 10 seconds (hard limit)
+- Single position document (1-10 pages): < 8 seconds (must fit within 10s timeout)
+- Multi-position document (up to 5 positions, 10-30 pages): < 9 seconds
+- Large document (5+ positions, 30+ pages): MUST be handled via alternative strategy (see FR-052b-alt below)
 - System MUST display real-time progress indicator showing completion percentage during generation
-- IF generation exceeds 30 seconds: Display message "Generisanje velikog dokumenta može potrajati do 2 minuta..."
-- Vercel serverless function timeout: 10s (Hobby), 60s (Pro), 300s (Enterprise)
-- MVP MUST use Vercel Pro plan minimum to support 60-second document generation for multi-position reports
+- System MUST optimize document generation: minimize template complexity, pre-compile data structures, avoid unnecessary loops
+- **Budget Constraint**: MVP MUST operate on Vercel Free plan until ~100 paying customers achieved; only then migrate to Pro plan ($20/month) for 60-second timeouts
+
+**FR-052b-alt - Large Document Generation Strategy** (for Vercel Free plan):
+- Option 1: Split large documents into multiple files (one per position or per department), generate separately within 10s each, provide ZIP download
+- Option 2: Generate document sections incrementally, stream partial results, combine client-side (may require PDF instead of DOCX)
+- Option 3: Defer to post-MVP: Implement async job queue (BullMQ + Redis) for documents exceeding 10s, notify user via email when ready
+- **MVP Decision**: Use Option 1 (split strategy) - Generate individual position documents, provide combined ZIP if user requests full company report
 
 **FR-052c - Concurrent User Capacity**:
 - System MUST handle 100 concurrent users without degradation
-- Database connection pool: minimum 20 connections, maximum 50 connections (single shared database architecture)
+- Database connection pool for MVP (10 pilot companies, 30-50 concurrent users): 10-20 connections initial configuration
+- Database connection pool for production scaling (100+ concurrent users): minimum 20 connections, maximum 50 connections (single shared database architecture)
 - Connection pool MUST use PgBouncer or similar pooler in transaction mode for optimal resource utilization
 - IF connection pool exhausted: Queue requests with 503 Service Unavailable + Retry-After header
 
@@ -740,6 +837,15 @@ System MUST include signature block with:
 - Time to Interactive (TTI): < 3 seconds
 - UI interaction response: < 100ms
 - IF list > 50 items: MUST use virtual scrolling (react-window)
+
+**FR-052e - Observability & Monitoring** (MVP approach with Free plan):
+- System MUST use Vercel built-in logging for serverless function output (available on Free plan via dashboard and CLI)
+- System MUST log all errors with structured logging including: timestamp, user_id, company_id, error_type, stack_trace, request_id
+- System MUST track key metrics in-app: API response times, document generation success/failure rates, database query performance (store in database audit_logs table)
+- System MUST implement health check endpoint (/api/health) returning service status and database connectivity
+- System SHOULD implement simple admin dashboard showing: total users, documents generated today/week/month, error count, slow queries
+- **Free plan limitation**: Vercel Analytics requires Pro plan; for MVP use built-in logs + custom metrics stored in database
+- Post-MVP upgrade (100+ customers): Add Vercel Analytics ($20/month Pro plan) or migrate to comprehensive APM solution (Datadog/New Relic) if advanced tracing/profiling needed
 
 ### FR-053: Security Requirements (Detailed)
 
@@ -765,11 +871,15 @@ System MUST include signature block with:
 - System MUST return 403 Forbidden if user attempts to access data from other company
 - Exception: Admin role can access all companies (bypass RLS with BYPASSRLS grant)
 
-**FR-053d - Rate Limiting**:
-- API requests: 100 requests per minute per user
-- Document generation: 10 documents per hour per user
+**FR-053d - Rate Limiting** (optimized for Vercel Free plan):
+- API requests: 100 requests per minute per user (standard rate limiting)
+- Document generation (Vercel Free plan constraint): 5 documents per day per user (to stay within 100 executions/day limit for 10-20 users)
+- Document generation post-upgrade (Vercel Pro): 50 documents per day per user (unlimited executions)
 - Login attempts: 5 failed attempts → 15 minute lockout
 - IF exceeded: Return 429 Too Many Requests with Retry-After header
+- System MUST display remaining document quota to users: "Preostalo dokumenata danas: {remaining}/5"
+- **Rationale**: Vercel Free plan allows 100 function executions/day per deployment; with 10-20 pilot users, limiting to 5 documents/user/day ensures adequate capacity for all users plus API requests
+- **Monitoring**: Track daily document generation count; if approaching 80/100 executions, send alert to admin
 
 **FR-053e - Input Sanitization**:
 - System MUST sanitize all text inputs to prevent XSS
@@ -848,11 +958,16 @@ System MUST include signature block with:
 - **Dependency**: Microsoft Word 2016+ for opening generated DOCX files
 - **Mitigation**: Test DOCX compatibility with Word 2016, 2019, 2021, Office 365
 
-- **Dependency**: Vercel platform availability and Blob Storage for cloud document storage
-- **Mitigation**: Document storage accessible via signed URLs; consider Cloudflare R2 as backup provider if Vercel has extended outages
+- **Dependency**: Vercel platform availability for serverless compute (frontend and API)
+- **Mitigation**: High availability SLA; consider Netlify or Cloudflare Pages as alternative if needed
 
-- **Dependency**: External PostgreSQL service (Vercel Postgres/Neon/Supabase) availability
-- **Mitigation**: Use managed service with automatic backups and high availability guarantees (99.9%+ uptime SLA)
+- **Dependency**: Wasabi S3-compatible object storage for generated document storage
+- **Mitigation**: Documents accessible via pre-signed URLs; S3-compatible API allows migration to AWS S3, Cloudflare R2, or Backblaze B2 if needed; implement automatic backup to secondary storage provider if critical
+- **Backup strategy**: Store document metadata (filename, company_id, generation_timestamp) in PostgreSQL; if Wasabi unavailable, can regenerate documents on-demand from database data
+
+- **Dependency**: Supabase PostgreSQL service availability
+- **Mitigation**: Supabase provides managed PostgreSQL with automatic backups, high availability guarantees (99.9%+ uptime SLA), and built-in connection pooling via PgBouncer
+- **Additional Benefits**: Supabase provides built-in authentication (JWT tokens), Row Level Security (RLS) policies support, real-time subscriptions (if needed for collaborative features post-MVP)
 
 - **Dependency**: Serbian hazard code catalog remains stable
 - **Mitigation**: Design hazard_types table to allow easy updates via migration when codes change
@@ -870,11 +985,31 @@ System MUST include signature block with:
 
 ### AS-006: Deployment Platform
 - **Platform**: Vercel for frontend and backend (serverless functions)
-- **Database**: External PostgreSQL (Vercel Postgres, Neon, or Supabase recommended)
-- **Storage**: Vercel Blob Storage for generated documents (or Cloudflare R2 if cost-prohibitive)
-- **Plan Requirements**: Vercel Pro plan minimum ($20/user/month) for 60-second function timeout required for document generation
-- **Rationale**: Vercel provides excellent DX, automatic HTTPS, edge caching, and seamless Next.js/React deployment
-- **Limitations**: Serverless functions have execution limits; largest documents (>100 pages) may require migration to long-running server or async job queue in future
+- **Database**: Supabase PostgreSQL (chosen for MVP - provides managed PostgreSQL, built-in auth capabilities, RLS policy support, connection pooling via PgBouncer)
+- **Database Rationale**: Supabase offers comprehensive platform with PostgreSQL + built-in authentication + real-time capabilities; free tier supports 500MB database, 50,000 monthly active users; seamless integration with Vercel via environment variables
+- **Storage**: Wasabi S3-compatible object storage for generated documents ($6.99/TB/month minimum, no egress fees)
+- **Storage Rationale**: Wasabi provides predictable flat-rate pricing with zero egress/bandwidth charges (critical for document downloads), S3-compatible API (standard tooling), and excellent cost efficiency at scale compared to Supabase Storage ($0.09/GB egress after 2GB) or Cloudflare R2 (API operation fees)
+- **Email**: Resend for transactional emails (Free tier: 100 emails/day, 3,000/month sufficient for MVP)
+- **Monitoring**: Vercel built-in logging and basic analytics (available on Free plan)
+- **Budget Constraint**: Minimize costs during MVP; acceptable small fixed cost ($6.99/month for Wasabi) to avoid variable bandwidth charges that could spike unexpectedly
+- **Plan Requirements (MVP Phase)**:
+  - Vercel Free plan: 100GB bandwidth/month, 10s function timeout, 100 serverless function executions/day per deployment
+  - Supabase Free tier: 500MB database, 50,000 monthly active users, 2GB bandwidth/month
+  - Wasabi: $6.99/month (1TB minimum, no additional egress/API fees)
+  - Resend Free tier: 100 emails/day, 3,000/month
+  - **Total MVP infrastructure cost**: ~$7/month (Wasabi only; rest free tier)
+- **Upgrade Path (100+ paying customers)**:
+  - Vercel Pro: $20/month - 1TB bandwidth, 60s timeout, unlimited executions
+  - Supabase Pro: $25/month - 8GB database, 250GB bandwidth
+  - Wasabi: Same $6.99/month (scales to 1TB storage without additional cost)
+  - Resend growth plans as needed based on email volume
+  - **Total post-upgrade cost**: ~$52/month base + variable email costs
+- **Rationale**: Vercel provides excellent DX, automatic HTTPS, edge caching, and seamless Next.js/React deployment; Supabase complements with robust data layer and auth infrastructure; Wasabi eliminates bandwidth cost concerns
+- **Limitations**:
+  - Vercel Free 10s timeout requires document generation optimization and split strategy for large documents
+  - Vercel Free 100 executions/day per deployment may require monitoring if pilot users generate many documents
+  - May need to implement document generation batching or rate limiting to stay within free tier limits
+  - Wasabi 1TB minimum ($6.99/month) is small fixed cost even with minimal storage usage (~150MB MVP)
 
 ---
 

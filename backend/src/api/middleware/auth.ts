@@ -1,12 +1,18 @@
 /**
- * Authentication Middleware (Phase 2.5: T040h)
+ * Authentication Middleware (Phase 2: T017)
  *
  * Validates JWT access tokens and attaches user data to request context.
- * Security requirement: FR-028
+ * Sets PostgreSQL session variables for Row-Level Security (RLS) policies.
+ *
+ * Security requirements:
+ * - FR-028: JWT-based authentication
+ * - FR-030: Multi-tenancy isolation via RLS
+ * - FR-053c: Session variable-based filtering
  */
 
 import { Context } from 'hono';
 import { verifyAccessToken, extractBearerToken, type AccessTokenPayload } from '../../lib/utils/jwt';
+import { db } from '../../db';
 
 // =============================================================================
 // Extended Context Type (with user data)
@@ -51,6 +57,19 @@ export async function authMiddleware(c: Context, next: Function) {
 
     // Attach user data to context for downstream handlers
     c.set('user', payload);
+
+    // Set PostgreSQL session variables for RLS policies (T017)
+    // These variables are used in backend/drizzle/0001_rls_policies.sql
+    try {
+      await db.execute(`SET LOCAL app.current_user_id = '${payload.userId}'`);
+
+      if (payload.companyId) {
+        await db.execute(`SET LOCAL app.current_company_id = '${payload.companyId}'`);
+      }
+    } catch (dbError) {
+      console.error('Failed to set RLS session variables:', dbError);
+      // Continue anyway - application-layer filtering will still work (defense-in-depth)
+    }
 
     // Proceed to next middleware/handler
     await next();

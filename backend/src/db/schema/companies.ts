@@ -1,10 +1,14 @@
-import { pgTable, serial, varchar, text, timestamp, boolean } from 'drizzle-orm/pg-core';
+import { pgTable, serial, varchar, text, timestamp, boolean, integer, pgEnum } from 'drizzle-orm/pg-core';
+
+// Re-create accountTierEnum here to avoid circular dependency issues
+const accountTierEnum = pgEnum('account_tier', ['trial', 'verified', 'premium']);
 
 /**
- * Companies Table
+ * Companies Table (Phase 2: T013)
  *
  * Stores employer (poslodavac) information for BZR Act documents.
  * Maps to FR-001 requirements in spec.md.
+ * Trial limits: 1 company, 3 positions, 5 documents per FR-028b.
  */
 export const companies = pgTable('companies', {
   id: serial('id').primaryKey(),
@@ -33,6 +37,12 @@ export const companies = pgTable('companies', {
   // Additional info
   employeeCount: varchar('employee_count', { length: 10 }),
   organizationChart: text('organization_chart'), // URL or file path
+
+  // Trial Account Limits (FR-028b)
+  accountTier: accountTierEnum().default('trial').notNull(),
+  trialExpiryDate: timestamp('trial_expiry_date'), // 14 days from registration
+  documentGenerationCount: integer('document_generation_count').default(0).notNull(), // Max 5 for trial
+  workPositionCount: integer('work_position_count').default(0).notNull(), // Max 3 for trial
 
   // Audit fields
   isDeleted: boolean('is_deleted').default(false).notNull(), // Soft delete (FR-015)
