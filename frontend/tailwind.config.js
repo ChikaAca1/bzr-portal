@@ -4,6 +4,24 @@ export default {
   content: ['./index.html', './src/**/*.{ts,tsx,js,jsx}'],
   theme: {
     extend: {
+      fontFamily: {
+        sans: [
+          'Noto Sans',
+          '-apple-system',
+          'BlinkMacSystemFont',
+          'Segoe UI',
+          'Roboto',
+          'sans-serif',
+        ],
+      },
+      screens: {
+        xs: '375px', // iPhone SE, small phones
+        sm: '640px', // Tailwind default
+        md: '768px', // Tablets
+        lg: '1024px', // Laptops
+        xl: '1280px', // Tailwind default
+        '2xl': '1920px', // Large desktops
+      },
       colors: {
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',

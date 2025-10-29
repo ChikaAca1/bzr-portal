@@ -225,9 +225,66 @@ export async function sendDocumentReadyEmail(
   return sendEmail({ to, subject, html });
 }
 
+/**
+ * Send contact form notification email (Serbian Cyrillic)
+ *
+ * @param to Support email address
+ * @param data Contact form submission data
+ */
+export async function sendContactFormEmail(
+  to: string,
+  data: {
+    name: string;
+    email: string;
+    companyName?: string;
+    message: string;
+    submittedAt: Date;
+    submissionId: string;
+  }
+): Promise<string> {
+  const subject = `Нова порука са контакт форме - ${data.name}`;
+
+  const html = `
+    <!DOCTYPE html>
+    <html lang="sr-Cyrl">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Нова порука са контакт форме</title>
+    </head>
+    <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
+      <div style="background-color: #f4f4f4; border-radius: 8px; padding: 20px; margin-bottom: 20px;">
+        <h2 style="color: #2563eb; margin-top: 0;">Нова порука са контакт форме БЗР Портала</h2>
+      </div>
+
+      <div style="background-color: #ffffff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 20px;">
+        <p style="margin-top: 0;"><strong>Име:</strong> ${data.name}</p>
+        <p><strong>Email:</strong> <a href="mailto:${data.email}" style="color: #2563eb;">${data.email}</a></p>
+        ${data.companyName ? `<p><strong>Компанија:</strong> ${data.companyName}</p>` : ''}
+
+        <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 20px 0;">
+
+        <p><strong>Порука:</strong></p>
+        <div style="background-color: #f9fafb; padding: 15px; border-radius: 4px; white-space: pre-wrap;">
+${data.message}
+        </div>
+      </div>
+
+      <div style="margin-top: 20px; padding: 15px; background-color: #f4f4f4; border-radius: 4px; font-size: 0.875rem; color: #6b7280;">
+        <p style="margin: 0;"><strong>Послато:</strong> ${data.submittedAt.toLocaleString('sr-RS', { timeZone: 'Europe/Belgrade' })}</p>
+        <p style="margin: 5px 0 0;"><strong>ID:</strong> ${data.submissionId}</p>
+      </div>
+    </body>
+    </html>
+  `;
+
+  return sendEmail({ to, subject, html, replyTo: data.email });
+}
+
 export const emailService = {
   sendEmail,
   sendVerificationEmail,
   sendTrialExpiryEmail,
   sendDocumentReadyEmail,
+  sendContactFormEmail,
 };

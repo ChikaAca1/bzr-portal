@@ -1,608 +1,563 @@
-# Implementation Plan: BZR Portal - AI-Powered Risk Assessment Platform
+# Implementation Plan: BZR Portal Landing Page & Marketing Site
 
-**Branch**: `main` | **Date**: 2025-10-27 | **Spec**: [spec.md](./spec.md)
+**Branch**: `main` | **Date**: 2025-01-28 | **Spec**: [001-landing-page/spec.md](../001-landing-page/spec.md)
+**Input**: Feature specification from `/specs/001-landing-page/spec.md`
 
 ## Summary
 
-BZR Portal is a SaaS platform that automates Serbian Occupational Health & Safety risk assessments, transforming manual Word/Excel workflows into AI-assisted document generation. The platform enables BZR officers to create legally compliant "Akt o proceni rizika" documents using the E×P×F risk methodology, manage work positions with hazard assessments, and generate DOCX documents meeting Serbian regulatory requirements (Zakon o BZR 101/2005). The MVP targets 10 pilot companies with a trial-based registration model, allowing users to create risk assessments for up to 3 positions and generate 5 documents within a 14-day trial period before requiring verification for full access.
+Create public-facing marketing website with 5 routes (/, /features, /pricing, /about, /contact) to communicate BZR Portal's AI-first + mobile-first value proposition, differentiate from competitors (bzrplatforma.rs), and convert visitors to trial signups. Primary technical approach: React 18 + Vite frontend with shadcn/ui components, mobile-first responsive design (375px-1920px), WCAG AA accessibility, Serbian Cyrillic content, Lighthouse performance optimization (≥90 scores). Single backend API endpoint for contact form submission (POST /api/contact) with Resend email integration and PostgreSQL storage.
+
+**Key Success Metrics**: <3 second page load (95% of visitors), 10%+ conversion to trial signups within 30 days, Lighthouse Performance/Accessibility/SEO all ≥90, zero critical accessibility violations.
 
 ## Technical Context
 
 **Language/Version**: TypeScript 5.0+ (strict mode), Node.js 20+
-
-**Primary Dependencies**: Hono (API framework for Vercel serverless), Drizzle ORM (with Drizzle Kit for migrations), docx-templates (Mustache-based DOCX templating), AWS SDK v3 (@aws-sdk/client-s3, @aws-sdk/s3-request-presigner for Wasabi S3 integration), Resend (transactional email), React 18+ with Vite (frontend), TanStack Query (data fetching), Zustand (state management), shadcn/ui + Tailwind CSS (UI components), React Hook Form + Zod (validation)
-
-**Storage**:
-- Database: Supabase PostgreSQL Free tier (500MB, 50k MAU) - provides managed PostgreSQL with built-in authentication support, Row-Level Security policies, connection pooling via PgBouncer, and real-time capabilities
-- Object Storage: Wasabi S3-compatible storage ($6.99/month for 1TB minimum, no egress/bandwidth fees) - chosen for predictable flat-rate pricing and zero bandwidth charges critical for document downloads
-
-**Testing**: Vitest (unit/integration tests), Playwright (E2E tests), React Testing Library (component tests), Supertest or Hono test utilities (API integration tests)
-
-**Target Platform**: Vercel Free plan (10s serverless function timeout, 100 executions/day, 100GB bandwidth/month) → upgrade to Vercel Pro ($20/month, 60s timeout, unlimited executions) only after achieving 100+ paying customers milestone
-
-**Project Type**: Web application (backend + frontend)
-
-**Performance Goals**:
-- API response times: GET < 100ms, POST/PUT < 200ms, DELETE < 150ms (95th percentile)
-- Document generation: Single position < 8s (must fit within Vercel Free 10s timeout), multi-position (up to 5) < 9s
-- Frontend: FCP < 1.5s, TTI < 3s, UI interactions < 100ms
-- Concurrent capacity: 30-50 concurrent users (MVP with 10 pilot companies), scale to 100+ concurrent users (production)
-
+**Primary Dependencies**:
+- Frontend: React 18, Vite, shadcn/ui, Tailwind CSS, React Hook Form, Zod, React Router
+- Backend: Hono (API framework), Drizzle ORM, Resend (email service)
+**Storage**: PostgreSQL (Supabase) for ContactFormSubmission entity
+**Testing**: Vitest (unit), Playwright (E2E), Lighthouse CI (performance)
+**Target Platform**: Web browsers (Chrome, Firefox, Safari, Edge), mobile-first responsive (375px-1920px)
+**Project Type**: Web application (frontend + backend)
+**Performance Goals**: <3 seconds page load on 4G (target 1.5s), Lighthouse Performance ≥90, First Contentful Paint <1.5s, Time to Interactive <3s
 **Constraints**:
-- Vercel Free 10s timeout requires document generation optimization and split strategy for large documents (5+ positions)
-- 100 serverless executions/day limit requires rate limiting to 5 documents/day per user during MVP phase
-- Budget constraint: ~$7/month infrastructure cost (Wasabi only) until 100 paying customers
-- Trial account limits: 1 company profile, 3 work positions maximum, 5 generated documents, 14-day trial period
-- Legal compliance: All generated documents must conform to Serbian BZR regulations (Zakon 101/2005, Pravilnik 5/2018)
-
-**Scale/Scope**: 10 pilot companies (MVP) → 100+ paying customers (production) → scale to 1000+ companies with current single-database architecture
+- Mobile-first responsive design (375px iPhone SE minimum)
+- WCAG AA compliance (4.5:1 contrast, keyboard nav, screen reader support, 44×44px touch targets)
+- Serbian Cyrillic (sr-Cyrl-RS) UTF-8 encoding for all content
+- SEO-optimized (meta tags, structured data, sitemap, server-rendered HTML)
+- Demo video optimization (max 5MB hero, max 15MB detailed)
+**Scale/Scope**: Public marketing site, expect 1000+ daily visitors post-launch, 10%+ conversion to trial signups (100+ signups/day target)
 
 ## Constitution Check
 
-*GATE: Must pass before Phase 0 research.*
+*GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-### I. Legal Compliance First (NON-NEGOTIABLE)
+### ✅ Principle I: Legal Compliance First (NON-NEGOTIABLE)
 
-**Assessment**: ✅ PASS
+- [x] **N/A for landing page** - Feature does not generate BZR documents or handle risk assessment logic
+- [x] **Legal links placeholder** - Footer includes Privacy Policy and Terms of Service placeholder links (FR-003) to be completed before public launch
 
-The specification comprehensively addresses Serbian BZR legal requirements:
-- Complete legal basis documented (Zakon o BZR 101/2005, 91/2015, 113/2017; Pravilnik 23/2009, 83/2014, 5/2018)
-- Legal Requirements Traceability section maps all 7 legal articles (LR-001 through LR-007) to functional requirements
-- Mandatory document sections (FR-034 through FR-042) explicitly implement Član 9 requirements for Akt o proceni rizika structure
-- Risk methodology (E×P×F) defined with Serbian interpretation tables for E (Posledice), P (Verovatnoća), F (Učestalost)
-- R > 70 high-risk flagging per Član 9, stav 1, tačka 4 requirement
-- Success criteria SC-002 requires 95%+ compliance rate with labor inspection review
-- All 8 mandatory document sections specified: cover page, introduction, employer data, organizational structure, position systematization, risk assessment tables, summary with action plans, verification signatures
+### ✅ Principle II: Test-Driven Development (NON-NEGOTIABLE)
 
-**Validation Strategy**: Document generation tests must verify presence of all mandatory sections; legal advisor review required before MVP launch; pilot testing with actual labor inspectorate submissions.
+- [x] **Unit tests required** - Contact form validation logic (email format, required fields) must have Vitest unit tests
+- [x] **E2E tests required** - Playwright E2E tests for critical flows: homepage load → scroll to CTA → click "Počnite besplatno" → redirect to /register
+- [x] **Accessibility tests required** - Automated axe DevTools checks for WCAG violations on all 5 routes
+- [x] **Performance tests required** - Lighthouse CI checks for Performance/Accessibility/Best Practices/SEO ≥90 scores
+- [x] **80%+ coverage target** - Business logic (form validation, email submission) must reach 80%+ coverage
 
-### II. Test-Driven Development (NON-NEGOTIABLE)
+### ✅ Principle III: Security by Design (NON-NEGOTIABLE)
 
-**Assessment**: ✅ PASS
+- [x] **Public routes** - All landing pages (/, /features, /pricing, /about, /contact) accessible without authentication (FR-001)
+- [x] **Input validation** - Contact form uses Zod schemas for email format (RFC 5322), required fields validation (FR-052)
+- [x] **Rate limiting** - Contact form endpoint protected by rate limiting (100 requests/minute per IP) to prevent spam
+- [x] **No sensitive data** - ContactFormSubmission entity contains no JMBG, passwords, or company confidential data
+- [x] **CSRF protection** - Contact form submission includes CSRF token or uses SameSite cookies
 
-Specification mandates comprehensive testing:
-- SC-004 requires 100% accuracy for risk calculation (E×P×F formula) verified by automated unit tests
-- SC-010 requires 80%+ code coverage for critical business logic
-- Success criteria SC-005 requires 99%+ document generation success rate
-- Testing stack specified: Vitest (unit/integration), Playwright (E2E), React Testing Library (components)
-- Critical test requirements identified: risk calculation validation (FR-044a-e), document generation error handling (FR-045), concurrent edit conflicts (FR-046), DOCX template rendering
-- Edge cases enumerated with expected behaviors (R ≥ Ri validation error, E/P/F out of range, document generation failures)
+### ✅ Principle IV: Serbian Language Priority
 
-**Implementation Approach**: Phase 2 must begin with test task creation (T031-T037) covering risk calculation, document generation, validation, authentication, RLS isolation, rate limiting, and DOCX template correctness before any feature implementation.
+- [x] **Serbian Cyrillic** - All text content in Serbian Cyrillic (sr-Cyrl-RS) per FR-059
+- [x] **UTF-8 encoding** - All pages use UTF-8 encoding to support special characters (Ђ, Ћ, Љ, Њ, Џ, Ж, Ш)
+- [x] **Error messages** - Contact form validation errors in Serbian Cyrillic ("Email adresa nije validna", "Ovo polje je obavezno") per FR-052
+- [x] **SEO meta tags** - All meta tags (`<title>`, `<meta name="description">`, Open Graph tags) in Serbian Cyrillic per FR-066
 
-### III. Security by Design (NON-NEGOTIABLE)
+### ✅ Principle V: Accessibility Standards
 
-**Assessment**: ✅ PASS
+- [x] **WCAG AA compliance** - 4.5:1 contrast ratio (FR-061), keyboard navigation (Tab/Shift+Tab/Enter/Escape per FR-064), screen reader support (alt text per FR-062, aria-labels per edge cases)
+- [x] **Touch targets** - Minimum 44×44px for buttons/links on mobile (FR-060)
+- [x] **Form labels** - All form inputs have associated `<label>` elements with `for` attribute (FR-063)
+- [x] **Comparison table accessibility** - Checkmarks (✓) and X marks (✗) have `aria-label` attributes (Edge Cases)
+- [x] **200% zoom support** - No horizontal scrolling or text overlap at 200% zoom (Edge Cases)
 
-Multi-layered security architecture specified:
-- **Authentication**: JWT-based with 15-minute access tokens, 7-day refresh tokens (HTTP-only, SameSite=Strict) per FR-053a
-- **Authorization**: RBAC with 4 roles (Admin, BZR Officer, HR Manager, Viewer) and explicit permission matrix per FR-029, FR-053b
-- **Multi-Tenancy Isolation**: Row-Level Security enforced via PostgreSQL RLS policies + application-layer company_id filtering (defense-in-depth) per FR-030, FR-053c
-- **Data Protection**: JMBG encryption using AES-256-GCM (FR-031), GDPR compliance with data export/deletion (FR-032, FR-049)
-- **Input Validation**: Zod schemas on frontend and backend (FR-016), SQL injection prevention via Drizzle ORM parameterized queries
-- **Rate Limiting**: 100 requests/minute, 5 documents/day per user (MVP), 5 login attempts with 15-min lockout per FR-053d
-- **Audit Trail**: All document generations and data modifications logged for 2-year retention per Član 32 (FR-033)
+### ✅ Principle VI: Multi-Tenancy Isolation
 
-**RLS Policy Implementation**: All multi-tenant tables (companies, work_positions, risk_assessments, ppe, training, medical_exams, employees, documents, audit_logs) must have `CREATE POLICY company_isolation ON {table} FOR ALL USING (company_id = current_setting('app.current_company_id')::integer)` with middleware setting session variable from JWT payload.
+- [x] **N/A for landing page** - ContactFormSubmission entity has no company_id (public form, not tenant-specific)
+- [x] **No RLS required** - Contact form submissions viewable by admin role only via future admin panel
 
-### IV. Serbian Language Priority
+### ✅ Principle VII: AI-First & Mobile-First Experience (DIFFERENTIATOR)
 
-**Assessment**: ✅ PASS
+- [x] **AI-first messaging** - Hero section emphasizes "10x brže sa AI" (FR-006), value prop card explains AI automation (FR-013)
+- [x] **Mobile-first design** - Responsive breakpoints 375px-1920px (FR-057), touch-optimized (44×44px targets per FR-060), single-column mobile layout (User Story 1 acceptance scenario)
+- [x] **Competitive positioning** - Comparison table highlights AI generation, mobile OCR, offline mode, camera integration, QR codes vs bzrplatforma.rs (FR-020 to FR-024)
+- [x] **Demo video** - Hero section displays OCR scanning workflow video/GIF (FR-008) or placeholder (FR-009)
+- [x] **Landing page requirements met** - Hero with demo (FR-008), value props emphasize "10x faster" + "Work from phone" (FR-013, FR-014), comparison table present (FR-020)
 
-Comprehensive Serbian Cyrillic requirement:
-- FR-028i mandates all email templates in Serbian language (Cyrillic or Latin based on user preference)
-- All UI components, error messages, validation text specified in Serbian Cyrillic (examples throughout spec: "PIB broj nije validan. Proverite unos.", "Rezidual rizik mora biti manji od inicijalnog rizika")
-- Document template sections specified in Cyrillic: "АКТ О ПРОЦЕНИ РИЗИКА", "Uvod", "Podaci o poslodavcu", etc.
-- Risk methodology tables include Serbian terms: "Posledice", "Verovatnoća", "Učestalost", "Nizak rizik", "Srednji rizik", "Povećan rizik"
-- Hazard reference data requires `hazard_name_sr` column with Serbian descriptions
-- Trial account warning example in Cyrillic: "Probni nalog - {days} dana preostalo. Zakažite verifikaciju za pun pristup."
-
-**Technical Implementation**: i18n setup with sr-Cyrl-RS locale, DOCX templates with Cyrillic fonts (Arial/Times New Roman with Serbian support), UTF-8 encoding throughout stack, character set testing for special characters (Ђ, Ћ, Љ, Њ, Џ, Ж, Ш).
-
-### V. Accessibility Standards
-
-**Assessment**: ✅ PASS
-
-WCAG 2.1 AA compliance requirements specified:
-- **Keyboard Navigation** (FR-054a): All interactive elements accessible via Tab/Shift+Tab/Enter/Escape/Arrow keys; multi-step wizard keyboard support
-- **Screen Reader Support** (FR-054b): All form inputs with `<label>` elements, error messages with `aria-live="polite"`, risk level badges with descriptive `aria-label` ("Nizak rizik"/"Srednji rizik"/"Povećan rizik"), document generation progress announcements
-- **Color Contrast** (FR-054c): 4.5:1 minimum contrast ratio specified with exact hex values: Green #107C10, Orange #CA5010 (not pure yellow), Red #D13438; text labels mandatory alongside color indicators
-- **Focus Management** (FR-054d): Modal focus trapping, error-first focus on validation failures, screen reader announcements for async operations
-
-**Testing Strategy**: Manual keyboard navigation testing for critical flows, screen reader testing with NVDA/JAWS, automated audits with axe DevTools/Lighthouse, documented test cases in Phase 6 (T083-T088).
-
-### VI. Multi-Tenancy Isolation
-
-**Assessment**: ✅ PASS
-
-Defense-in-depth multi-tenancy architecture:
-- **Database Layer**: PostgreSQL RLS policies on all multi-tenant tables per FR-053c with session variable-based filtering
-- **Application Layer**: Explicit company_id filtering in all queries (WHERE company_id = user.company_id)
-- **Middleware**: JWT payload includes company_id, validated on every authenticated request; session variable injection for RLS
-- **Storage Layer**: Wasabi S3 bucket folder structure with company_id isolation (documents/{company_id}/{document_id}.docx), pre-signed URLs with 1-hour expiration
-- **Testing**: Integration tests must verify cross-tenant access denial (FR-046 optimistic locking includes multi-user conflict scenarios)
-
-**9 Multi-Tenant Tables Identified**: companies (self-referential), work_positions, risk_assessments, ppe, training, medical_exams, employees, documents, audit_logs - all require company_id column + RLS policy + application-layer filtering.
-
-**Result**: ✅ PASS - All 6 constitutional principles satisfied. No blocking issues identified. Project may proceed to Phase 0 research.
+**Gate Status**: ✅ **PASS** - All constitution principles satisfied. No violations require justification.
 
 ## Project Structure
 
 ### Documentation (this feature)
 
 ```
-specs/main/
-├── spec.md              # Feature specification (existing - 980 lines)
-├── plan.md              # This file
-├── research.md          # Phase 0 output (to be created)
-├── data-model.md        # Phase 1 output (to be created)
-├── quickstart.md        # Phase 1 output (to be created)
-├── contracts/           # Phase 1 output (to be created)
-│   ├── api-spec.yaml    # OpenAPI 3.0 specification
-│   └── schemas/         # JSON schemas for validation
-└── tasks.md             # Phase 2 output (/speckit.tasks command)
+specs/001-landing-page/
+├── spec.md                  # Feature specification (completed)
+├── plan.md                  # This file (current)
+├── research.md              # Phase 0 output (pending)
+├── data-model.md            # Phase 1 output (pending)
+├── contracts/               # Phase 1 output (pending)
+│   └── contact-api.yaml     # OpenAPI spec for POST /api/contact endpoint
+├── quickstart.md            # Phase 1 output (pending)
+└── checklists/
+    └── requirements.md      # Spec quality checklist (completed)
 ```
 
 ### Source Code (repository root)
 
 ```
-backend/
-├── src/
-│   ├── models/              # Drizzle schema definitions
-│   │   ├── schema.ts        # Main schema file (all tables)
-│   │   ├── users.ts         # User model with RBAC roles
-│   │   ├── companies.ts     # Company model with trial limits
-│   │   ├── positions.ts     # WorkPosition model
-│   │   ├── risks.ts         # RiskAssessment model (E×P×F calculation)
-│   │   ├── hazards.ts       # HazardType reference data
-│   │   ├── ppe.ts           # PPE model
-│   │   ├── training.ts      # Training model
-│   │   ├── medical.ts       # MedicalExam model
-│   │   ├── employees.ts     # Employee model (optional, anonymized)
-│   │   ├── documents.ts     # Document metadata model
-│   │   └── audit.ts         # AuditLog model
-│   ├── services/            # Business logic
-│   │   ├── auth.service.ts           # JWT generation, password hashing, email verification
-│   │   ├── risk.service.ts           # Risk calculation (E×P×F), R < Ri validation, R > 70 flagging
-│   │   ├── document.service.ts       # DOCX generation using docx-templates
-│   │   ├── storage.service.ts        # Wasabi S3 operations (upload, pre-signed URLs)
-│   │   ├── email.service.ts          # Resend integration for transactional emails
-│   │   ├── validation.service.ts     # PIB/JMBG checksum validation, Serbian data formats
-│   │   └── trial.service.ts          # Trial account limit enforcement
-│   ├── api/                 # Hono route handlers
-│   │   ├── auth.routes.ts            # POST /api/auth/register, /login, /refresh, /verify-email
-│   │   ├── companies.routes.ts       # GET/PUT/DELETE /api/companies/:id
-│   │   ├── positions.routes.ts       # CRUD /api/companies/:companyId/positions, /api/positions/:id
-│   │   ├── risks.routes.ts           # CRUD /api/positions/:positionId/risks, /api/risks/:id
-│   │   ├── documents.routes.ts       # POST /api/documents/generate, /generate-multiple; GET /api/documents, /api/documents/:id/download
-│   │   └── health.routes.ts          # GET /api/health (status + database connectivity check)
-│   ├── middleware/          # Auth, RLS, rate limiting
-│   │   ├── auth.middleware.ts        # JWT validation, role-based access control
-│   │   ├── rls.middleware.ts         # PostgreSQL session variable injection (app.current_company_id)
-│   │   ├── rate-limit.middleware.ts  # 100 req/min, 5 docs/day per user, 5 login attempts
-│   │   └── validation.middleware.ts  # Zod schema validation for requests
-│   ├── lib/                 # Utilities
-│   │   ├── s3.ts                     # AWS SDK v3 configuration for Wasabi endpoint
-│   │   ├── email.ts                  # Resend client configuration
-│   │   ├── docx.ts                   # docx-templates wrapper functions
-│   │   ├── crypto.ts                 # AES-256-GCM encryption for JMBG
-│   │   ├── logger.ts                 # Structured logging (Pino)
-│   │   └── db.ts                     # Drizzle ORM database connection
-│   └── index.ts             # Vercel serverless entry point (Hono app export)
-├── templates/
-│   └── Akt_Procena_Rizika_Template.docx  # DOCX template with Mustache placeholders
-├── drizzle/                 # Migration files
-│   ├── 0001_initial_schema.sql
-│   ├── 0002_rls_policies.sql
-│   └── 0003_hazard_seed_data.sql
-├── tests/
-│   ├── unit/
-│   │   ├── risk.service.test.ts      # E×P×F calculation tests
-│   │   ├── validation.test.ts        # PIB/JMBG checksum tests
-│   │   └── trial.service.test.ts     # Trial limit enforcement tests
-│   ├── integration/
-│   │   ├── auth.test.ts              # Registration/login flow tests
-│   │   ├── rls.test.ts               # Cross-tenant isolation tests
-│   │   ├── document.test.ts          # DOCX generation tests
-│   │   └── rate-limit.test.ts        # Rate limiting tests
-│   └── fixtures/
-│       ├── companies.json            # Test data fixtures
-│       ├── positions.json
-│       ├── risks.json
-│       └── template.docx             # Test DOCX template
-├── package.json
-├── tsconfig.json
-├── drizzle.config.ts
-└── vitest.config.ts
-
 frontend/
 ├── src/
-│   ├── components/          # shadcn/ui components
-│   │   ├── ui/                       # shadcn primitives (button, input, dialog, etc.)
-│   │   ├── layout/                   # Layout components (Header, Sidebar, Footer)
-│   │   ├── forms/                    # Form components (CompanyForm, PositionForm, RiskAssessmentForm)
-│   │   ├── wizards/                  # Multi-step wizards (PositionWizard with 5 steps)
-│   │   ├── tables/                   # Data tables (PositionTable, RiskTable with virtual scrolling)
-│   │   └── feedback/                 # Feedback components (ErrorModal, ProgressIndicator)
-│   ├── pages/               # Main views
-│   │   ├── Dashboard.tsx             # Company overview, document generation stats
-│   │   ├── Positions.tsx             # Work position list, CRUD operations
-│   │   ├── PositionDetail.tsx        # Single position with risk assessments, PPE, training
-│   │   ├── Documents.tsx             # Generated documents list, download links
-│   │   ├── Login.tsx                 # Login page
-│   │   ├── Register.tsx              # Trial registration page
-│   │   └── VerifyEmail.tsx           # Email verification confirmation page
-│   ├── hooks/               # React hooks
-│   │   ├── useAuth.ts                # Authentication state (Zustand + TanStack Query)
-│   │   ├── useDocuments.ts           # Document generation hooks
-│   │   ├── usePositions.ts           # Position CRUD hooks
-│   │   ├── useRisks.ts               # Risk assessment hooks
-│   │   └── useRateLimit.ts           # Rate limit quota display
-│   ├── services/            # API clients (TanStack Query)
-│   │   ├── api.ts                    # Axios instance with JWT interceptor
-│   │   ├── auth.api.ts               # Auth API calls
-│   │   ├── companies.api.ts          # Company API calls
-│   │   ├── positions.api.ts          # Position API calls
-│   │   ├── risks.api.ts              # Risk API calls
-│   │   └── documents.api.ts          # Document API calls
-│   ├── stores/              # Zustand stores
-│   │   ├── authStore.ts              # Auth state (user, company_id, role, trial status)
-│   │   └── appStore.ts               # Global app state (loading, errors, notifications)
+│   ├── pages/               # Landing page routes (NEW)
+│   │   ├── HomePage.tsx              # / route (hero, value props, comparison, pricing, FAQ, CTA)
+│   │   ├── FeaturesPage.tsx          # /features route (detailed feature sections)
+│   │   ├── PricingPage.tsx           # /pricing route (pricing cards + FAQ)
+│   │   ├── AboutPage.tsx             # /about route (mission, story, team)
+│   │   ├── ContactPage.tsx           # /contact route (contact form)
+│   │   └── NotFoundPage.tsx          # 404 error page (Serbian Cyrillic)
+│   ├── components/          # Reusable UI components (NEW)
+│   │   ├── landing/                  # Landing-specific components
+│   │   │   ├── HeroSection.tsx       # Hero with demo video + CTAs
+│   │   │   ├── ValuePropsSection.tsx # 3 value prop cards (AI, Mobile, Legal)
+│   │   │   ├── DemoVideoSection.tsx  # Detailed demo video or placeholder
+│   │   │   ├── ComparisonTable.tsx   # Feature comparison table
+│   │   │   ├── FeaturesOverview.tsx  # 4-6 feature highlights
+│   │   │   ├── PricingSection.tsx    # Trial + Professional pricing cards
+│   │   │   ├── TestimonialsSection.tsx # Customer testimonials or placeholder
+│   │   │   ├── FAQSection.tsx        # Accordion FAQ list
+│   │   │   └── CTASection.tsx        # Final call-to-action
+│   │   ├── layout/                   # Layout components
+│   │   │   ├── LandingNav.tsx        # Navigation header (logo, links, CTA button)
+│   │   │   ├── LandingFooter.tsx     # Footer (quick links, legal, social, copyright)
+│   │   │   └── MobileMenu.tsx        # Hamburger menu drawer for mobile
+│   │   └── ui/                       # shadcn/ui components (existing)
+│   │       ├── button.tsx            # Button component (existing)
+│   │       ├── card.tsx              # Card component (existing)
+│   │       ├── accordion.tsx         # Accordion component (existing or NEW)
+│   │       ├── input.tsx             # Input component (existing)
+│   │       ├── textarea.tsx          # Textarea component (existing)
+│   │       └── label.tsx             # Label component (existing)
 │   ├── lib/                 # Utilities
-│   │   ├── i18n.ts                   # Serbian Cyrillic translations
-│   │   ├── validation.ts             # Zod schemas (shared with backend)
-│   │   ├── formatters.ts             # Date/number formatters for Serbian locale
-│   │   └── constants.ts              # Risk level thresholds, role definitions
-│   ├── App.tsx
-│   ├── main.tsx
-│   └── index.css            # Tailwind imports
-├── tests/
-│   ├── unit/
-│   │   ├── risk-calculation.test.tsx # Client-side risk calculation tests
-│   │   └── validation.test.ts        # Client-side Zod schema tests
-│   └── e2e/                 # Playwright tests
-│       ├── auth.spec.ts              # Registration → login → email verification flow
-│       ├── position-wizard.spec.ts   # Full position creation wizard
-│       ├── risk-assessment.spec.ts   # Risk assessment E×P×F input and validation
-│       ├── document-generation.spec.ts # Generate → download → verify DOCX
-│       └── trial-limits.spec.ts      # Trial account limit enforcement
-├── package.json
-├── tsconfig.json
-├── vite.config.ts
-└── playwright.config.ts
+│   │   ├── i18n/                     # Serbian Cyrillic content (NEW)
+│   │   │   └── landing-content-sr.ts # All landing page text content
+│   │   └── validations/              # Zod schemas (NEW)
+│   │       └── contact-form.ts       # Contact form validation schema
+│   └── App.tsx              # Root component with React Router (UPDATE: add landing routes)
+└── tests/
+    ├── e2e/                 # Playwright E2E tests (NEW)
+    │   ├── landing-homepage.spec.ts   # Homepage critical flows
+    │   ├── landing-contact.spec.ts    # Contact form submission
+    │   └── landing-navigation.spec.ts # Navigation + mobile menu
+    └── unit/                # Vitest unit tests (NEW)
+        └── contact-form.test.ts       # Form validation logic
 
-shared/
-└── schemas/                 # Zod schemas (shared validation)
-    ├── user.schema.ts
-    ├── company.schema.ts
-    ├── position.schema.ts
-    ├── risk.schema.ts
-    ├── ppe.schema.ts
-    ├── training.schema.ts
-    └── document.schema.ts
-
-.github/
-└── workflows/
-    └── ci.yml               # GitHub Actions CI (test, lint, build, deploy preview)
-
-vercel.json                  # Vercel configuration (serverless functions routing)
+backend/
+├── src/
+│   ├── api/
+│   │   └── contact.ts       # POST /api/contact endpoint (NEW)
+│   ├── services/
+│   │   └── email.service.ts # Resend email sending (NEW or UPDATE existing)
+│   └── db/
+│       └── schema.ts        # ContactFormSubmission entity (UPDATE)
+└── tests/
+    └── integration/
+        └── contact-api.test.ts # Contact endpoint tests (NEW)
 ```
 
-**Structure Decision**: Web application structure chosen (backend + frontend) per constitution. Vite + React 18 frontend for fast builds and excellent TypeScript support without Next.js complexity. Hono backend optimized for Vercel serverless functions with 10s timeout constraint. Drizzle ORM for type-safe queries and simple migrations. Single shared database with Row-Level Security for multi-tenancy.
-
-**Rationale for Technology Choices**:
-- **Vite (not Next.js)**: Simpler deployment, faster builds, no server-side rendering complexity needed for MVP
-- **Hono (not Fastify)**: Lightweight, designed for edge/serverless, better cold start performance (<3s target)
-- **Supabase PostgreSQL**: Managed service with built-in RLS support, connection pooling via PgBouncer, generous free tier (500MB, 50k MAU)
-- **Wasabi S3**: Flat-rate pricing ($6.99/TB/month), zero egress/bandwidth fees (critical for unpredictable document download volume), S3-compatible API for easy migration
-- **Resend**: Developer-friendly email API, generous free tier (100 emails/day sufficient for MVP), excellent deliverability
-
-## Phase 0: Research & Technical Decisions
-
-### Research Tasks
-
-#### R001: Wasabi S3 Integration with Vercel Serverless
-
-**Objective**: Validate AWS SDK v3 configuration for custom S3 endpoints, pre-signed URL generation, and multi-tenant folder structure.
-
-**Research Questions**:
-1. How to configure AWS SDK v3 S3Client with custom Wasabi endpoint?
-2. What are best practices for pre-signed URL generation with @aws-sdk/s3-request-presigner?
-3. What folder structure ensures multi-tenant isolation?
-4. How to handle bucket policy configuration for public-read-deny?
-5. What are cold start implications of AWS SDK v3 in Vercel serverless functions?
-
-**Success Criteria**:
-- Working code example for S3Client initialization with Wasabi endpoint
-- Pre-signed URL generation function with 1-hour expiration
-- Upload function with company_id-based folder structure
-- Bundle size analysis for cold start optimization
-- Error handling patterns for network failures
-
-**Output**: Section in research.md with code examples and implementation guidance.
-
----
-
-#### R002: docx-templates Performance Optimization
-
-**Objective**: Validate template complexity vs generation time to meet <8s requirement for Vercel Free 10s timeout.
-
-**Research Questions**:
-1. What is baseline generation time for simple vs complex templates?
-2. How does Mustache loop performance scale with 50+ risk assessments?
-3. What is difference between streaming vs buffered document generation?
-4. Can template pre-compilation improve generation speed?
-5. What are bottlenecks: template parsing, data injection, or DOCX compression?
-
-**Testing Approach**:
-- Create test template matching FR-034 through FR-042 structure
-- Benchmark with varying data sizes (1 position, 5 positions, 10 positions)
-- Measure time breakdown: template load, data injection, zip generation
-- Test on Vercel serverless function (cold start matters)
-
-**Success Criteria**:
-- Single position < 8 seconds consistently
-- Multi-position (up to 5) < 9 seconds
-- Identification of split threshold for document generation strategy
-- Memory usage profile (1GB limit on Vercel Free)
-
-**Output**: Section in research.md with performance benchmarks and optimization recommendations.
-
----
-
-#### R003: Vercel Free Plan Constraints
-
-**Objective**: Document mitigation strategies for 10s timeout and 100 executions/day limit.
-
-**Research Questions**:
-1. How to implement cold start optimization (<3s target)?
-2. What monitoring is available on Vercel Free plan?
-3. How to implement 5 documents/day per user rate limiting?
-4. What happens when 100 executions/day limit exceeded?
-5. Can we use Vercel Edge Functions for any routes?
-
-**Testing Approach**:
-- Deploy test function to Vercel Free plan, measure cold start time
-- Simulate 100 requests/day to observe limit behavior
-- Test database connection pooling with PgBouncer
-- Benchmark function execution time with varying query complexity
-
-**Success Criteria**:
-- Cold start time < 3 seconds (90th percentile)
-- Database connection pool configuration (10-20 connections)
-- Rate limiting implementation plan
-- Monitoring strategy using Vercel built-in logs
-
-**Output**: Section in research.md with optimization checklist and monitoring setup guide.
-
----
-
-#### R004: Supabase Row-Level Security Implementation
-
-**Objective**: Validate RLS policy patterns for multi-tenant SaaS with session variable injection.
-
-**Research Questions**:
-1. What is correct syntax for RLS policy with session variable?
-2. How to inject session variable from Hono middleware?
-3. What is performance impact of RLS vs application-layer filtering?
-4. How to handle Admin role bypass?
-5. How to test RLS policies effectively?
-
-**Testing Approach**:
-- Create test database with RLS policies on work_positions table
-- Create 2 test users with different company_id values
-- Verify User A cannot read User B's data
-- Measure query performance with EXPLAIN ANALYZE
-
-**Success Criteria**:
-- Working RLS policy definition for all 9 multi-tenant tables
-- Middleware function to inject session variable from JWT payload
-- Integration test verifying cross-tenant access denial
-- Performance analysis showing <10ms overhead with proper indexing
-
-**Output**: Section in research.md with RLS policy template and middleware code example.
-
----
-
-#### R005: Rate Limiting Strategy
-
-**Objective**: Design daily quota tracking (5 docs/user/day) without Redis, using PostgreSQL only.
-
-**Research Questions**:
-1. How to implement database-backed rate limiting?
-2. How to handle distributed rate limiting across serverless instances?
-3. When to reset daily counter (midnight UTC vs 24 hours from first generation)?
-4. How to display remaining quota to users?
-5. What user notification patterns for quota exhaustion?
-
-**Design Options**:
-- Option A: users table with document_generation_count + reset_at timestamp
-- Option B: rate_limit_events table with timestamp filtering
-- Option C: daily_quotas table with unique constraint on (user_id, date)
-
-**Success Criteria**:
-- Rate limiting handles concurrent requests
-- Quota resets correctly after 24 hours
-- User sees accurate remaining quota display
-- Graceful error handling when limit exceeded
-
-**Output**: Section in research.md with database schema and implementation algorithm.
-
----
-
-### Research Output: research.md
-
-The research.md file will be created during Phase 0 execution with:
-
-1. **Executive Summary**: Key decisions made, blockers identified, technical risks assessed
-2. **R001-R005 Findings**: Detailed findings for each research task with code examples
-3. **Risk Register**: Technical risks with mitigation plans
-4. **Phase 1 Recommendations**: Architectural decisions informing data model and API design
-
-**Estimated Research Duration**: 3-5 days (can be parallelized)
-
-## Phase 1: Data Model Design
-
-Phase 1 will produce a comprehensive `data-model.md` file containing complete Drizzle schema definitions for all 12 core entities. The data model must enforce multi-tenancy isolation (company_id column on 9 tables), support Row-Level Security policies, implement trial account limits, and maintain audit trails per Serbian BZR legal requirements (2-year retention per Član 32).
-
-### Core Entities Summary
-
-1. **User**: Authentication, RBAC roles, trial account management
-2. **Company**: Multi-tenant root entity with trial limits
-3. **WorkPosition**: Job roles with risk assessments
-4. **HazardType**: Serbian BZR hazard code reference data
-5. **RiskAssessment**: E×P×F risk calculation with validation
-6. **PPE**: Personal protective equipment requirements
-7. **Training**: Training requirements per Član 11
-8. **MedicalExam**: Medical examination requirements per Član 22
-9. **Employee**: Optional worker records (anonymized, encrypted JMBG)
-10. **Document**: Generated DOCX file metadata
-11. **AuditLog**: Compliance audit trail
-12. **RateLimitEvent**: Database-backed rate limiting
-
-### Data Model Output
-
-The complete `data-model.md` file will contain:
-
-1. **Entity Relationship Diagram** (ASCII art or Mermaid)
-2. **Complete Drizzle Schema Definitions** (TypeScript code)
-3. **RLS Policy Definitions** (SQL code for 9 multi-tenant tables)
-4. **Migration Files** (4 sequential migrations)
-5. **Validation Rules Summary** (Zod schemas)
-6. **Business Logic Summary** (triggers, auto-calculations, cascade behaviors)
-7. **Index Strategy** (performance optimization)
-8. **Storage Estimates** (database size projections)
-
-## Phase 1: API Contracts
-
-Phase 1 will produce a comprehensive `contracts/api-spec.yaml` OpenAPI 3.0 specification defining all API endpoints, request/response schemas, authentication requirements, error codes, and validation rules.
-
-### Endpoint Categories
-
-1. **Authentication** (5 endpoints): register, login, refresh, verify-email, resend-verification
-2. **Company Management** (3 endpoints): GET, PUT, DELETE /api/companies/:id
-3. **Work Position Management** (5 endpoints): List, create, read, update, delete positions
-4. **Risk Assessment** (4 endpoints): List, create, update, delete risk assessments
-5. **Document Generation** (4 endpoints): generate, generate-multiple, list, download
-6. **Reference Data** (2 endpoints): List hazards, get hazard details
-7. **Health Check** (1 endpoint): Service health and database connectivity
-
-### API Contracts Output
-
-The complete `contracts/api-spec.yaml` will contain:
-
-1. **API Metadata**: Title, version, description, servers
-2. **Security Schemes**: JWT Bearer token definition
-3. **Endpoint Definitions**: All 25+ endpoints with full schemas
-4. **Schema Components**: Reusable schemas for all entities
-5. **Authentication Requirements**: Security annotations
-6. **Error Examples**: Serbian Cyrillic error messages
-7. **JSON Schemas**: Separate schemas/ directory for validation
-
-## Phase 1: Quickstart Guide
-
-Phase 1 will produce a comprehensive `quickstart.md` file enabling developers to set up the development environment, run locally, execute tests, and deploy to Vercel.
-
-### Quickstart Sections
-
-1. **Prerequisites**: Required tools and accounts
-2. **Environment Setup**: Clone repo, install dependencies, configure .env files
-3. **Local Development**: Start backend and frontend servers
-4. **Running Tests**: Backend unit/integration, frontend unit, E2E with Playwright
-5. **Database Management**: Migrations, seeding, backup
-6. **Document Template Editing**: DOCX template with Mustache syntax
-7. **Deployment to Vercel**: CLI commands and configuration
-8. **Troubleshooting**: Common issues and solutions
-9. **Development Workflow**: Feature development cycle with TDD
-10. **Monitoring and Debugging**: Logs, metrics, performance optimization
-11. **Security Checklist**: Pre-deployment verification
-
-### Quickstart Output
-
-The complete `quickstart.md` file will provide copy-paste commands, environment variable templates, configuration examples, troubleshooting guides, and security checklists.
-
-**Estimated Setup Time**: 30-60 minutes for experienced developer
-
-## Phase 2: Task Generation
-
-Phase 2 will use the `/speckit.tasks` command to generate the complete `tasks.md` file based on requirements from spec.md, research findings, data model, and API contracts.
-
-**Task Structure**:
-- Phase 2: Infrastructure Setup (T001-T014)
-- Phase 3: Authentication & User Management (T015-T030)
-- Phase 4: Company & Position Management (T031-T050)
-- Phase 5: Risk Assessment (T051-T070)
-- Phase 6: Document Generation (T071-T090)
-- Phase 7: Frontend Implementation (T091-T120)
-- Phase 8: Testing & Quality Assurance (T121-T140)
-- Phase 9: Deployment & Monitoring (T141-T150)
-
-Each task includes: ID, description, dependencies, acceptance criteria, estimated effort, related requirements.
-
-## Phase 3: Implementation Execution
-
-Phase 3 will use the `/speckit.implement` command to execute all tasks from `tasks.md` in dependency order, with automated testing and quality gate enforcement per Constitution principles.
+**Structure Decision**: Existing **Option 2: Web application** structure (frontend/ + backend/) confirmed. Landing pages added to frontend/src/pages/ with dedicated component directory frontend/src/components/landing/. Single backend endpoint POST /api/contact added to backend/src/api/contact.ts.
 
 ## Complexity Tracking
 
-### Known Technical Risks
+*No constitution violations - section not required.*
 
-**R1: Document Generation Timeout (Vercel Free 10s limit)**
-- **Risk**: Complex documents with 5+ positions may exceed 10s timeout
-- **Mitigation**: Implement split strategy (individual position documents + ZIP)
-- **Monitoring**: Track generation times in AuditLog, alert if 90th percentile > 8s
-- **Remediation**: Optimize template, pre-compile data, upgrade to Vercel Pro if successful
+## Phase 0: Outline & Research
 
-**R2: RLS Performance Degradation**
-- **Risk**: Row-Level Security policies add overhead, may slow queries
-- **Mitigation**: Add indices on company_id, monitor with EXPLAIN ANALYZE
-- **Monitoring**: Log slow queries (> 100ms), review Supabase dashboard
-- **Remediation**: Optimize policies, add covering indices, consider read replicas
+**Objective**: Resolve unknowns, research best practices, document design decisions.
 
-**R3: Rate Limiting Race Conditions**
-- **Risk**: Concurrent requests may bypass 5 docs/day limit
-- **Mitigation**: Use SERIALIZABLE isolation, implement idempotency keys
-- **Monitoring**: Track rate limit events, log violations
-- **Remediation**: Add unique constraints, use Redis for atomic counters post-MVP
+### Research Tasks
 
-**R4: Trial Account Limit Bypass**
-- **Risk**: Users may bypass trial limits via direct API calls
-- **Mitigation**: Enforce limits in database + application + frontend layers
-- **Monitoring**: Track trial usage in AuditLog, alert on violations
-- **Remediation**: Review constraints, implement automatic suspension
+#### R001: Serbian Cyrillic Font Selection & Rendering
 
-**R5: DOCX Template Rendering Errors**
-- **Risk**: Mustache syntax errors or missing data cause generation failures
-- **Mitigation**: Validate template, use default values, comprehensive tests
-- **Monitoring**: Log template errors with Error ID, track success rate (target 99%+)
-- **Remediation**: Improve error messages, add validation CLI tool
+**Question**: Which web fonts support full Serbian Cyrillic character set (Ђ, Ћ, Љ, Њ, Џ, Ж, Ш) and render correctly across browsers (Chrome, Firefox, Safari, Edge)?
 
-**R6: Referral Bonus Storage Calculation at Scale (Phase 4+)**
-- **Risk**: Users with 100+ referrals may experience slow quota calculation (N+1 query problem)
-- **Mitigation**: Cache calculated storage_quota_gb, recalculate daily via cron job, index referrer_id
-- **Monitoring**: Track query times for calculateStorageQuota(), alert if > 200ms
-- **Remediation**: Add materialized view for active_referral_count, implement cache invalidation on subscription changes
-- **Note**: Deferred to Phase 4 when referral feature is implemented
+**Options to research**:
+1. Google Fonts with Serbian Cyrillic support (Roboto, Open Sans, Noto Sans)
+2. System fonts (Arial, Times New Roman with Cyrillic fallback)
+3. Custom web fonts optimized for Serbian
 
-**R7: Storage Downgrade Data Loss Prevention**
-- **Risk**: User downgrades from 50GB (with referrals) to 1GB (free) - 49GB data at risk
-- **Mitigation**: 30-day grace period with email warnings (30d, 14d, 7d, 1d), delete oldest files first (FIFO)
-- **Monitoring**: Track downgrade events, file deletion logs, user complaints
-- **Remediation**: Implement "freeze" option (pay minimal fee to preserve files), archive to cheaper cold storage
+**Decision criteria**: Font file size (<50KB for performance), character coverage (all Serbian Cyrillic glyphs), license (free for commercial use), browser compatibility.
 
-### Constitution Compliance Deviations
+**Output**: Document chosen font stack, fallback chain, and verification testing approach.
 
-**None currently**: All 6 constitutional principles satisfied in plan design. Any deviations identified during implementation will be documented here with justification and remediation plan.
+---
+
+#### R002: Demo Video Hosting & Optimization
+
+**Question**: Where to host demo video (hero section max 5MB, detailed video max 15MB) for optimal performance and cost?
+
+**Options to research**:
+1. Wasabi S3 bucket (existing infrastructure) with CloudFlare CDN
+2. Vimeo/YouTube embed (free tier, third-party dependency)
+3. Vercel Blob storage (paid after free tier)
+4. Self-hosted on Vercel with adaptive streaming
+
+**Decision criteria**: Cost (<$10/month for MVP), bandwidth limits (1000+ visitors/day), video optimization support (adaptive bitrate, multiple resolutions), ease of integration with React.
+
+**Output**: Document chosen hosting solution, video encoding settings (H.264 vs VP9), and fallback strategy for slow connections (3G).
+
+---
+
+#### R003: Contact Form Spam Prevention
+
+**Question**: How to prevent spam submissions on public /contact form without frustrating legitimate users?
+
+**Options to research**:
+1. Honeypot field (hidden input field to trap bots)
+2. Rate limiting (100 requests/minute per IP via Hono middleware)
+3. reCAPTCHA v3 (invisible, score-based, Google dependency)
+4. Turnstile (Cloudflare alternative to reCAPTCHA)
+5. Email verification (send confirmation link before storing submission)
+
+**Decision criteria**: User friction (invisible vs visible challenge), cost (free tier limits), privacy (GDPR compliance), implementation complexity.
+
+**Output**: Document chosen spam prevention method(s), implementation approach, and fallback for false positives.
+
+---
+
+#### R004: SEO Pre-rendering Strategy
+
+**Question**: How to ensure landing pages are crawlable by search engines (FR-068) despite being React SPA?
+
+**Options to research**:
+1. Vite SSR plugin (server-side rendering on Vercel)
+2. Vite prerender plugin (static HTML generation at build time)
+3. React Snap (post-build pre-rendering tool)
+4. Next.js migration (significant architecture change - likely rejected)
+
+**Decision criteria**: Vercel compatibility, build time impact (<5 minutes), SEO effectiveness (Google Search Console indexing verification), maintenance complexity.
+
+**Output**: Document chosen pre-rendering approach, configuration steps, and verification testing plan (Google Search Console).
+
+---
+
+#### R005: Responsive Table Design Pattern
+
+**Question**: How to make comparison table (FR-020 to FR-024) readable on mobile (375px) without horizontal scrolling?
+
+**Options to research**:
+1. Horizontal scroll with sticky first column
+2. Card-based design (one competitor per card with accordion)
+3. Transpose table (rows become columns on mobile)
+4. Progressive disclosure (show 2 columns on mobile, expand to full table)
+
+**Decision criteria**: User testing feedback (readability on iPhone SE), accessibility (screen reader support), implementation complexity, Tailwind CSS patterns.
+
+**Output**: Document chosen responsive pattern, Tailwind breakpoint strategy, and accessibility considerations (aria-labels for table structure).
+
+---
+
+#### R006: Lighthouse Performance Optimization
+
+**Question**: How to achieve Lighthouse Performance ≥90 (FR-065) with demo video, images, and multiple sections?
+
+**Options to research**:
+1. Lazy loading images (react-lazy-load-image-component or Intersection Observer API)
+2. Code splitting (React.lazy() for routes + components)
+3. Font optimization (font-display: swap, preload critical fonts)
+4. Critical CSS inlining (above-the-fold styles)
+5. Video poster image (lightweight placeholder before video loads)
+
+**Decision criteria**: Performance impact (Lighthouse score improvement), implementation effort, browser compatibility.
+
+**Output**: Document optimization checklist, Vite build configuration, and performance testing plan (Lighthouse CI in GitHub Actions).
+
+---
+
+### Research Deliverable: `research.md`
+
+Format:
+```markdown
+# Landing Page Research & Design Decisions
+
+## R001: Serbian Cyrillic Font Selection
+
+**Decision**: Google Fonts - Noto Sans (regular + bold) with system font fallback
+**Rationale**: [explain choice]
+**Alternatives considered**: [rejected options]
+
+[... repeat for R002-R006 ...]
+```
+
+## Phase 1: Design & Contracts
+
+**Prerequisites:** `research.md` complete
+
+### Task 1.1: Data Model Design
+
+**Input**: Key Entities section from spec.md
+**Output**: `data-model.md`
+
+**Entities**:
+
+1. **ContactFormSubmission** (NEW)
+   - Fields: id (UUID), name (TEXT NOT NULL), email (VARCHAR(255) NOT NULL), company_name (VARCHAR(255) NULLABLE), message (TEXT NOT NULL), submitted_at (TIMESTAMP DEFAULT NOW()), status (ENUM: 'new', 'read', 'replied' DEFAULT 'new')
+   - Indexes: INDEX on submitted_at DESC (for admin panel sorting), INDEX on status (for filtering new submissions)
+   - Validation: email format RFC 5322, message min 10 characters, name/email required
+   - Relationships: None (standalone entity, no foreign keys)
+
+2. **User** (EXISTING - reference only for CTA buttons linking to /register)
+
+3. **Company** (EXISTING - reference only for pricing tier logic)
+
+**Drizzle ORM Schema** (backend/src/db/schema.ts addition):
+```typescript
+export const contactFormSubmissions = pgTable('contact_form_submissions', {
+  id: uuid('id').defaultRandom().primaryKey(),
+  name: text('name').notNull(),
+  email: varchar('email', { length: 255 }).notNull(),
+  companyName: varchar('company_name', { length: 255 }),
+  message: text('message').notNull(),
+  submittedAt: timestamp('submitted_at').defaultNow().notNull(),
+  status: varchar('status', { enum: ['new', 'read', 'replied'] }).default('new').notNull(),
+});
+```
+
+---
+
+### Task 1.2: API Contracts
+
+**Input**: Functional Requirements (FR-051 to FR-056) from spec.md
+**Output**: `contracts/contact-api.yaml` (OpenAPI 3.0 spec)
+
+**Endpoint**: POST /api/contact
+
+**Request**:
+```yaml
+openapi: 3.0.0
+info:
+  title: BZR Portal Landing Page API
+  version: 1.0.0
+paths:
+  /api/contact:
+    post:
+      summary: Submit contact form
+      description: Validates input, sends email to support team, stores submission in database
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name, email, message]
+              properties:
+                name:
+                  type: string
+                  minLength: 1
+                  example: "Marko Marković"
+                email:
+                  type: string
+                  format: email
+                  example: "marko@example.rs"
+                companyName:
+                  type: string
+                  nullable: true
+                  example: "Primer DOO"
+                message:
+                  type: string
+                  minLength: 10
+                  example: "Zanima me više informacija o vašoj platformi."
+      responses:
+        200:
+          description: Contact form submitted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: "Poruka je poslata. Odgovorićemo u roku od 24 sata."
+        400:
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  error:
+                    type: string
+                    example: "Email adresa nije validna"
+        429:
+          description: Rate limit exceeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  error:
+                    type: string
+                    example: "Previše zahteva. Pokušajte ponovo za 1 minut."
+        500:
+          description: Server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  error:
+                    type: string
+                    example: "Greška pri slanju poruke. Pokušajte ponovo."
+```
+
+**Email Notification** (sent via Resend):
+- To: info@bzrportal.rs (or support@bzrportal.rs)
+- From: noreply@bzrportal.rs
+- Subject: "Nova poruka sa kontakt forme - {name}"
+- Body (plain text):
+  ```
+  Ime: {name}
+  Email: {email}
+  Kompanija: {companyName || 'Nije navedeno'}
+
+  Poruka:
+  {message}
+
+  ---
+  Poslato: {submittedAt}
+  ID: {id}
+  ```
+
+---
+
+### Task 1.3: Quickstart Guide
+
+**Input**: User scenarios from spec.md
+**Output**: `quickstart.md`
+
+**Format**:
+```markdown
+# Landing Page Quickstart Guide
+
+## Setup
+
+1. Install dependencies:
+   ```bash
+   cd frontend && npm install
+   cd ../backend && npm install
+   ```
+
+2. Run database migration (ContactFormSubmission table):
+   ```bash
+   cd backend && npm run db:generate && npm run db:push
+   ```
+
+3. Configure environment variables (backend/.env):
+   ```
+   RESEND_API_KEY=re_...  # Resend API key for email sending
+   SUPPORT_EMAIL=info@bzrportal.rs  # Email address for contact form notifications
+   ```
+
+4. Start development servers:
+   ```bash
+   # Terminal 1 (frontend)
+   cd frontend && npm run dev
+   # Runs on http://localhost:5173
+
+   # Terminal 2 (backend)
+   cd backend && npm run dev
+   # Runs on http://localhost:3000
+   ```
+
+## Testing
+
+### Manual Testing
+
+1. Homepage (http://localhost:5173/):
+   - Verify hero section displays placeholder image (demo video not ready for MVP)
+   - Scroll through all sections (value props, comparison table, pricing, FAQ)
+   - Click "Počnite besplatno" CTA → redirects to /register
+   - Test mobile view (Chrome DevTools, iPhone SE 375px)
+
+2. Contact Form (http://localhost:5173/contact):
+   - Submit empty form → validation errors in Serbian Cyrillic
+   - Submit invalid email → "Email adresa nije validna"
+   - Submit valid form → success message + email sent to support team
+   - Check backend logs for Resend API response
+   - Verify database entry: `SELECT * FROM contact_form_submissions ORDER BY submitted_at DESC LIMIT 1;`
+
+### Automated Testing
+
+1. Unit tests:
+   ```bash
+   cd frontend && npm test  # Vitest unit tests (form validation)
+   cd backend && npm test   # Vitest integration tests (contact API)
+   ```
+
+2. E2E tests:
+   ```bash
+   cd frontend && npx playwright test  # Run E2E tests
+   npx playwright test --ui  # Debug mode with UI
+   ```
+
+3. Lighthouse CI:
+   ```bash
+   npm run build && npx lhci autorun  # Performance + accessibility checks
+   ```
+
+## Deployment
+
+1. Build frontend:
+   ```bash
+   cd frontend && npm run build
+   # Output: frontend/dist/
+   ```
+
+2. Deploy to Vercel:
+   - Push to main branch → automatic Vercel deployment
+   - Verify landing pages: https://bzr-portal1bre.vercel.app/
+
+3. Verify production:
+   - Test all 5 routes (/, /features, /pricing, /about, /contact)
+   - Submit contact form → verify email delivery
+   - Run Lighthouse audit on production URL
+```
+
+---
+
+### Task 1.4: Update Agent Context
+
+**Action**: Run `.specify/scripts/powershell/update-agent-context.ps1 -AgentType claude`
+
+**Expected Updates to CLAUDE.md**:
+- Add "Landing Page Components" to project structure
+- Add `npm run test:e2e` command for Playwright tests
+- Add Serbian Cyrillic font handling note
+- Document Lighthouse CI integration for performance testing
 
 ## Next Steps
 
-1. **Execute Phase 0 Research** (3-5 days): Conduct R001-R005 research tasks, document findings in research.md
-2. **Complete Phase 1 Deliverables** (3-5 days): Create data-model.md, contracts/api-spec.yaml, quickstart.md
-3. **Generate Tasks** (automated): Run `/speckit.tasks` to generate tasks.md
-4. **Begin Implementation** (Phase 3): Run `/speckit.implement` with TDD discipline
-5. **Monitor Progress**: Track task completion, test coverage, Constitution compliance
+After completing Phase 0 (Research) and Phase 1 (Design & Contracts):
 
-**Plan Version**: 1.0.0
-**Last Updated**: 2025-10-27
-**Status**: Ready for Phase 0 Research
-**Constitution Compliance**: ✅ PASS (all 6 principles satisfied)
+1. **Review generated artifacts** (research.md, data-model.md, contracts/, quickstart.md)
+2. **Run Constitution Check again** to ensure no violations introduced during design
+3. **Proceed to `/speckit.tasks`** to generate actionable task breakdown (tasks.md) from this plan
+
+**Estimated Timeline**:
+- Phase 0 (Research): 2-4 hours (font selection, video hosting, spam prevention, SEO, responsive table, performance)
+- Phase 1 (Design & Contracts): 1-2 hours (data model, API spec, quickstart guide)
+- Implementation (post-tasks generation): 3-5 days (frontend pages, components, backend endpoint, testing, deployment)
+
+**Dependencies**:
+- Demo video production (can proceed with placeholder image per FR-009)
+- Brand assets (can proceed with placeholder logo + default Tailwind colors per Assumptions)
+- Resend API key (required for contact form email sending - provision before testing)
+- Legal pages content (Privacy Policy, Terms of Service - placeholder links for MVP per Assumptions)

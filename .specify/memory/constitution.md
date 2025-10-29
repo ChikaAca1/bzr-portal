@@ -1,30 +1,39 @@
 # BZR Portal Constitution
-<!-- Sync Impact Report: Version 1.0.0 (Initial Ratification)
-  - Version Change: [TEMPLATE] → 1.0.0
-  - Rationale: Initial constitution establishment for BZR Portal project
-  - Modified Principles: All (created from template)
-    * Added: I. Legal Compliance First (Serbian BZR regulations)
-    * Added: II. Test-Driven Development (80%+ coverage requirement)
-    * Added: III. Security by Design (RBAC, RLS, GDPR)
-    * Added: IV. Serbian Language Priority (Cyrillic UI/docs)
-    * Added: V. Accessibility Standards (WCAG AA compliance)
-    * Added: VI. Multi-Tenancy Isolation (Row-level security)
-  - Added Sections:
-    * Core Principles (6 principles defined)
-    * Technical Standards (stack, testing, deployment)
-    * Quality Gates (testing thresholds, review requirements)
-    * Governance (amendment process, version control)
-  - Removed Sections: None (first version)
+<!-- Sync Impact Report: Version 1.1.0 (AI-First & Mobile-First Amendment)
+  - Version Change: 1.0.0 → 1.1.0 (MINOR)
+  - Rationale: Add competitive differentiator principle (AI + mobile-first) in response to bzrplatforma.rs competitor analysis
+  - Modified Principles:
+    * Added: VII. AI-First & Mobile-First Experience (DIFFERENTIATOR)
+      - AI Document Generation (2h → 5min with DeepSeek R1/Claude)
+      - OCR from Mobile (photo paper docs → structured data)
+      - AI Risk Suggestions (job description → hazard recommendations)
+      - Smart Templates (learn from previous assessments)
+      - Responsive Design (375px+ to 1920px+)
+      - Touch-Optimized (44×44px targets)
+      - Offline-Ready PWA (service worker caching)
+      - Camera Integration (OCR, equipment photos, incident reports)
+      - QR Code Scanning (equipment/workstation linking)
+  - Competitive Positioning Changes:
+    * vs bzrplatforma.rs: Desktop-only → Field-based mobile + AI
+    * vs Manual Process: 2+ hours → <5 minutes with AI
+    * vs Paper Systems: PDF scanning → OCR structured data extraction
+  - Landing Page Requirements Added:
+    * Hero section with AI + mobile demo video/GIF
+    * Value props: "10x faster with AI" + "Work from your phone"
+    * Comparison table highlighting competitor gaps
+  - Added Sections: None (principle only)
+  - Removed Sections: None
   - Templates Requiring Updates:
-    ✅ plan-template.md - Constitution Check section references this file
-    ✅ spec-template.md - No changes needed (templates remain generic)
-    ✅ tasks-template.md - No changes needed (tasks follow spec requirements)
+    ⚠️ spec-template.md - May need mobile-first UI requirement section
+    ⚠️ tasks-template.md - May need AI integration task patterns
+    ✅ plan-template.md - No changes needed (AI features go in standard feature sections)
   - Follow-up TODOs:
-    * Add RLS policy setup tasks to Phase 2 (T014a)
-    * Add RBAC middleware tasks to Phase 2 (T022a-c)
-    * Add email verification tasks to Phase 3 (T050a-c)
-    * Resolve technology stack inconsistency (Vite vs Next.js) in plan.md
-    * Add test implementation tasks (T031a-T037a) before feature work
+    * Create landing page specification with /speckit.specify
+    * Add AI service integration tasks (DeepSeek R1, OCR provider)
+    * Add PWA implementation tasks (service worker, manifest.json)
+    * Add camera/QR code integration tasks
+    * Research OCR providers (Tesseract.js, Google Vision API, Azure Computer Vision)
+    * Define mobile-first design system (breakpoints, touch targets, gestures)
 -->
 
 ## Core Principles
@@ -167,6 +176,36 @@ Data isolation between companies MUST be absolute and enforced at multiple layer
 
 **Rationale**: Single shared database architecture (per AS-005) chosen for MVP cost-efficiency and operational simplicity. However, this creates critical security requirement: absolute prevention of cross-tenant data leaks. Customers trust us with confidential company and employee data - a breach would be catastrophic.
 
+### VII. AI-First & Mobile-First Experience (DIFFERENTIATOR)
+
+The platform MUST leverage AI automation and mobile-first design as PRIMARY competitive advantages, not optional features.
+
+**AI-First Requirements**:
+- **AI Document Generation**: Akt o Proceni Rizika MUST be generated with AI assistance (DeepSeek R1 or Claude) - reducing 2-hour manual process to <5 minutes
+- **OCR from Mobile**: Users MUST be able to photograph paper documents (Obrazac 6, existing risk assessments) → AI OCR extracts structured data → auto-populates database (eliminates manual data entry)
+- **AI Risk Suggestions**: Based on job position description, AI MUST suggest relevant hazards and initial E×P×F values for BZR officer review
+- **Smart Templates**: AI learns from previous assessments to pre-populate common fields (corrective measures, responsible persons, deadlines)
+
+**Mobile-First Requirements**:
+- **Responsive Design**: MUST work seamlessly on phones 375px+ (iPhone SE) up to desktop 1920px+
+- **Touch-Optimized**: Minimum 44×44px touch targets, large form inputs, swipe gestures for navigation
+- **Offline-Ready (PWA)**: Service worker caching allows form filling without internet → sync when online
+- **Camera Integration**: Direct camera access for OCR scanning, equipment photo documentation, incident reporting
+- **Mobile Workflows**: Complete risk assessment creation possible entirely from phone (fieldwork scenarios)
+- **QR Code Scanning**: Scan QR codes on equipment/workstations to link PPE, training records, risk assessments
+
+**Competitive Positioning**:
+- **vs bzrplatforma.rs**: THEY focus on desktop data entry → WE enable field-based mobile assessments with AI assistance
+- **vs Manual Process**: THEY require 2+ hours per position → WE generate in <5 minutes with AI
+- **vs Paper Systems**: THEY scan/archive PDFs → WE extract structured data with OCR for analytics
+
+**Landing Page Requirements**:
+- Hero section MUST showcase AI + mobile-first with demo video/GIF (scan paper document → instant digital data)
+- Value props MUST emphasize "10x faster with AI" and "Work from your phone"
+- Comparison table MUST highlight bzrplatforma.rs lacks: AI generation, mobile OCR, offline mode
+
+**Rationale**: Serbian BZR market (10,000+ companies) currently underserved by desktop-only tools. bzrplatforma.rs charges 1,500-6,000 RSD/month for manual data entry. Our AI + mobile-first approach creates defensible moat - significantly better UX + 10x time savings justifies premium pricing. Mobile-first enables fieldwork scenarios (safety inspections, incident documentation) that competitors cannot address.
+
 ## Technical Standards
 
 ### Technology Stack (MVP)
@@ -174,10 +213,11 @@ Data isolation between companies MUST be absolute and enforced at multiple layer
 **Backend**:
 - Runtime: Node.js 20+ / Bun (TypeScript 5.0+ strict mode)
 - Framework: Hono (lightweight API framework for Vercel serverless)
-- Database: PostgreSQL (Neon, Vercel Postgres, or Supabase managed service)
+- Database: PostgreSQL (Supabase managed service - chosen for MVP)
 - ORM: Drizzle ORM with Drizzle Kit for migrations
 - Document Generation: docx-templates (Mustache-based DOCX templating)
-- Storage: Vercel Blob Storage (or Cloudflare R2 fallback)
+- Storage: Wasabi S3-compatible object storage (AWS SDK v3: @aws-sdk/client-s3, @aws-sdk/s3-request-presigner)
+- Email: Resend (transactional email service)
 
 **Frontend**:
 - Framework: Vite + React 18+ (NOT Next.js for MVP - simpler deployment)
@@ -194,12 +234,16 @@ Data isolation between companies MUST be absolute and enforced at multiple layer
 - Coverage Target: 80%+ for business logic (risk calculation, document generation, validation)
 
 **Deployment**:
-- Platform: Vercel (Pro plan minimum for 60-second serverless function timeout)
-- Database: External PostgreSQL (managed service with 99.9%+ SLA)
-- Document Storage: Vercel Blob Storage with signed URLs (1-hour expiration)
+- Platform: Vercel Free plan for MVP (10s serverless function timeout, 100 executions/day), upgrade to Pro ($20/month) only after 100+ paying customers
+- Database: Supabase PostgreSQL Free tier (500MB, 50k users), upgrade to Pro ($25/month) if needed
+- Document Storage: Wasabi S3 ($6.99/month for 1TB, no egress fees) with pre-signed URLs (1-hour expiration)
+- Email: Resend Free tier (100 emails/day, 3,000/month)
+- Monitoring: Vercel built-in logging + custom metrics in database (Vercel Analytics requires Pro plan)
 - CI/CD: Vercel Git integration (automatic preview deployments, production on main branch)
 
-**Rationale**: Vercel provides excellent developer experience, automatic HTTPS, edge caching, and seamless deployment. Hono is lightweight and optimized for serverless. Vite provides fast builds and excellent TypeScript support without Next.js complexity. Drizzle ORM offers type-safe queries and simple migrations.
+**Budget Constraint**: MVP MUST operate on ~$7/month infrastructure cost (Wasabi only) until ~100 paying customers achieved, then upgrade to paid tiers
+
+**Rationale**: Vercel provides excellent developer experience, automatic HTTPS, edge caching, and seamless deployment. Supabase offers comprehensive PostgreSQL + auth + real-time features on generous free tier. Wasabi eliminates bandwidth cost concerns with flat-rate pricing (critical for document downloads). Hono is lightweight and optimized for serverless. Vite provides fast builds and excellent TypeScript support without Next.js complexity. Drizzle ORM offers type-safe queries and simple migrations.
 
 ### Performance Standards
 
@@ -208,14 +252,15 @@ Data isolation between companies MUST be absolute and enforced at multiple layer
 - POST/PUT (write): < 200ms
 - DELETE: < 150ms
 
-**Document Generation** (synchronous):
-- Single position (1-10 pages): < 15 seconds
-- Multi-position (10-30 pages): < 45 seconds
-- Large document (30-100 pages): < 120 seconds
+**Document Generation** (synchronous with Vercel Free plan 10s timeout constraint):
+- Single position (1-10 pages): < 8 seconds (must fit within 10s limit)
+- Multi-position (up to 5 positions, 10-30 pages): < 9 seconds
+- Large documents (5+ positions): Split strategy - individual position documents + ZIP download for full company report
 
 **Concurrent Capacity**:
-- 100 concurrent users without degradation
-- Database connection pool: 20-50 connections (PgBouncer recommended)
+- 100 concurrent users without degradation (production target)
+- MVP capacity: 30-50 concurrent users (10 pilot companies)
+- Database connection pool: 10-20 connections for MVP, scale to 20-50 for production (PgBouncer included in Supabase)
 
 **Frontend Performance**:
 - First Contentful Paint (FCP): < 1.5 seconds
@@ -224,11 +269,18 @@ Data isolation between companies MUST be absolute and enforced at multiple layer
 - Virtual scrolling REQUIRED for lists > 50 items
 
 **Monitoring**:
-- Vercel Analytics for frontend metrics
+- Vercel built-in logging (available on Free plan)
+- Custom metrics stored in database audit_logs table (API times, document generation success/failure, errors)
 - Database slow query logging (> 100ms threshold)
 - Structured logging (Pino) for all critical operations
+- Admin dashboard for usage metrics (users, documents/day, error counts)
 
-**Rationale**: Per SC-003, system must handle 10+ concurrent document generations without degradation. Vercel Pro plan (60s timeout) required for large document generation (FR-052b). Performance targets align with industry standards for SaaS applications.
+**Rate Limiting** (optimized for Vercel Free plan):
+- Document generation: 5 documents/day per user (MVP constraint due to 100 executions/day limit)
+- API requests: 100 requests/minute per user
+- Display remaining quota: "Preostalo dokumenata danas: {remaining}/5"
+
+**Rationale**: Per SC-003, system must handle 10+ concurrent document generations without degradation. Vercel Free plan (10s timeout) requires document generation optimization and split strategy for large documents (FR-052b-alt). MVP rate limiting ensures 10-20 pilot users can operate within 100 executions/day budget. Performance targets align with industry standards for SaaS applications.
 
 ## Quality Gates
 
@@ -338,4 +390,4 @@ For AI agents and developers implementing features:
 4. Non-functional requirements (performance, accessibility, GDPR)
 5. Code style and conventions
 
-**Version**: 1.0.0 | **Ratified**: 2025-10-24 | **Last Amended**: 2025-10-24
+**Version**: 1.1.0 | **Ratified**: 2025-10-24 | **Last Amended**: 2025-01-28

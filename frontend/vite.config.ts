@@ -4,7 +4,11 @@ import path from 'path';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    // TODO: Add vite-plugin-ssr for pre-rendering when landing pages are ready
+    // This will generate static HTML for SEO optimization
+  ],
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
@@ -16,6 +20,16 @@ export default defineConfig({
       '/api': {
         target: 'http://localhost:3000',
         changeOrigin: true,
+      },
+    },
+  },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          // Code splitting for landing page routes
+          'landing-vendor': ['react', 'react-dom', 'react-router-dom'],
+        },
       },
     },
   },

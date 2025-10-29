@@ -4,9 +4,13 @@ import { serve } from '@hono/node-server';
 import { cors } from 'hono/cors';
 import { logger } from 'hono/logger';
 import { prettyJSON } from 'hono/pretty-json';
+import { rateLimiter } from 'hono-rate-limiter';
 import { fetchRequestHandler } from '@trpc/server/adapters/fetch';
 import { appRouter } from './api/trpc/router';
 import { createContext } from './api/trpc/context';
+import { db } from './db';
+import { contactFormSubmissions } from './db/schema';
+import { sendContactFormEmail } from './services/email.service';
 
 /**
  * BZR Portal Backend Server
@@ -40,6 +44,93 @@ app.get('/health', (c) => {
     service: 'BZR Portal Backend',
     version: '1.0.0',
   });
+});
+
+// Contact form endpoint (public, with rate limiting)
+const contactLimiter = rateLimiter({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  limit: 100, // Max 100 requests per window per IP
+  standardHeaders: 'draft-6',
+  keyGenerator: (c) => c.req.header('x-forwarded-for') || c.req.header('x-real-ip') || 'unknown',
+});
+
+app.post('/api/contact', contactLimiter, async (c) => {
+  try {
+    const body = await c.req.json();
+
+    // Validation
+    const { name, email, companyName, message, website } = body;
+
+    // Honeypot check - reject if website field is filled (bot detection)
+    if (website && website.trim() !== '') {
+      return c.json({ success: false, error: 'Грешка при слању поруке. Покушајте поново.' }, 400);
+    }
+
+    // Required fields validation
+    if (!name || name.trim().length === 0) {
+      return c.json({ success: false, error: 'Име је обавезно' }, 400);
+    }
+    if (!email || !email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+      return c.json({ success: false, error: 'Email адреса није валидна' }, 400);
+    }
+    if (!message || message.trim().length < 10) {
+      return c.json({ success: false, error: 'Порука мора имати најмање 10 карактера' }, 400);
+    }
+
+    // Length validation
+    if (name.length > 255 || email.length > 255) {
+      return c.json({ success: false, error: 'Име или email су предугачки' }, 400);
+    }
+    if (companyName && companyName.length > 255) {
+      return c.json({ success: false, error: 'Назив компаније је предугачак' }, 400);
+    }
+    if (message.length > 5000) {
+      return c.json({ success: false, error: 'Порука је предугачка (максимум 5000 карактера)' }, 400);
+    }
+
+    // Insert into database
+    const [submission] = await db
+      .insert(contactFormSubmissions)
+      .values({
+        name: name.trim(),
+        email: email.trim().toLowerCase(),
+        companyName: companyName?.trim() || null,
+        message: message.trim(),
+        submittedAt: new Date(),
+        status: 'new',
+      })
+      .returning();
+
+    // Send email notification to support team
+    const supportEmail = process.env.SUPPORT_EMAIL || 'info@bzrportal.rs';
+    try {
+      await sendContactFormEmail(supportEmail, {
+        name: submission.name,
+        email: submission.email,
+        companyName: submission.companyName || undefined,
+        message: submission.message,
+        submittedAt: submission.submittedAt,
+        submissionId: submission.id,
+      });
+    } catch (emailError) {
+      console.error('Email send failed (submission saved):', emailError);
+      // Don't fail the request if email fails - submission is in DB
+    }
+
+    return c.json({
+      success: true,
+      message: 'Порука је послата. Одговорићемо у року од 24 сата.',
+    });
+  } catch (error) {
+    console.error('Contact form error:', error);
+    return c.json(
+      {
+        success: false,
+        error: 'Грешка при слању поруке. Покушајте поново.',
+      },
+      500
+    );
+  }
 });
 
 // tRPC endpoint

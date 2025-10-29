@@ -1,0 +1,185 @@
+openapi: 3.0.0
+info:
+  title: BZR Portal Landing Page API
+  version: 1.0.0
+  description: Public API endpoints for BZR Portal marketing landing pages
+  contact:
+    email: info@bzrportal.rs
+
+servers:
+  - url: https://bzr-portal-backend.onrender.com
+    description: Production (Render.com)
+  - url: http://localhost:3000
+    description: Development (local)
+
+paths:
+  /api/contact:
+    post:
+      summary: Submit contact form
+      description: |
+        Validates contact form input, sends email notification to support team (info@bzrportal.rs),
+        and stores submission in database for follow-up. Public endpoint (no authentication required).
+
+        **Spam Prevention**:
+        - Honeypot field: Hidden `website` field must be empty (bot detection)
+        - Rate limiting: 100 requests per 15 minutes per IP address
+
+        **Validation Rules**:
+        - `name`: Required, 1-255 characters
+        - `email`: Required, valid RFC 5322 email format, max 255 characters
+        - `companyName`: Optional, max 255 characters
+        - `message`: Required, min 10 characters (prevents empty spam)
+      operationId: submitContactForm
+      tags:
+        - Contact Form
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - email
+                - message
+              properties:
+                name:
+                  type: string
+                  minLength: 1
+                  maxLength: 255
+                  example: "Marko Marković"
+                  description: Submitter's full name
+                email:
+                  type: string
+                  format: email
+                  maxLength: 255
+                  example: "marko@example.rs"
+                  description: Submitter's email address (RFC 5322 format)
+                companyName:
+                  type: string
+                  maxLength: 255
+                  nullable: true
+                  example: "Primer DOO"
+                  description: Optional company name
+                message:
+                  type: string
+                  minLength: 10
+                  example: "Zanima me više informacija o vašoj platformi za BZR procenu rizika."
+                  description: Message content (min 10 characters)
+                website:
+                  type: string
+                  nullable: true
+                  description: |
+                    **Honeypot field** - Hidden from users, must be empty.
+                    If this field has any value, request is rejected as spam (bots auto-fill all inputs).
+                  example: ""
+      responses:
+        '200':
+          description: Contact form submitted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: "Poruka je poslata. Odgovorićemo u roku od 24 sata."
+                    description: Success message in Serbian Cyrillic
+        '400':
+          description: Validation error (invalid input)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                invalidEmail:
+                  summary: Invalid email format
+                  value:
+                    success: false
+                    error: "Email adresa nije validna"
+                missingName:
+                  summary: Missing required field
+                  value:
+                    success: false
+                    error: "Ime je obavezno"
+                messageTooShort:
+                  summary: Message too short
+                  value:
+                    success: false
+                    error: "Poruka mora imati najmanje 10 karaktera"
+                honeypotTriggered:
+                  summary: Spam detected (honeypot)
+                  value:
+                    success: false
+                    error: "Greška pri slanju poruke. Pokušajte ponovo."
+        '429':
+          description: Rate limit exceeded (too many requests)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                success: false
+                error: "Previše zahteva. Pokušajte ponovo za 15 minuta."
+          headers:
+            X-RateLimit-Limit:
+              schema:
+                type: integer
+              description: Maximum requests per window (100)
+            X-RateLimit-Remaining:
+              schema:
+                type: integer
+              description: Remaining requests in current window
+            X-RateLimit-Reset:
+              schema:
+                type: integer
+              description: Unix timestamp when rate limit resets
+        '500':
+          description: Server error (email sending failure or database error)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                emailFailure:
+                  summary: Email sending failed
+                  value:
+                    success: false
+                    error: "Greška pri slanju email-a. Pokušajte ponovo."
+                databaseError:
+                  summary: Database error
+                  value:
+                    success: false
+                    error: "Greška pri čuvanju poruke. Pokušajte ponovo."
+
+components:
+  schemas:
+    ErrorResponse:
+      type: object
+      required:
+        - success
+        - error
+      properties:
+        success:
+          type: boolean
+          example: false
+        error:
+          type: string
+          description: Error message in Serbian Cyrillic
+          example: "Email adresa nije validna"
+
+  securitySchemes: {}
+
+tags:
+  - name: Contact Form
+    description: Public contact form submission endpoint
+
+externalDocs:
+  description: BZR Portal Landing Page Specification
+  url: https://github.com/your-repo/specs/001-landing-page/spec.md

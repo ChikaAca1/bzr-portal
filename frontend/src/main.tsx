@@ -31,6 +31,27 @@ import { Login } from './pages/Login';
 import { Register } from './pages/Register';
 import { useAuthStore } from './stores/authStore'; // T038
 import { Navigate } from 'react-router-dom';
+import { lazy, Suspense } from 'react';
+
+// Lazy-loaded Landing Page routes (code splitting for performance)
+const HomePage = lazy(() => import('./pages/HomePage').then(m => ({ default: m.HomePage })));
+const FeaturesPage = lazy(() => import('./pages/FeaturesPage').then(m => ({ default: m.FeaturesPage })));
+const PricingPage = lazy(() => import('./pages/PricingPage').then(m => ({ default: m.PricingPage })));
+const AboutPage = lazy(() => import('./pages/AboutPage').then(m => ({ default: m.AboutPage })));
+const ContactPage = lazy(() => import('./pages/ContactPage').then(m => ({ default: m.ContactPage })));
+const NotFoundPage = lazy(() => import('./pages/NotFoundPage').then(m => ({ default: m.NotFoundPage })));
+
+// Loading fallback for lazy routes
+function LoadingFallback() {
+  return (
+    <div className="min-h-screen flex items-center justify-center">
+      <div className="text-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
+        <p className="text-muted-foreground">Учитавање...</p>
+      </div>
+    </div>
+  );
+}
 
 // Protected Route wrapper
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
@@ -50,71 +71,51 @@ function App() {
   return (
     <BrowserRouter>
       <div className="min-h-screen bg-background">
-        {/* Header - only show when authenticated */}
-        {isAuthenticated && (
-          <header className="border-b">
-            <div className="container mx-auto px-4 py-4">
-              <h1 className="text-2xl font-bold">БЗР Портал</h1>
-            </div>
-          </header>
-        )}
-        <main className={isAuthenticated ? "container mx-auto px-4 py-8" : ""}>
+        <Suspense fallback={<LoadingFallback />}>
           <Routes>
-            {/* Public routes */}
+            {/* Public Landing Page routes (no auth required) */}
+            <Route path="/" element={<HomePage />} />
+            <Route path="/features" element={<FeaturesPage />} />
+            <Route path="/pricing" element={<PricingPage />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/contact" element={<ContactPage />} />
+
+            {/* Auth routes */}
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
 
-            {/* Protected routes */}
+            {/* Protected App routes */}
             <Route
-              path="/"
+              path="/app"
               element={
                 <ProtectedRoute>
-                  <Dashboard />
+                  <div className="min-h-screen">
+                    {isAuthenticated && (
+                      <header className="border-b">
+                        <div className="container mx-auto px-4 py-4">
+                          <h1 className="text-2xl font-bold">БЗР Портал</h1>
+                        </div>
+                      </header>
+                    )}
+                    <main className="container mx-auto px-4 py-8">
+                      <Routes>
+                        <Route index element={<Dashboard />} />
+                        <Route path="dashboard" element={<Dashboard />} />
+                        <Route path="companies" element={<Companies />} />
+                        <Route path="positions" element={<Positions />} />
+                        <Route path="risks" element={<RiskAssessment />} />
+                        <Route path="documents" element={<Documents />} />
+                      </Routes>
+                    </main>
+                  </div>
                 </ProtectedRoute>
               }
             />
-            <Route
-              path="/dashboard"
-              element={
-                <ProtectedRoute>
-                  <Dashboard />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/companies"
-              element={
-                <ProtectedRoute>
-                  <Companies />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/positions"
-              element={
-                <ProtectedRoute>
-                  <Positions />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/risks"
-              element={
-                <ProtectedRoute>
-                  <RiskAssessment />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/documents"
-              element={
-                <ProtectedRoute>
-                  <Documents />
-                </ProtectedRoute>
-              }
-            />
+
+            {/* 404 Not Found */}
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
-        </main>
+        </Suspense>
       </div>
     </BrowserRouter>
   );
