@@ -23,9 +23,9 @@ import { requireAuthUser } from './auth';
 
 const TRIAL_LIMITS = {
   maxCompanies: parseInt(process.env.TRIAL_MAX_COMPANIES || '1', 10),
-  maxWorkPositions: parseInt(process.env.TRIAL_MAX_WORK_POSITIONS || '3', 10),
-  maxDocuments: parseInt(process.env.TRIAL_MAX_DOCUMENTS || '5', 10),
-  durationDays: parseInt(process.env.TRIAL_DURATION_DAYS || '14', 10),
+  maxWorkPositions: parseInt(process.env.TRIAL_MAX_WORK_POSITIONS || '2', 10),
+  maxDocuments: parseInt(process.env.TRIAL_MAX_DOCUMENTS || '1', 10),
+  durationDays: parseInt(process.env.TRIAL_DURATION_DAYS || '3', 10),
 };
 
 // =============================================================================

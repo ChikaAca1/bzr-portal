@@ -19,6 +19,7 @@ import { z } from 'zod';
 import { eq, and } from 'drizzle-orm';
 import { db } from '../../db';
 import { companies } from '../../db/schema/companies';
+import { users } from '../../db/schema/users';
 import { workPositions } from '../../db/schema/work-positions';
 import { riskAssessments } from '../../db/schema/risk-assessments';
 import { hazardTypes } from '../../db/schema/hazards';
@@ -95,6 +96,20 @@ export const documentsRouter = router({
         throw new TRPCError({
           code: 'FORBIDDEN',
           message: 'Немате дозволу за генерисање документа за ово предузеће.',
+        });
+      }
+
+      // 4. Check if user is on demo/trial - BLOCK DOWNLOAD
+      const [user] = await db
+        .select()
+        .from(users)
+        .where(eq(users.id, userId))
+        .limit(1);
+
+      if (user && user.accountTier === 'trial') {
+        throw new TRPCError({
+          code: 'PAYMENT_REQUIRED',
+          message: 'Демо период не дозвољава преузимање докумената. Претплатите се да бисте преузели генерисане документе. Email: info@bzr-portal.com',
         });
       }
 

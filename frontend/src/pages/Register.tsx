@@ -1,13 +1,14 @@
 /**
  * Register Page (T062)
  *
- * Trial account registration page.
+ * Demo account registration page.
  * Auto-logs in user after successful registration.
  *
- * Trial Account Benefits:
- * - 14-day free trial
+ * Demo Account Benefits:
+ * - 3-day demo period
  * - No credit card required
- * - 1 company, 3 work positions, 5 documents
+ * - 1 company, 2 work positions, 1 demo document (view only)
+ * - Cannot download documents until subscribed
  */
 
 import { useState } from 'react';
@@ -94,7 +95,7 @@ export function Register() {
             Бесплатан налог за БЗР Портал
           </CardTitle>
           <CardDescription className="text-center">
-            14 дана бесплатног коришћења • Без кредитне картице
+            3 дана демо периода • Без кредитне картице
           </CardDescription>
         </CardHeader>
         <form onSubmit={handleSubmit}>
@@ -105,14 +106,15 @@ export function Register() {
               </div>
             )}
 
-            {/* Trial Benefits */}
+            {/* Demo Benefits */}
             <div className="bg-blue-50 border border-blue-200 px-4 py-3 rounded">
-              <p className="text-sm text-blue-800 font-medium">Пробни период укључује:</p>
+              <p className="text-sm text-blue-800 font-medium">Демо период укључује:</p>
               <ul className="text-sm text-blue-700 mt-2 space-y-1">
                 <li>✓ 1 предузеће</li>
-                <li>✓ 3 радна места</li>
-                <li>✓ 5 генерисаних докумената</li>
+                <li>✓ 2 радна места</li>
+                <li>✓ 1 демо документ (видите како процес ради)</li>
                 <li>✓ Све функције платформе</li>
+                <li>⚠️ Преузимање докумената захтева претплату</li>
               </ul>
             </div>
 
