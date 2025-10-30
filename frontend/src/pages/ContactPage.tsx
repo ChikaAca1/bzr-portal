@@ -4,6 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { LandingNav } from '@/components/layout/LandingNav';
 import { LandingFooter } from '@/components/layout/LandingFooter';
+import { LandingChatWidget } from '@/components/ai/LandingChatWidget';
 import { landingContentSr } from '@/lib/i18n/landing-content-sr';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -186,6 +187,9 @@ export function ContactPage() {
       </main>
 
       <LandingFooter />
+
+      {/* AI Chat Widget */}
+      <LandingChatWidget />
     </div>
   );
 }

@@ -4,6 +4,7 @@ import { HeroSection } from '@/components/landing/HeroSection';
 import { ValuePropsSection } from '@/components/landing/ValuePropsSection';
 import { ComparisonTable } from '@/components/landing/ComparisonTable';
 import { PricingSection } from '@/components/landing/PricingSection';
+import { LandingChatWidget } from '@/components/ai/LandingChatWidget';
 import { Link } from 'react-router-dom';
 
 /**
@@ -61,6 +62,9 @@ export function HomePage() {
       </main>
 
       <LandingFooter />
+
+      {/* AI Chat Widget - Floating on all landing pages */}
+      <LandingChatWidget />
     </div>
   );
 }

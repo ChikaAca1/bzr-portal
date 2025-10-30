@@ -1,5 +1,6 @@
 import { LandingNav } from '@/components/layout/LandingNav';
 import { LandingFooter } from '@/components/layout/LandingFooter';
+import { LandingChatWidget } from '@/components/ai/LandingChatWidget';
 import { landingContentSr } from '@/lib/i18n/landing-content-sr';
 import { Target, BookOpen, Users } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -136,6 +137,9 @@ export function AboutPage() {
       </main>
 
       <LandingFooter />
+
+      {/* AI Chat Widget */}
+      <LandingChatWidget />
     </div>
   );
 }

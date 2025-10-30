@@ -1,4 +1,4 @@
-import { pgTable, serial, varchar, timestamp, pgEnum, boolean } from 'drizzle-orm/pg-core';
+import { pgTable, serial, varchar, timestamp, pgEnum, boolean, integer } from 'drizzle-orm/pg-core';
 
 /**
  * User Roles Enum (RBAC per FR-029, FR-053b)
@@ -35,7 +35,8 @@ export const users = pgTable('users', {
 
   // Multi-tenancy: Row-Level Security (FR-030)
   // User can only access data from their assigned company
-  companyId: serial('company_id').references(() => companies.id, { onDelete: 'cascade' }),
+  // Note: Foreign key constraint will be added in migration to avoid circular dependency
+  companyId: integer('company_id'),
 
   // Profile
   firstName: varchar('first_name', { length: 100 }),
@@ -50,9 +51,6 @@ export const users = pgTable('users', {
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
   lastLoginAt: timestamp('last_login_at'),
 });
-
-// Import companies for FK reference
-import { companies } from './companies';
 
 export type User = typeof users.$inferSelect;
 export type NewUser = typeof users.$inferInsert;

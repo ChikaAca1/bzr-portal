@@ -16,3 +16,6 @@ export * from './ai-cache';
 
 // Landing Page - Contact Form (Phase 6)
 export * from './contact-form-submissions';
+
+// AI Conversations & Templates (Phase AI)
+export * from './conversations';

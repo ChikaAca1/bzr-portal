@@ -1,6 +1,7 @@
 import { LandingNav } from '@/components/layout/LandingNav';
 import { LandingFooter } from '@/components/layout/LandingFooter';
 import { PricingSection } from '@/components/landing/PricingSection';
+import { LandingChatWidget } from '@/components/ai/LandingChatWidget';
 import { landingContentSr } from '@/lib/i18n/landing-content-sr';
 
 /**
@@ -71,6 +72,9 @@ export function PricingPage() {
       </main>
 
       <LandingFooter />
+
+      {/* AI Chat Widget */}
+      <LandingChatWidget />
     </div>
   );
 }

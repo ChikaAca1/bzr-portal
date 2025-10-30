@@ -10,18 +10,22 @@
 // =============================================================================
 
 /**
- * Validate Serbian PIB (9-digit tax ID with modulo-11 checksum)
+ * Validate Serbian PIB (9-digit tax ID with iterative modulo checksum)
  *
- * Algorithm:
- * 1. First 8 digits are base number
- * 2. 9th digit is checksum: 11 - ((d1*7 + d2*6 + ... + d8*2) mod 11)
- * 3. If result is 10, PIB is invalid
- * 4. If result is 11, checksum is 0
+ * Algorithm (per Serbian Tax Authority):
+ * 1. Initialize sum = 10
+ * 2. For each of first 8 digits:
+ *    - sum = (sum + digit) mod 10
+ *    - sum = (sum === 0 ? 10 : sum) * 2 mod 11
+ * 3. Checksum = (11 - sum) mod 10
+ * 4. Compare with 9th digit
+ *
+ * Source: https://mladsoft.com/2019/06/04/validacija-pib-mb-i-dr/
  *
  * @param pib - 9-digit PIB string
  * @returns boolean - true if valid
  *
- * Example valid PIB: 106006801
+ * Example valid PIBs: 100001011, 106006802, 100003574
  */
 export function validatePIB(pib: string): boolean {
   // Check format: exactly 9 digits
@@ -29,28 +33,17 @@ export function validatePIB(pib: string): boolean {
     return false;
   }
 
-  // Extract digits
-  const digits = pib.split('').map(Number);
-  const checksum = digits[8];
-
-  // Calculate expected checksum
-  let sum = 0;
+  // Iterative checksum calculation
+  let suma = 10;
   for (let i = 0; i < 8; i++) {
-    sum += digits[i] * (7 - i);
+    suma = (suma + parseInt(pib.charAt(i), 10)) % 10;
+    suma = (suma === 0 ? 10 : suma) * 2 % 11;
   }
 
-  const remainder = sum % 11;
-  let expectedChecksum = 11 - remainder;
+  const expectedChecksum = (11 - suma) % 10;
+  const actualChecksum = parseInt(pib.charAt(8), 10);
 
-  // Special cases
-  if (expectedChecksum === 10) {
-    return false; // Invalid PIB
-  }
-  if (expectedChecksum === 11) {
-    expectedChecksum = 0;
-  }
-
-  return checksum === expectedChecksum;
+  return actualChecksum === expectedChecksum;
 }
 
 /**
@@ -103,6 +96,9 @@ export function validateActivityCodeOrThrow(code: string): void {
  * - BBB: birth order number
  * - C: checksum digit
  *
+ * Algorithm: Modulo 11 with cycling multipliers 2-7 (reverse order)
+ * Source: https://mladsoft.com/2019/06/04/validacija-pib-mb-i-dr/
+ *
  * @param jmbg - 13-digit JMBG string
  * @returns boolean - true if valid
  */
@@ -121,29 +117,25 @@ export function validateJMBG(jmbg: string): boolean {
     return false;
   }
 
-  // Calculate checksum
-  const digits = jmbg.split('').map(Number);
-  const checksum = digits[12];
-
-  let sum = 0;
-  for (let i = 0; i < 6; i++) {
-    sum += digits[i] * (7 - i);
-  }
-  for (let i = 6; i < 12; i++) {
-    sum += digits[i] * (13 - i);
+  // Calculate checksum using mladsoft algorithm (reverse order, cycling multipliers 2-7)
+  let kb = 0;
+  for (let i = 11, multiplier = 2; i >= 0; i--) {
+    kb += parseInt(jmbg.charAt(i), 10) * multiplier;
+    multiplier = multiplier === 7 ? 2 : multiplier + 1;
   }
 
-  const expectedChecksum = 11 - (sum % 11);
+  let expectedChecksum = 11 - (kb % 11);
 
   // Handle special cases
   if (expectedChecksum === 10) {
     return false; // Invalid JMBG
   }
   if (expectedChecksum === 11) {
-    return checksum === 0;
+    expectedChecksum = 0;
   }
 
-  return checksum === expectedChecksum;
+  const actualChecksum = parseInt(jmbg.charAt(12), 10);
+  return actualChecksum === expectedChecksum;
 }
 
 /**

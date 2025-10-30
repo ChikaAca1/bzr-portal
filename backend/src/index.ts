@@ -11,6 +11,7 @@ import { createContext } from './api/trpc/context';
 import { db } from './db';
 import { contactFormSubmissions } from './db/schema';
 import { sendContactFormEmail } from './services/email.service';
+import aiRoutes from './routes/ai';
 
 /**
  * BZR Portal Backend Server
@@ -132,6 +133,9 @@ app.post('/api/contact', contactLimiter, async (c) => {
     );
   }
 });
+
+// AI Chat routes
+app.route('/api/ai', aiRoutes);
 
 // tRPC endpoint
 app.all('/trpc/*', async (c) => {

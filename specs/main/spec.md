@@ -136,8 +136,10 @@ A user wants to upgrade their account to paid tier and invite colleagues to earn
 - What happens when generated document exceeds 100 pages? (Synchronous generation may take 60-120 seconds, real-time progress indicator shows completion percentage)
 - What happens when trial account reaches 3 work positions limit? (Show modal: "Dostigli ste limit od 3 radna mesta za probni nalog. Zakažite verifikaciju za neograničen pristup." with "Zakaži verifikaciju" button)
 - What happens when trial account reaches 5 documents limit? (Show modal: "Dostigli ste limit od 5 generisanih dokumenata. Kontaktirajte nas za nadogradnju naloga.")
-- What happens when trial period expires (14 days)? (User can log in but cannot create/edit data, see modal: "Vaš probni period je istekao. Kontaktirajte podršku za aktivaciju punog pristupa." with read-only access to existing data)
+- What happens when trial period expires (14 days)? (User can log in but cannot create/edit data, see modal: "Vaš probni period je istekao. Kontaktirajte podršku za aktivaciju punog pristupa." with view-only access to existing data - users can see document metadata and previews but cannot download documents until upgrade)
 - What happens when user tries to register with already-used email? (Show error: "Email adresa već postoji. Pokušajte da se prijavite ili koristite drugu email adresu.")
+- What happens when user doesn't verify email within 7 days? (Verification link expires, account remains unverified and inaccessible, daily cleanup job purges unverified accounts older than 7 days, user must re-register to create new account)
+- What happens when user tries to log in before verifying email? (Show error: "Molimo verifikujte email adresu. Proverite inbox za verifikacioni link (važi 7 dana)." with "Pošalji ponovo" button to resend verification email)
 - What happens when user exceeds storage quota? (Upload blocked with error: "Prekoračili ste limit od {quota}GB. Oslobodite prostor ili pozovite prijatelje za +5GB po pozivu.")
 - What happens when user with 50GB referral storage downgrades to free? (Grace period: 30 days to download files, then oldest files deleted to fit 1GB quota, email warnings sent at 30d, 14d, 7d, 1d before deletion)
 - What happens when referred user cancels subscription? (Referrer gets email: "Korisnik {name} je otkazao pretplatu. Vaš bonus od 5GB će biti uklonjen za 30 dana osim ako ne produže pretplatu." Grace period allows re-activation)
@@ -170,6 +172,7 @@ A user wants to upgrade their account to paid tier and invite colleagues to earn
 - **FR-014**: System MUST maintain created_at and updated_at timestamps on all entities
 - **FR-015**: System MUST support soft deletes with audit trail for compliance
 - **FR-016**: System MUST validate all inputs using Zod schemas on both frontend and backend
+- **FR-016a**: Hazard code reference data (HazardType table) MUST be managed via Drizzle database migrations stored in version control; initial seed data and regulatory updates deployed as migration files; system MUST track effective_date and deprecated_date for each hazard code
 
 **User Interface:**
 - **FR-017**: System MUST provide multi-step wizard for position creation (Basic Info → Job Description → Work Hours → Risk Assessment → PPE/Training)
@@ -191,15 +194,16 @@ A user wants to upgrade their account to paid tier and invite colleagues to earn
 **User Registration & Authentication:**
 - **FR-028**: System MUST authenticate users via JWT-based tokens
 - **FR-028a**: System MUST support hybrid registration flow: self-registration creates trial account with limited features, upgrade to full access after verification
-- **FR-028b**: Trial accounts MUST allow: creating 1 company profile, 3 work positions maximum, generating up to 5 documents, 14-day trial period
+- **FR-028b**: Trial accounts MUST allow: creating 1 company profile, 3 work positions maximum, generating up to 5 documents, 14-day trial period; after expiry, users can view document metadata and previews but cannot download documents until upgrade
 - **FR-028c**: Trial accounts MUST display banner: "Probni nalog - {days} dana preostalo. Zakažite verifikaciju za pun pristup."
 - **FR-028d**: System MUST provide "Zakaži verifikaciju" button that opens contact form (email/phone to sales/support)
-- **FR-028e**: After verification call, support/admin MUST upgrade account to full access (remove trial limits, extend expiration)
+- **FR-028e**: After verification call, support/admin MUST upgrade account to full access via admin dashboard UI (remove trial limits, set account_tier to 'full', clear trial_expiry_date); system MUST log upgrade action in audit trail with admin_user_id and timestamp
 - **FR-028f**: Password requirements: minimum 8 characters, must include uppercase, lowercase, number, special character
-- **FR-028g**: System MUST require email verification via confirmation link before trial account activation
+- **FR-028g**: System MUST require email verification via confirmation link before trial account activation; verification link MUST be valid for 7 days; 14-day trial period MUST begin only after successful email verification (trial_expiry_date = verification_date + 14 days); unverified accounts created more than 7 days ago MUST be purged via daily cleanup job
 - **FR-028h**: System MUST use Resend as email service provider for all transactional emails (verification links, trial expiry notifications, document deletion warnings, data export notifications, support contact forms)
 - **FR-028i**: Email templates MUST be in Serbian language (Cyrillic or Latin based on user preference if implemented)
 - **FR-028j**: System MUST handle email delivery failures gracefully with retry logic (up to 3 attempts with exponential backoff) and log failures for manual follow-up
+- **FR-028k**: System MUST provide password reset flow: user requests reset via email, system sends unique time-limited token (valid 15-60 minutes), user clicks link to create new password, token is single-use and invalidated after successful reset
 
 **Security & Compliance:**
 - **FR-029**: System MUST implement role-based access control (RBAC) with roles: Admin, BZR Officer, HR Manager, Viewer
@@ -233,10 +237,10 @@ A user wants to upgrade their account to paid tier and invite colleagues to earn
 
 ### Key Entities *(include if feature involves data)*
 
-- **User**: Represents a system user; attributes include email, password_hash, first_name, last_name, role (Admin/BZR Officer/HR Manager/Viewer), company_id, account_tier (trial/full), trial_expiry_date, email_verified, storage_quota_gb (calculated dynamically), storage_used_bytes, referral_code (unique 8-char alphanumeric), referred_by_user_id (nullable), created_at; relationships: belongs to Company, has many Referrals (as referrer), has many UserFiles
+- **User**: Represents a system user; attributes include email, password_hash, first_name, last_name, role (Admin/BZR Officer/HR Manager/Viewer), company_id, account_tier (trial/full), trial_expiry_date (set to verification_date + 14 days upon email verification), email_verified (boolean), email_verification_token (nullable, expires after 7 days), email_verified_at (timestamp when verification completed), storage_quota_gb (calculated dynamically), storage_used_bytes, referral_code (unique 8-char alphanumeric), referred_by_user_id (nullable), created_at; relationships: belongs to Company, has many Referrals (as referrer), has many UserFiles
 - **Company**: Represents the employer organization; attributes include name, address, activity_code, director, bzr_officer, account_tier (trial/full), trial_expiry_date, document_generation_count, work_position_count; relationships: has many WorkPositions, has many Users
 - **WorkPosition**: Represents a job role within the company; attributes include position_name, position_code, department, required_education, required_experience, employee_counts, work_hours, job_description; relationships: belongs to Company, has many RiskAssessments, has many PPE items, has many Training requirements
-- **HazardType**: Reference data for standardized hazard codes (06, 07, 10, 15, 29, 33, 34, 35, 36, etc.); attributes include hazard_code, hazard_category (mechanical/electrical/ergonomic/psychosocial), hazard_name_sr, hazard_description
+- **HazardType**: Reference data for standardized hazard codes (06, 07, 10, 15, 29, 33, 34, 35, 36, etc.); attributes include hazard_code, hazard_category (mechanical/electrical/ergonomic/psychosocial), hazard_name_sr, hazard_description, effective_date (date code became active), deprecated_date (nullable - date code was removed from regulations); updates managed via database migrations for version control and consistency
 - **RiskAssessment**: Assessment of a specific hazard for a work position; attributes include position_id, hazard_id, initial_risk (E, P, F, Ri), corrective_measures (text), residual_risk (E, P, F, R), responsible_person; relationships: belongs to WorkPosition, references HazardType
 - **PPE** (Personal Protective Equipment): Protective equipment required for a position; attributes include position_id, ppe_type, ppe_standard, quantity, replacement_period; relationships: belongs to WorkPosition
 - **Training**: Training requirements for a position; attributes include position_id, training_type, frequency, duration, required_before_work; relationships: belongs to WorkPosition
@@ -283,6 +287,14 @@ A user wants to upgrade their account to paid tier and invite colleagues to earn
 - Q: Which storage service should be used for generated documents? → A: Wasabi (S3-compatible, no egress fees)
 - Q: What is the budget constraint for deployment infrastructure during MVP phase? → A: MUST use Vercel Free plan until ~100 paying customers; upgrade to paid services only after achieving revenue milestone
 - Q: What is the storage quota and referral incentive model? → A: Free users get 1GB, paid users get 11GB (10GB base + 1GB loyalty), +5GB per referral (unlimited), bonuses active only while both users have paid subscriptions, 30-day grace period on cancellation. Dropbox-style viral growth mechanism - users can store personal files beyond just generated documents (Phase 4+)
+
+### Session 2025-10-29
+
+- Q: How should the system handle password recovery when users forget their passwords? → A: Time-limited token via email (send unique link valid 15-60 minutes, user creates new password)
+- Q: When trial account expires after 14 days, can users download previously generated documents? → A: View-only, no downloads (users can see document metadata and previews, but download button disabled until upgrade)
+- Q: How should admins upgrade trial accounts to full access after verification? → A: Admin dashboard UI with audit trail (dedicated admin panel with "Upgrade Account" button, logs action with timestamp and admin user_id)
+- Q: How should hazard code reference data be updated when regulations change? → A: Database migrations with version control (hazard codes seeded/updated via Drizzle migration files, deployed with code releases)
+- Q: When does the 14-day trial period countdown begin, and how long is the email verification link valid? → A: Verification required, trial starts after verification (user must verify email within 7 days, then 14-day trial period begins; verification link valid 7 days)
 
 ---
 
@@ -730,6 +742,10 @@ System MUST include signature block with:
 - System SHOULD provide admin interface to restore soft-deleted records within 90 days
 - After 90 days, system MUST physically delete records (cron job)
 
+**FR-048e - Unverified account cleanup**:
+- System MUST run daily cron job to purge unverified user accounts created more than 7 days ago (email_verified = false AND created_at < NOW() - 7 days)
+- System MUST hard-delete unverified accounts and associated records (no soft delete for accounts that never completed registration)
+
 ### FR-049: GDPR Data Export & Deletion
 
 **FR-049a - Data export (Right to data portability)**:
@@ -791,7 +807,8 @@ System MUST include signature block with:
 ### FR-051: Document Update Triggers
 
 **FR-051a - Mandatory revision cases** (per Član 32, stav 2):
-- IF new hazard type added to national regulation: System MUST notify all users "Nova opasnost {code} dodata u pravilnik. Molimo revidiraте procenu rizika."
+- IF new hazard type added to national regulation: Deploy database migration with new hazard codes (INSERT with effective_date); system MUST notify all users via banner "Nova opasnost {code} dodata u pravilnik. Molimo revidiraте procenu rizika."
+- IF hazard code deprecated: Deploy database migration updating deprecated_date; system continues to display deprecated codes in existing risk assessments for historical accuracy but hides from selection list for new assessments
 - IF BZR law amended: System MUST display banner "Zakon o BZR izmenjen ({date}). Proverite da li su vaši dokumenti u skladu sa novim propisima."
 
 **FR-051b - Optional revision triggers**:
@@ -843,7 +860,8 @@ System MUST include signature block with:
 - System MUST log all errors with structured logging including: timestamp, user_id, company_id, error_type, stack_trace, request_id
 - System MUST track key metrics in-app: API response times, document generation success/failure rates, database query performance (store in database audit_logs table)
 - System MUST implement health check endpoint (/api/health) returning service status and database connectivity
-- System SHOULD implement simple admin dashboard showing: total users, documents generated today/week/month, error count, slow queries
+- System SHOULD implement simple admin dashboard showing: total users, documents generated today/week/month, error count, slow queries, list of trial accounts with "Upgrade Account" button (requires Admin role)
+- Admin dashboard MUST provide account upgrade functionality: search user by email, view account details, upgrade trial to full access with single click, confirm action with modal
 - **Free plan limitation**: Vercel Analytics requires Pro plan; for MVP use built-in logs + custom metrics stored in database
 - Post-MVP upgrade (100+ customers): Add Vercel Analytics ($20/month Pro plan) or migrate to comprehensive APM solution (Datadog/New Relic) if advanced tracing/profiling needed
 
@@ -859,10 +877,10 @@ System MUST include signature block with:
 
 | Role | Permissions |
 |------|-------------|
-| **Admin** | All operations: create/read/update/delete companies, positions, risks, users; manage roles; view audit logs |
+| **Admin** | All operations: create/read/update/delete companies, positions, risks, users; manage roles; view audit logs; upgrade trial accounts to full access via admin dashboard |
 | **BZR Officer** | Create/read/update companies (own only); create/read/update/delete positions, risks, documents (own company); cannot delete company |
 | **HR Manager** | Read companies, positions (own company); create/update employee data; cannot modify risk assessments |
-| **Viewer** | Read-only access to companies, positions, risks (own company); can download documents; cannot create/modify |
+| **Viewer** | Read-only access to companies, positions (own company); can download documents; cannot create/modify |
 
 **FR-053c - Row-Level Security**:
 - System MUST filter all queries by user's company_id using WHERE clauses in application layer AND PostgreSQL RLS policies for defense-in-depth
@@ -970,7 +988,7 @@ System MUST include signature block with:
 - **Additional Benefits**: Supabase provides built-in authentication (JWT tokens), Row Level Security (RLS) policies support, real-time subscriptions (if needed for collaborative features post-MVP)
 
 - **Dependency**: Serbian hazard code catalog remains stable
-- **Mitigation**: Design hazard_types table to allow easy updates via migration when codes change
+- **Mitigation**: Hazard codes managed via Drizzle database migrations (version-controlled seed data); when regulations change, create new migration file with INSERT/UPDATE statements; deploy with code releases; track effective_date and deprecated_date for audit trail; existing risk assessments preserve historical hazard codes even if deprecated
 
 ### AS-004: User Knowledge Assumptions
 - **Assumption**: BZR officers have basic knowledge of risk assessment principles
