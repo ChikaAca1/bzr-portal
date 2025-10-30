@@ -2,75 +2,66 @@ import { Check, X } from 'lucide-react';
 import { landingContentSr } from '@/lib/i18n/landing-content-sr';
 
 /**
- * Comparison Table - BZR Portal vs Competitors
+ * Comparison Table - BZR Portal vs Traditional Methods
  *
  * Features:
- * - Compare BZR Portal vs bzrplatforma.rs vs Manual (Word)
- * - 5+ key features (AI Generation, Mobile OCR, Offline, Camera, QR, etc.)
+ * - Compare BZR Portal vs Manual (Word)
+ * - 8+ key features (AI Generation, Mobile OCR, Offline, Camera, QR, etc.)
  * - Visual indicators: ✓ (green) for "DA", ✗ (red) for "NE"
  * - Responsive layouts:
- *   - Desktop (≥1024px): Full table (3 columns)
- *   - Tablet (768-1023px): Horizontal scroll with sticky first column
- *   - Mobile (<768px): Card-based accordion per competitor
+ *   - Desktop (≥1024px): Full table (2 columns)
+ *   - Tablet (768-1023px): Full table (2 columns)
+ *   - Mobile (<768px): Card-based per method
  * - WCAG AA compliant: aria-labels for screen readers, sufficient contrast
  */
 export function ComparisonTable() {
   const { comparison } = landingContentSr;
 
-  // Feature comparison data
+  // Feature comparison data (БЗР Портал vs Традиционални метод)
   const features = [
     {
       feature: comparison.features.aiGeneration,
       bzrPortal: true,
-      bzrplatforma: false,
       manual: false,
     },
     {
       feature: comparison.features.mobileOCR,
       bzrPortal: true,
-      bzrplatforma: false,
       manual: false,
     },
     {
       feature: comparison.features.offlineMode,
       bzrPortal: true,
-      bzrplatforma: false,
       manual: true,
     },
     {
       feature: comparison.features.cameraIntegration,
       bzrPortal: true,
-      bzrplatforma: false,
       manual: false,
     },
     {
       feature: comparison.features.qrScanning,
       bzrPortal: true,
-      bzrplatforma: false,
       manual: false,
     },
     {
       feature: comparison.features.multiTenant,
       bzrPortal: true,
-      bzrplatforma: true,
       manual: false,
     },
     {
       feature: comparison.features.rbac,
       bzrPortal: true,
-      bzrplatforma: true,
       manual: false,
     },
     {
       feature: comparison.features.legalCompliance,
       bzrPortal: true,
-      bzrplatforma: true,
       manual: 'partial',
     },
     {
       feature: comparison.features.pricing,
       bzrPortal: comparison.values.paid,
-      bzrplatforma: comparison.values.paid,
       manual: comparison.values.expensive,
       isText: true,
     },
@@ -91,20 +82,17 @@ export function ComparisonTable() {
 
         {/* Desktop Table (≥1024px) */}
         <div className="hidden lg:block overflow-x-auto">
-          <table className="w-full border-collapse">
+          <table className="w-full border-collapse max-w-4xl mx-auto">
             <thead>
               <tr className="border-b-2 border-border">
                 <th className="text-left py-4 px-6 font-semibold text-muted-foreground">
                   Функционалност
                 </th>
-                <th className="text-center py-4 px-6 font-semibold bg-primary/5">
+                <th className="text-center py-4 px-6 font-semibold bg-primary/5 w-1/3">
                   <div className="text-primary text-lg">{comparison.columns.bzrPortal}</div>
                   <div className="text-xs text-muted-foreground mt-1">(Наша платформа)</div>
                 </th>
-                <th className="text-center py-4 px-6 font-semibold">
-                  {comparison.columns.bzrplatforma}
-                </th>
-                <th className="text-center py-4 px-6 font-semibold">
+                <th className="text-center py-4 px-6 font-semibold w-1/3">
                   {comparison.columns.manual}
                 </th>
               </tr>
@@ -117,9 +105,6 @@ export function ComparisonTable() {
                     <ComparisonCell value={row.bzrPortal} isText={row.isText} />
                   </td>
                   <td className="py-4 px-6 text-center">
-                    <ComparisonCell value={row.bzrplatforma} isText={row.isText} />
-                  </td>
-                  <td className="py-4 px-6 text-center">
                     <ComparisonCell value={row.manual} isText={row.isText} />
                   </td>
                 </tr>
@@ -128,71 +113,60 @@ export function ComparisonTable() {
           </table>
         </div>
 
-        {/* Tablet Horizontal Scroll (768-1023px) */}
-        <div className="hidden md:block lg:hidden overflow-x-auto -mx-4 px-4">
-          <div className="min-w-[640px]">
-            <table className="w-full border-collapse">
-              <thead>
-                <tr className="border-b-2 border-border">
-                  <th className="sticky left-0 bg-background text-left py-4 px-4 font-semibold text-muted-foreground shadow-[2px_0_4px_rgba(0,0,0,0.1)]">
-                    Функционалност
-                  </th>
-                  <th className="text-center py-4 px-4 font-semibold bg-primary/5">
-                    {comparison.columns.bzrPortal}
-                  </th>
-                  <th className="text-center py-4 px-4 font-semibold">
-                    {comparison.columns.bzrplatforma}
-                  </th>
-                  <th className="text-center py-4 px-4 font-semibold">
-                    {comparison.columns.manual}
-                  </th>
+        {/* Tablet (768-1023px) */}
+        <div className="hidden md:block lg:hidden">
+          <table className="w-full border-collapse max-w-3xl mx-auto">
+            <thead>
+              <tr className="border-b-2 border-border">
+                <th className="text-left py-4 px-4 font-semibold text-muted-foreground">
+                  Функционалност
+                </th>
+                <th className="text-center py-4 px-4 font-semibold bg-primary/5 w-1/3">
+                  {comparison.columns.bzrPortal}
+                </th>
+                <th className="text-center py-4 px-4 font-semibold w-1/3">
+                  {comparison.columns.manual}
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {features.map((row, index) => (
+                <tr key={index} className="border-b border-border">
+                  <td className="py-4 px-4 font-medium">
+                    {row.feature}
+                  </td>
+                  <td className="py-4 px-4 text-center bg-primary/5">
+                    <ComparisonCell value={row.bzrPortal} isText={row.isText} />
+                  </td>
+                  <td className="py-4 px-4 text-center">
+                    <ComparisonCell value={row.manual} isText={row.isText} />
+                  </td>
                 </tr>
-              </thead>
-              <tbody>
-                {features.map((row, index) => (
-                  <tr key={index} className="border-b border-border">
-                    <td className="sticky left-0 bg-background py-4 px-4 font-medium shadow-[2px_0_4px_rgba(0,0,0,0.05)]">
-                      {row.feature}
-                    </td>
-                    <td className="py-4 px-4 text-center bg-primary/5">
-                      <ComparisonCell value={row.bzrPortal} isText={row.isText} />
-                    </td>
-                    <td className="py-4 px-4 text-center">
-                      <ComparisonCell value={row.bzrplatforma} isText={row.isText} />
-                    </td>
-                    <td className="py-4 px-4 text-center">
-                      <ComparisonCell value={row.manual} isText={row.isText} />
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          <p className="text-xs text-muted-foreground text-center mt-4">
-            ← Prevucite ulevo/udesno za prikaz svih kolona →
-          </p>
+              ))}
+            </tbody>
+          </table>
         </div>
 
         {/* Mobile Cards (<768px) */}
         <div className="md:hidden space-y-6">
           {[
             { name: comparison.columns.bzrPortal, data: features.map(f => ({ feature: f.feature, value: f.bzrPortal, isText: f.isText })), highlight: true },
-            { name: comparison.columns.bzrplatforma, data: features.map(f => ({ feature: f.feature, value: f.bzrplatforma, isText: f.isText })) },
             { name: comparison.columns.manual, data: features.map(f => ({ feature: f.feature, value: f.manual, isText: f.isText })) },
-          ].map((competitor, compIndex) => (
+          ].map((method, methodIndex) => (
             <div
-              key={compIndex}
+              key={methodIndex}
               className={`border rounded-lg overflow-hidden ${
-                competitor.highlight ? 'border-primary/50 shadow-lg' : 'border-border'
+                method.highlight ? 'border-primary/50 shadow-lg' : 'border-border'
               }`}
             >
               <div className={`p-4 font-semibold text-center ${
-                competitor.highlight ? 'bg-primary text-primary-foreground' : 'bg-muted'
+                method.highlight ? 'bg-primary text-primary-foreground' : 'bg-muted'
               }`}>
-                {competitor.name}
+                {method.name}
+                {method.highlight && <div className="text-xs mt-1 opacity-90">(Наша платформа)</div>}
               </div>
               <div className="divide-y divide-border">
-                {competitor.data.map((item, itemIndex) => (
+                {method.data.map((item, itemIndex) => (
                   <div key={itemIndex} className="p-4 flex items-center justify-between">
                     <span className="text-sm font-medium flex-1">{item.feature}</span>
                     <ComparisonCell value={item.value} isText={item.isText} />
@@ -206,13 +180,13 @@ export function ComparisonTable() {
         {/* CTA */}
         <div className="text-center mt-12">
           <p className="text-muted-foreground mb-4">
-            Спремни да пробате најбољу платформу за БЗР процену?
+            Спремни да убрзате процес БЗР процене?
           </p>
           <a
             href="/register"
             className="inline-block px-8 py-3 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors"
           >
-            Почните бесплатно (14 дана)
+            Почните данас
           </a>
         </div>
       </div>

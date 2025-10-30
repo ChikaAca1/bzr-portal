@@ -48,8 +48,8 @@ export const landingContentSr = {
 
   // Comparison Table (Homepage)
   comparison: {
-    sectionTitle: 'БЗР Портал vs Конкуренција',
-    subtitle: 'Зашто смо бољи од bzrplatforma.rs и ручног рада',
+    sectionTitle: 'Зашто БЗР Портал?',
+    subtitle: 'Модерна платформа vs традиционални ручни рад',
     features: {
       aiGeneration: 'AI генерисање докумената',
       mobileOCR: 'Mobile OCR скенирање',
@@ -63,15 +63,14 @@ export const landingContentSr = {
     },
     columns: {
       bzrPortal: 'БЗР Портал',
-      bzrplatforma: 'bzrplatforma.rs',
-      manual: 'Ручни рад (Word)',
+      manual: 'Традиционални метод',
     },
     values: {
       yes: 'Да',
       no: 'Не',
       partial: 'Делимично',
       free: 'Бесплатно',
-      paid: '3000-6000 РСД',
+      paid: '2.500-25.000 РСД',
       expensive: '2+ сата рада',
     },
   },
