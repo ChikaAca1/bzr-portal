@@ -47,7 +47,7 @@ export function Register() {
       });
 
       // Redirect to dashboard
-      navigate('/dashboard');
+      navigate('/app');
     },
     onError: (error) => {
       setError(error.message || 'Грешка при регистрацији');
