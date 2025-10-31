@@ -24,7 +24,9 @@ const app = new Hono();
 
 // Environment variables
 const PORT = parseInt(process.env.PORT || '3000', 10);
-const CORS_ORIGIN = process.env.CORS_ORIGIN || 'http://localhost:5173';
+const CORS_ORIGINS = process.env.CORS_ORIGIN
+  ? process.env.CORS_ORIGIN.split(',').map(origin => origin.trim())
+  : ['http://localhost:5173'];
 
 // Global middleware
 app.use('*', logger());
@@ -32,7 +34,7 @@ app.use('*', prettyJSON());
 app.use(
   '*',
   cors({
-    origin: CORS_ORIGIN,
+    origin: CORS_ORIGINS,
     credentials: true,
   })
 );
