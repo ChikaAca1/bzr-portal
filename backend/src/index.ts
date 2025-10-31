@@ -210,7 +210,7 @@ serve(
     console.log(`✅ Server running at http://localhost:${info.port}`);
     console.log(`📡 tRPC endpoint: http://localhost:${info.port}/trpc`);
     console.log(`💚 Health check: http://localhost:${info.port}/health`);
-    console.log(`🌐 CORS origin: ${CORS_ORIGIN}`);
+    console.log(`🌐 CORS origins: ${CORS_ORIGINS.join(', ')}`);
   }
 );
 
