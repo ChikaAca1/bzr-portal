@@ -31,7 +31,7 @@ export const users = pgTable('users', {
   emailVerified: boolean('email_verified').default(false).notNull(),
 
   // Authorization (RBAC)
-  role: userRoleEnum().default('viewer').notNull(),
+  role: userRoleEnum('role').default('viewer').notNull(),
 
   // Multi-tenancy: Row-Level Security (FR-030)
   // User can only access data from their assigned company
@@ -43,7 +43,7 @@ export const users = pgTable('users', {
   lastName: varchar('last_name', { length: 100 }),
 
   // Trial Account Management (FR-028a-d)
-  accountTier: accountTierEnum().default('trial').notNull(),
+  accountTier: accountTierEnum('account_tier').default('trial').notNull(),
   trialExpiryDate: timestamp('trial_expiry_date'), // 14 days from registration
 
   // Audit fields
