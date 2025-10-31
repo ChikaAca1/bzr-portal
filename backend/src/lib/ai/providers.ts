@@ -11,36 +11,69 @@ import OpenAI from 'openai';
 import Anthropic from '@anthropic-ai/sdk';
 
 // =============================================================================
-// Provider Clients
+// Provider Clients (Lazy Initialization)
 // =============================================================================
 
+let _openai: OpenAI | null = null;
+let _anthropic: Anthropic | null = null;
+let _deepseek: OpenAI | null = null;
+
 /**
- * OpenAI GPT-4 Turbo Client
+ * Get OpenAI GPT-4 Turbo Client (lazy initialization)
  * Use for: Sales conversations, document planning, OCR correction
  */
-export const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
+export function getOpenAI(): OpenAI {
+  if (!_openai) {
+    if (!process.env.OPENAI_API_KEY) {
+      throw new Error('OPENAI_API_KEY environment variable is not set');
+    }
+    _openai = new OpenAI({
+      apiKey: process.env.OPENAI_API_KEY,
+    });
+  }
+  return _openai;
+}
 
 /**
- * Anthropic Claude 3.5 Sonnet Client
+ * Get Anthropic Claude 3.5 Sonnet Client (lazy initialization)
  * Use for: Document generation, template creation, legal compliance
  */
-export const anthropic = new Anthropic({
-  apiKey: process.env.ANTHROPIC_API_KEY,
-});
+export function getAnthropic(): Anthropic {
+  if (!_anthropic) {
+    if (!process.env.ANTHROPIC_API_KEY) {
+      throw new Error('ANTHROPIC_API_KEY environment variable is not set');
+    }
+    _anthropic = new Anthropic({
+      apiKey: process.env.ANTHROPIC_API_KEY,
+    });
+  }
+  return _anthropic;
+}
 
 /**
- * DeepSeek Client (OpenAI-compatible API)
+ * Get DeepSeek Client (lazy initialization)
  * Use for: Simple chat, form help, data validation
  *
  * Pricing: $0.14/1M input tokens, $0.28/1M output tokens
  * API: https://api.deepseek.com/v1 (OpenAI-compatible)
  */
-export const deepseek = new OpenAI({
-  apiKey: process.env.DEEPSEEK_API_KEY,
-  baseURL: 'https://api.deepseek.com/v1',
-});
+export function getDeepSeek(): OpenAI {
+  if (!_deepseek) {
+    if (!process.env.DEEPSEEK_API_KEY) {
+      throw new Error('DEEPSEEK_API_KEY environment variable is not set');
+    }
+    _deepseek = new OpenAI({
+      apiKey: process.env.DEEPSEEK_API_KEY,
+      baseURL: 'https://api.deepseek.com/v1',
+    });
+  }
+  return _deepseek;
+}
+
+// Legacy exports for backward compatibility
+export const openai = getOpenAI;
+export const anthropic = getAnthropic;
+export const deepseek = getDeepSeek;
 
 // =============================================================================
 // Provider Types
@@ -88,12 +121,16 @@ export const AI_ROUTING: Record<AITask, AIProvider> = {
  */
 export function getProviderForTask(task: AITask): {
   provider: AIProvider;
-  client: typeof openai | typeof anthropic | typeof deepseek;
+  client: OpenAI | Anthropic;
 } {
   const provider = AI_ROUTING[task];
 
   const client =
-    provider === 'deepseek' ? deepseek : provider === 'gpt-4' ? openai : anthropic;
+    provider === 'deepseek'
+      ? getDeepSeek()
+      : provider === 'gpt-4'
+        ? getOpenAI()
+        : getAnthropic();
 
   return { provider, client };
 }
@@ -235,9 +272,9 @@ export function calculateCost(usage: Omit<TokenUsage, 'totalCost'>): TokenUsage 
 // =============================================================================
 
 export default {
-  openai,
-  anthropic,
-  deepseek,
+  getOpenAI,
+  getAnthropic,
+  getDeepSeek,
   getProviderForTask,
   getModelForProvider,
   getSystemPrompt,
