@@ -148,8 +148,20 @@ ai.get('/conversation/:id', async (c) => {
       }, 404);
     }
 
-    // TODO: Add authorization check - user can only access their own conversations
-    // or conversations with their sessionId
+    // Authorization check - user can only access their own conversations
+    const userId = c.req.header('X-User-Id');
+    const sessionId = c.req.header('X-Session-Id');
+
+    const isAuthorized =
+      (userId && conversation.userId && conversation.userId.toString() === userId) ||
+      (sessionId && conversation.sessionId === sessionId);
+
+    if (!isAuthorized) {
+      return c.json({
+        success: false,
+        error: 'Unauthorized access to conversation',
+      }, 403);
+    }
 
     return c.json({
       success: true,
@@ -200,9 +212,32 @@ ai.get('/conversation/:id/messages', async (c) => {
       }, 400);
     }
 
-    const messages = await getMessages(id);
+    // Get conversation first to check authorization
+    const conversation = await getConversation(id);
 
-    // TODO: Add authorization check
+    if (!conversation) {
+      return c.json({
+        success: false,
+        error: 'Conversation not found',
+      }, 404);
+    }
+
+    // Authorization check
+    const userId = c.req.header('X-User-Id');
+    const sessionId = c.req.header('X-Session-Id');
+
+    const isAuthorized =
+      (userId && conversation.userId && conversation.userId.toString() === userId) ||
+      (sessionId && conversation.sessionId === sessionId);
+
+    if (!isAuthorized) {
+      return c.json({
+        success: false,
+        error: 'Unauthorized access to conversation',
+      }, 403);
+    }
+
+    const messages = await getMessages(id);
 
     return c.json({
       success: true,
@@ -241,7 +276,30 @@ ai.post('/conversation/:id/end', async (c) => {
       }, 400);
     }
 
-    // TODO: Add authorization check
+    // Get conversation first to check authorization
+    const conversation = await getConversation(id);
+
+    if (!conversation) {
+      return c.json({
+        success: false,
+        error: 'Conversation not found',
+      }, 404);
+    }
+
+    // Authorization check
+    const userId = c.req.header('X-User-Id');
+    const sessionId = c.req.header('X-Session-Id');
+
+    const isAuthorized =
+      (userId && conversation.userId && conversation.userId.toString() === userId) ||
+      (sessionId && conversation.sessionId === sessionId);
+
+    if (!isAuthorized) {
+      return c.json({
+        success: false,
+        error: 'Unauthorized access to conversation',
+      }, 403);
+    }
 
     await endConversation(id);
 

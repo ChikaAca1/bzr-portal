@@ -100,15 +100,16 @@ export const documentsRouter = router({
       }
 
       // 4. Check if user is on demo/trial - BLOCK DOWNLOAD
+      const userIdNum = parseInt(userId);
       const [user] = await db
         .select()
         .from(users)
-        .where(eq(users.id, userId))
+        .where(eq(users.id, userIdNum))
         .limit(1);
 
       if (user && user.accountTier === 'trial') {
         throw new TRPCError({
-          code: 'PAYMENT_REQUIRED',
+          code: 'FORBIDDEN',
           message: 'Демо период не дозвољава преузимање докумената. Претплатите се да бисте преузели генерисане документе. Email: info@bzr-portal.com',
         });
       }

@@ -8,10 +8,10 @@
 import { router, publicProcedure } from './builder';
 import { authRouter } from '../routes/auth';
 import { companiesRouter } from '../routes/companies';
-// import { positionsRouter } from '../routes/positions';
-// import { risksRouter } from '../routes/risks';
-// import { hazardsRouter } from '../routes/hazards';
-// import { documentsRouter } from '../routes/documents';
+import { positionsRouter } from '../routes/positions';
+import { risksRouter } from '../routes/risks';
+import { hazardsRouter } from '../routes/hazards';
+import { documentsRouter } from '../routes/documents';
 
 // Re-export builder functions for convenience
 export { router, publicProcedure, protectedProcedure } from './builder';
@@ -33,10 +33,10 @@ export const appRouter = router({
   // Feature routers (Phase 3 MVP)
   auth: authRouter,
   companies: companiesRouter,
-  // positions: positionsRouter,
-  // risks: risksRouter,
-  // hazards: hazardsRouter,
-  // documents: documentsRouter,
+  positions: positionsRouter,
+  risks: risksRouter,
+  hazards: hazardsRouter,
+  documents: documentsRouter,
 });
 
 export type AppRouter = typeof appRouter;

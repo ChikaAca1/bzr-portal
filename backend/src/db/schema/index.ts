@@ -6,6 +6,7 @@ export * from './risk-assessments';
 export * from './ppe';
 export * from './training';
 export * from './medical-exams';
+export * from './documents';
 
 // Authentication schemas (Phase 2.5)
 export * from './users';
