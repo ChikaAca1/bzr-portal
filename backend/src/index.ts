@@ -11,6 +11,7 @@ import { createContext } from './api/trpc/context';
 import { db } from './db';
 import { contactFormSubmissions } from './db/schema';
 import { sendContactFormEmail } from './services/email.service';
+import aiRoutes from './routes/ai';
 
 /**
  * BZR Portal Backend Server
@@ -136,18 +137,12 @@ app.post('/api/contact', contactLimiter, async (c) => {
 });
 
 // AI Chat routes (only if AI providers are configured)
-// This prevents backend startup failure if AI API keys are not set
 const hasAIProviders =
   process.env.OPENAI_API_KEY || process.env.ANTHROPIC_API_KEY || process.env.DEEPSEEK_API_KEY;
 
 if (hasAIProviders) {
-  // Dynamic import to avoid loading AI routes if no providers are configured
-  import('./routes/ai').then((module) => {
-    app.route('/api/ai', module.default);
-    console.log('✅ AI chat routes enabled');
-  }).catch((error) => {
-    console.error('⚠️  AI chat routes failed to load:', error);
-  });
+  app.route('/api/ai', aiRoutes);
+  console.log('✅ AI chat routes enabled');
 } else {
   console.log('ℹ️  AI chat routes disabled (no API keys configured)');
 
