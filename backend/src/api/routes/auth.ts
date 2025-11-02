@@ -65,6 +65,34 @@ export const authRouter = router({
       // Hash password
       const passwordHash = await bcrypt.hash(password, parseInt(process.env.BCRYPT_ROUNDS || '12', 10));
 
+      // Generate unique username (for public profile page)
+      let username: string;
+      if (firstName && lastName) {
+        // Use firstName-lastName format (e.g., "petar-petrovic")
+        username = `${firstName}-${lastName}`.toLowerCase()
+          .replace(/\s+/g, '-') // Replace spaces with hyphens
+          .replace(/[^\w\-]/g, '') // Remove special characters
+          .substring(0, 50); // Max 50 chars
+      } else {
+        // Fallback to email username (e.g., "petar" from "petar@example.com")
+        username = email.split('@')[0]
+          .toLowerCase()
+          .replace(/[^\w]/g, '')
+          .substring(0, 50);
+      }
+
+      // Ensure username is unique (append number if needed)
+      let finalUsername = username;
+      let suffix = 1;
+      while (true) {
+        const existingUser = await db.query.users.findFirst({
+          where: (users, { eq }) => eq(users.username, finalUsername),
+        });
+        if (!existingUser) break;
+        finalUsername = `${username}-${suffix}`;
+        suffix++;
+      }
+
       // Create user (trial account with bzr_officer role)
       const [user] = await db
         .insert(users)
@@ -73,6 +101,7 @@ export const authRouter = router({
           passwordHash,
           firstName: firstName || null,
           lastName: lastName || null,
+          username: finalUsername,
           role: 'bzr_officer', // Default role for trial accounts
           companyId: null, // Will be set when user creates first company
         })

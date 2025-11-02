@@ -8,6 +8,7 @@
 import { router, publicProcedure } from './builder';
 import { authRouter } from '../routes/auth';
 import { companiesRouter } from '../routes/companies';
+import { profileRouter } from '../routes/profile';
 // import { positionsRouter } from '../routes/positions';
 // import { risksRouter } from '../routes/risks';
 // import { hazardsRouter } from '../routes/hazards';
@@ -33,6 +34,7 @@ export const appRouter = router({
   // Feature routers (Phase 3 MVP)
   auth: authRouter,
   companies: companiesRouter,
+  profile: profileRouter,
   // positions: positionsRouter,
   // risks: risksRouter,
   // hazards: hazardsRouter,

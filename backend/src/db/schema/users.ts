@@ -42,6 +42,13 @@ export const users = pgTable('users', {
   firstName: varchar('first_name', { length: 100 }),
   lastName: varchar('last_name', { length: 100 }),
 
+  // Public Profile (unique username/slug for public pages)
+  username: varchar('username', { length: 50 }).unique(), // e.g., "petar-petrovic" or "elektro-tim"
+  bio: varchar('bio', { length: 500 }), // Short description for public profile
+  website: varchar('website', { length: 255 }), // Company website
+  logoUrl: varchar('logo_url', { length: 500 }), // Profile/company logo
+  isPublicProfile: boolean('is_public_profile').default(true).notNull(), // Allow public profile page
+
   // Trial Account Management (FR-028a-d)
   accountTier: accountTierEnum('account_tier').default('trial').notNull(),
   trialExpiryDate: timestamp('trial_expiry_date'), // 14 days from registration

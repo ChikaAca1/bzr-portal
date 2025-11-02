@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '../components/ui/card';
 import { Button } from '../components/ui/button';
 import { trpc } from '../services/api';
-import { useAuthStore } from '../store/auth';
+import { useAuthStore } from '../stores/authStore';
 
 export function Dashboard() {
   const user = useAuthStore((state) => state.user);
