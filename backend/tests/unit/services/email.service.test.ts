@@ -14,8 +14,7 @@
 
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 
-// Mock Resend client with factory function
-const mockSendFn = vi.fn();
+// Mock Resend client
 vi.mock('../../../src/lib/resend', () => ({
   resendClient: {
     emails: {
@@ -33,8 +32,8 @@ vi.mock('../../../src/lib/resend', () => ({
 import { resendClient } from '../../../src/lib/resend';
 import { emailService } from '../../../src/services/email.service';
 
-// Assign the mock reference
-const mockSendFnFn = resendClient.emails.send as ReturnType<typeof vi.fn>;
+// Assign the mock reference for use in tests
+const mockSendFn = resendClient.emails.send as ReturnType<typeof vi.fn>;
 
 describe('Email Service', () => {
   beforeEach(() => {
@@ -44,7 +43,7 @@ describe('Email Service', () => {
 
   describe('sendEmail() - Retry Logic', () => {
     it('should send email successfully on first attempt', async () => {
-      mockSendFnFn.mockResolvedValue({
+      mockSendFn.mockResolvedValue({
         data: { id: 'email-123' },
         error: null,
       });
@@ -56,8 +55,8 @@ describe('Email Service', () => {
       });
 
       expect(emailId).toBe('email-123');
-      expect(mockSendFnFn).toHaveBeenCalledTimes(1);
-      expect(mockSendFnFn).toHaveBeenCalledWith({
+      expect(mockSendFn).toHaveBeenCalledTimes(1);
+      expect(mockSendFn).toHaveBeenCalledWith({
         from: 'BZR Portal <noreply@bzr-portal.com>',
         to: 'user@example.com',
         subject: 'Test Email',
@@ -70,7 +69,7 @@ describe('Email Service', () => {
       vi.useFakeTimers();
 
       // First attempt fails, second succeeds
-      mockSendFnFn
+      mockSendFn
         .mockRejectedValueOnce(new Error('Network error'))
         .mockResolvedValueOnce({
           data: { id: 'email-456' },
@@ -89,7 +88,7 @@ describe('Email Service', () => {
       const emailId = await promise;
 
       expect(emailId).toBe('email-456');
-      expect(mockSendFnFn).toHaveBeenCalledTimes(2);
+      expect(mockSendFn).toHaveBeenCalledTimes(2);
 
       vi.useRealTimers();
     });
