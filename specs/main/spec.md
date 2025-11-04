@@ -585,6 +585,7 @@ System MUST include signature block with:
 - MUST be exactly 9 digits
 - MUST pass modulo-11 checksum algorithm per Serbian tax authority rules
 - System MUST validate checksum: `PIB[8] = (11 - ((7×PIB[0] + 6×PIB[1] + 5×PIB[2] + 4×PIB[3] + 3×PIB[4] + 2×PIB[5] + 7×PIB[6] + 6×PIB[7]) mod 11)) mod 11`
+- **Implementation**: See backend/src/validation/pib-validator.ts (Task T057a)
 - IF validation fails: Error message "PIB broj nije validan. Proverite unos." (Serbian Cyrillic)
 
 **FR-043c - Activity code validation**:
@@ -831,16 +832,15 @@ System MUST include signature block with:
 - Vercel Free plan serverless function timeout: 10 seconds (hard limit)
 - Single position document (1-10 pages): < 8 seconds (must fit within 10s timeout)
 - Multi-position document (up to 5 positions, 10-30 pages): < 9 seconds
-- Large document (5+ positions, 30+ pages): MUST be handled via alternative strategy (see FR-052b-alt below)
+- **Large document (6+ positions)**: System MUST use split strategy (MVP approach):
+  - Generate individual DOCX per position (each generation < 8 seconds, parallelizable if needed)
+  - Provide ZIP download with all position documents + consolidated summary table (PDF or single-page DOCX)
+  - Display warning to user: "Dokument sadrži {n} radnih mesta. Biće generisan kao ZIP arhiva sa pojedinačnim dokumentima."
+  - **Implementation**: See Task T145 (document-split.ts service) and Task T147 (consolidated generation endpoint)
 - System MUST display real-time progress indicator showing completion percentage during generation
 - System MUST optimize document generation: minimize template complexity, pre-compile data structures, avoid unnecessary loops
 - **Budget Constraint**: MVP MUST operate on Vercel Free plan until ~100 paying customers achieved; only then migrate to Pro plan ($20/month) for 60-second timeouts
-
-**FR-052b-alt - Large Document Generation Strategy** (for Vercel Free plan):
-- Option 1: Split large documents into multiple files (one per position or per department), generate separately within 10s each, provide ZIP download
-- Option 2: Generate document sections incrementally, stream partial results, combine client-side (may require PDF instead of DOCX)
-- Option 3: Defer to post-MVP: Implement async job queue (BullMQ + Redis) for documents exceeding 10s, notify user via email when ready
-- **MVP Decision**: Use Option 1 (split strategy) - Generate individual position documents, provide combined ZIP if user requests full company report
+- **Post-MVP Alternatives** (after revenue milestone): Implement async job queue (BullMQ + Redis) for very large documents (10+ positions), notify user via email when ready
 
 **FR-052c - Concurrent User Capacity**:
 - System MUST handle 100 concurrent users without degradation
@@ -886,6 +886,12 @@ System MUST include signature block with:
 - System MUST filter all queries by user's company_id using WHERE clauses in application layer AND PostgreSQL RLS policies for defense-in-depth
 - System MUST add company_id column to all multi-tenant tables: companies, work_positions, risk_assessments, ppe, training, medical_exams, employees, documents, audit_logs
 - System MUST implement PostgreSQL RLS policies: `CREATE POLICY company_isolation ON {table} FOR ALL USING (company_id = current_setting('app.current_company_id')::integer)`
+- **RLS Middleware Implementation** (backend/src/api/middleware/rls.ts):
+  - After JWT authentication, extract user's company_id from token payload
+  - Execute SQL: `SET LOCAL app.current_company_id = $1` with company_id parameter at start of each request transaction
+  - SET LOCAL ensures session variable is transaction-scoped (automatically cleared after commit/rollback)
+  - RLS policies automatically enforce isolation via current_setting() function
+  - **Implementation**: See Task T047
 - System MUST return 403 Forbidden if user attempts to access data from other company
 - Exception: Admin role can access all companies (bypass RLS with BYPASSRLS grant)
 

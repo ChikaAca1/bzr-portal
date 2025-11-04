@@ -143,6 +143,7 @@ This task breakdown organizes implementation by user story priority to enable in
 ### Validation Schemas
 
 - [ ] T057 [P] Create Zod schema for company validation (PIB checksum per FR-043b) in backend/src/validation/schemas.ts
+- [ ] T057a [P] Implement PIB modulo-11 checksum validation function with unit tests per FR-043b algorithm in backend/src/validation/pib-validator.ts (used by T057 Zod schema)
 - [ ] T058 [P] Create Zod schema for work position validation in backend/src/validation/schemas.ts
 - [ ] T059 [P] Create Zod schema for risk assessment validation (R < Ri per FR-044b) in backend/src/validation/schemas.ts
 
@@ -190,18 +191,34 @@ This task breakdown organizes implementation by user story priority to enable in
 - [ ] T078 [US1] Implement RiskService (create, findByPosition, update) in backend/src/services/risk-service.ts
 - [ ] T079 [US1] Implement risk assessment API routes (POST, GET, PATCH /api/risks/:id) in backend/src/api/routes/risks.ts
 
-### Document Generation - Tests First
+### Document Generation - Template Creation (PREREQUISITE)
+
+- [ ] T084 [US1] Create DOCX template with FR-034-042 sections in backend/templates/Akt_Procena_Rizika_Template.docx
+  - **Acceptance Criteria**:
+    - ✅ Cover page with company name placeholder {{company_name}}
+    - ✅ Section 1: Uvod with legal basis text
+    - ✅ Section 2: Podaci o poslodavcu with {{company_address}}, {{company_pib}}, {{company_director}}
+    - ✅ Sections 3-8 per FR-034 through FR-042
+    - ✅ Signature block with blank lines for manual signing
+    - ✅ Serbian Cyrillic font (Noto Sans or equivalent) for all text
+    - ✅ Mustache syntax validated (no syntax errors when rendering with sample data)
+
+### Document Generation - Tests First (DEPENDS ON T084)
 
 - [ ] T080 [P] [US1] Write template data compilation tests in backend/tests/unit/services/document-generator.test.ts
+  - **Prerequisites**: T084 (template must exist)
 - [ ] T081 [P] [US1] Write document timeout tests (< 8s per FR-052b) in backend/tests/unit/services/document-generator.test.ts
+  - **Prerequisites**: T084
 - [ ] T082 [P] [US1] Write generation endpoint tests (POST /api/documents/generate) in backend/tests/integration/api/documents.test.ts
+  - **Prerequisites**: T084
 - [ ] T083 [P] [US1] Write download tests (GET /api/documents/:id/download) in backend/tests/integration/api/documents.test.ts
+  - **Prerequisites**: T084
 
 ### Document Generation - Implementation
 
-- [ ] T084 [US1] Create DOCX template with FR-034-042 sections in backend/templates/Akt_Procena_Rizika_Template.docx
 - [ ] T085 [US1] Implement Wasabi S3 client (upload, generatePresignedUrl) in backend/src/services/storage.ts
 - [ ] T086 [US1] Implement document generator (docx-templates integration) in backend/src/services/document-generator.ts
+  - **Prerequisites**: T084 (uses template file)
 - [ ] T087 [US1] Implement document API routes (POST /api/documents/generate, GET download) in backend/src/api/routes/documents.ts
 
 ### Frontend - Company & Position Forms
@@ -384,6 +401,7 @@ This task breakdown organizes implementation by user story priority to enable in
 - [ ] T172 [P] Document Wasabi setup in docs/deployment/wasabi-setup.md
 - [ ] T173 [P] Document Resend setup in docs/deployment/resend-setup.md
 - [ ] T174 [P] Generate encryption key documented in docs/deployment/encryption-key.md
+- [ ] T174a [P] Implement JMBG encryption service using Node.js crypto module (AES-256-GCM with random IV, key from env ENCRYPTION_KEY) in backend/src/services/encryption.ts with unit tests (required by FR-031, FR-049c)
 - [ ] T175 [P] Create production deployment checklist in docs/deployment/production-checklist.md
 
 ### Final Integration Testing
