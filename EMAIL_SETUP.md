@@ -8,11 +8,13 @@ DNS records for `bzr-portal.com` have been added to Hostinger on **2025-11-04**.
 
 **Environment Variables (`.env`)**:
 ```env
-RESEND_API_KEY=re_CAvb8AtP_8EbATaZPuJmPce6wtdCApEre
+RESEND_API_KEY=re_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX  # Get from Resend dashboard
 EMAIL_FROM=BZR Portal <noreply@bzr-portal.com>
 SUPPORT_EMAIL=office@bzr-portal.com
 FRONTEND_URL=https://bzr-portal.com
 ```
+
+⚠️ **IMPORTANT**: Never commit real API keys! Use environment variables only.
 
 **DNS Records Added**:
 - ✅ SPF: `v=spf1 include:_spf.mail.hostinger.com include:_spf.resend.com ~all`
