@@ -180,7 +180,7 @@ export function ContactPage() {
           <div className="mt-12 text-center text-muted-foreground">
             <p className="mb-2">Или нас контактирајте директно:</p>
             <p>
-              Email: <a href="mailto:info@bzrportal.rs" className="text-primary hover:underline">info@bzrportal.rs</a>
+              Email: <a href="mailto:office@bzr-portal.com" className="text-primary hover:underline">office@bzr-portal.com</a>
             </p>
           </div>
         </div>
