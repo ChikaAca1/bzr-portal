@@ -48,8 +48,9 @@ const ResetPasswordPage = lazy(() => import('./pages/ResetPasswordPage').then(m 
 
 // Lazy-loaded Dashboard pages (T112-T114)
 const CompanyProfilePage = lazy(() => import('./pages/CompanyProfilePage').then(m => ({ default: m.CompanyProfilePage })));
-const PositionWizardPage = lazy(() => import('./pages/PositionWizardPage').then(m => ({ default: m.PositionWizardPage })));
-const DocumentsPage = lazy(() => import('./pages/DocumentsPage').then(m => ({ default: m.DocumentsPage })));
+// TODO: Temporarily disabled until wizard components are created
+// const PositionWizardPage = lazy(() => import('./pages/PositionWizardPage').then(m => ({ default: m.PositionWizardPage })));
+// const DocumentsPage = lazy(() => import('./pages/DocumentsPage').then(m => ({ default: m.DocumentsPage })));
 
 // Loading fallback for lazy routes
 function LoadingFallback() {
@@ -137,7 +138,8 @@ function App() {
                 </ProtectedRoute>
               }
             />
-            <Route
+            {/* TODO: Re-enable when wizard components are created */}
+            {/* <Route
               path="/app/positions/new"
               element={
                 <ProtectedRoute>
@@ -146,18 +148,18 @@ function App() {
               }
             />
             <Route
-              path="/app/risks"
-              element={
-                <ProtectedRoute>
-                  <RiskAssessment />
-                </ProtectedRoute>
-              }
-            />
-            <Route
               path="/app/documents"
               element={
                 <ProtectedRoute>
                   <DocumentsPage />
+                </ProtectedRoute>
+              }
+            /> */}
+            <Route
+              path="/app/risks"
+              element={
+                <ProtectedRoute>
+                  <RiskAssessment />
                 </ProtectedRoute>
               }
             />
