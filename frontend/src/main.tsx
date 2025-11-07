@@ -41,6 +41,16 @@ const AboutPage = lazy(() => import('./pages/AboutPage').then(m => ({ default: m
 const ContactPage = lazy(() => import('./pages/ContactPage').then(m => ({ default: m.ContactPage })));
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage').then(m => ({ default: m.NotFoundPage })));
 
+// Lazy-loaded Auth pages (T108-T110)
+const VerifyEmailPage = lazy(() => import('./pages/VerifyEmailPage').then(m => ({ default: m.VerifyEmailPage })));
+const ForgotPasswordPage = lazy(() => import('./pages/ForgotPasswordPage').then(m => ({ default: m.ForgotPasswordPage })));
+const ResetPasswordPage = lazy(() => import('./pages/ResetPasswordPage').then(m => ({ default: m.ResetPasswordPage })));
+
+// Lazy-loaded Dashboard pages (T112-T114)
+const CompanyProfilePage = lazy(() => import('./pages/CompanyProfilePage').then(m => ({ default: m.CompanyProfilePage })));
+const PositionWizardPage = lazy(() => import('./pages/PositionWizardPage').then(m => ({ default: m.PositionWizardPage })));
+const DocumentsPage = lazy(() => import('./pages/DocumentsPage').then(m => ({ default: m.DocumentsPage })));
+
 // Loading fallback for lazy routes
 function LoadingFallback() {
   return (
@@ -59,11 +69,10 @@ function ProtectedRoute({ children }: { children: React.ReactNode }) {
   return isAuthenticated ? <>{children}</> : <Navigate to="/login" replace />;
 }
 
-// Placeholder components (will be fully implemented)
+// Placeholder components (legacy - most now have dedicated pages)
 const Companies = () => <div>Companies (Coming soon)</div>;
-const Positions = () => <div>Positions (Coming soon)</div>;
+const Positions = () => <div>Positions List (Coming soon)</div>;
 const RiskAssessment = () => <div>Risk Assessment (Coming soon)</div>;
-const Documents = () => <div>Documents (Coming soon)</div>;
 
 function App() {
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
@@ -83,6 +92,9 @@ function App() {
             {/* Auth routes */}
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/verify-email" element={<VerifyEmailPage />} />
+            <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+            <Route path="/reset-password" element={<ResetPasswordPage />} />
 
             {/* Protected App routes */}
             <Route
@@ -101,10 +113,12 @@ function App() {
                       <Routes>
                         <Route index element={<Dashboard />} />
                         <Route path="dashboard" element={<Dashboard />} />
+                        <Route path="company" element={<CompanyProfilePage />} />
                         <Route path="companies" element={<Companies />} />
                         <Route path="positions" element={<Positions />} />
+                        <Route path="positions/new" element={<PositionWizardPage />} />
                         <Route path="risks" element={<RiskAssessment />} />
-                        <Route path="documents" element={<Documents />} />
+                        <Route path="documents" element={<DocumentsPage />} />
                       </Routes>
                     </main>
                   </div>
