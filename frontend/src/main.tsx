@@ -96,32 +96,68 @@ function App() {
             <Route path="/forgot-password" element={<ForgotPasswordPage />} />
             <Route path="/reset-password" element={<ResetPasswordPage />} />
 
-            {/* Protected App routes */}
+            {/* Protected App routes - Using nested routes properly */}
             <Route
               path="/app"
               element={
                 <ProtectedRoute>
-                  <div className="min-h-screen">
-                    {isAuthenticated && (
-                      <header className="border-b">
-                        <div className="container mx-auto px-4 py-4">
-                          <h1 className="text-2xl font-bold">БЗР Портал</h1>
-                        </div>
-                      </header>
-                    )}
-                    <main className="container mx-auto px-4 py-8">
-                      <Routes>
-                        <Route index element={<Dashboard />} />
-                        <Route path="dashboard" element={<Dashboard />} />
-                        <Route path="company" element={<CompanyProfilePage />} />
-                        <Route path="companies" element={<Companies />} />
-                        <Route path="positions" element={<Positions />} />
-                        <Route path="positions/new" element={<PositionWizardPage />} />
-                        <Route path="risks" element={<RiskAssessment />} />
-                        <Route path="documents" element={<DocumentsPage />} />
-                      </Routes>
-                    </main>
-                  </div>
+                  <Dashboard />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/app/dashboard"
+              element={
+                <ProtectedRoute>
+                  <Dashboard />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/app/company"
+              element={
+                <ProtectedRoute>
+                  <CompanyProfilePage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/app/companies"
+              element={
+                <ProtectedRoute>
+                  <Companies />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/app/positions"
+              element={
+                <ProtectedRoute>
+                  <Positions />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/app/positions/new"
+              element={
+                <ProtectedRoute>
+                  <PositionWizardPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/app/risks"
+              element={
+                <ProtectedRoute>
+                  <RiskAssessment />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/app/documents"
+              element={
+                <ProtectedRoute>
+                  <DocumentsPage />
                 </ProtectedRoute>
               }
             />

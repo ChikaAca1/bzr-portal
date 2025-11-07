@@ -36,7 +36,7 @@ export function Login() {
       });
 
       // Redirect to dashboard
-      navigate('/dashboard');
+      navigate('/app/dashboard');
     },
     onError: (error) => {
       setError(error.message || 'Грешка при пријављивању');
