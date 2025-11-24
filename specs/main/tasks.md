@@ -41,20 +41,20 @@ This task breakdown organizes implementation by user story priority to enable in
 
 **Goal**: Initialize project structure, install dependencies, configure tooling
 
-- [ ] T001 Initialize Git repository with .gitignore for Node.js, TypeScript, .env files
-- [ ] T002 Create project structure: backend/, frontend/, shared/, .specify/, specs/
-- [ ] T003 [P] Initialize backend package.json with Hono, Drizzle ORM, docx-templates, AWS SDK v3, Resend, Vitest in backend/package.json
-- [ ] T004 [P] Initialize frontend package.json with Vite, React 18, TanStack Query, Zustand, shadcn/ui in frontend/package.json
-- [ ] T005 [P] Configure TypeScript strict mode in backend/tsconfig.json
-- [ ] T006 [P] Configure TypeScript strict mode in frontend/tsconfig.json
-- [ ] T007 [P] Configure ESLint + Prettier with Serbian Cyrillic support in .eslintrc.json
-- [ ] T008 [P] Setup Vitest configuration in backend/vitest.config.ts
-- [ ] T009 [P] Setup Playwright configuration in frontend/playwright.config.ts
-- [ ] T010 Create .env.example with environment variables (DATABASE_URL, WASABI_*, RESEND_API_KEY, JWT_SECRET, ENCRYPTION_KEY)
-- [ ] T011 [P] Configure Drizzle ORM in backend/drizzle.config.ts
-- [ ] T012 [P] Configure Vercel deployment (10s timeout, /api/* routing) in vercel.json
-- [ ] T013 [P] Setup Tailwind CSS with Noto Sans (Cyrillic) and mobile breakpoints in frontend/tailwind.config.ts
-- [ ] T014 [P] Create shared TypeScript types in shared/types/api.ts
+- [x] T001 Initialize Git repository with .gitignore for Node.js, TypeScript, .env files
+- [x] T002 Create project structure: backend/, frontend/, shared/, .specify/, specs/
+- [x] T003 [P] Initialize backend package.json with Hono, Drizzle ORM, docx-templates, AWS SDK v3, Resend, Vitest in backend/package.json
+- [x] T004 [P] Initialize frontend package.json with Vite, React 18, TanStack Query, Zustand, shadcn/ui in frontend/package.json
+- [x] T005 [P] Configure TypeScript strict mode in backend/tsconfig.json
+- [x] T006 [P] Configure TypeScript strict mode in frontend/tsconfig.json
+- [x] T007 [P] Configure ESLint + Prettier with Serbian Cyrillic support in .eslintrc.json
+- [x] T008 [P] Setup Vitest configuration in backend/vitest.config.ts
+- [x] T009 [P] Setup Playwright configuration in frontend/playwright.config.ts
+- [x] T010 Create .env.example with environment variables (DATABASE_URL, WASABI_*, RESEND_API_KEY, JWT_SECRET, ENCRYPTION_KEY)
+- [x] T011 [P] Configure Drizzle ORM in backend/drizzle.config.ts
+- [x] T012 [P] Configure Vercel deployment (10s timeout, /api/* routing) in vercel.json
+- [x] T013 [P] Setup Tailwind CSS with Noto Sans (Cyrillic) and mobile breakpoints in frontend/tailwind.config.ts
+- [x] T014 [P] Create shared TypeScript types in shared/types/api.ts
 - [ ] T015 Initialize Husky pre-commit hooks in .husky/pre-commit
 
 **Validation**: Run `npm install` in backend/ and frontend/, verify no errors
@@ -69,17 +69,17 @@ This task breakdown organizes implementation by user story priority to enable in
 
 ### Database Foundation
 
-- [ ] T016 Create users schema (id, email, password_hash, role, company_id, account_tier, trial_expiry_date, email_verified, email_verification_token, email_verified_at) in backend/src/db/schema/users.ts
-- [ ] T017 Create companies schema (id, name, address, activity_code, pib, director, bzr_responsible_person) in backend/src/db/schema/companies.ts
-- [ ] T018 Create audit_logs schema (id, user_id, entity_type, action, timestamp, old_values, new_values) in backend/src/db/schema/audit-logs.ts
-- [ ] T019 Generate initial database migration using Drizzle Kit in backend/src/db/migrations/
-- [ ] T020 Create PostgreSQL RLS policies SQL for users/companies tables in backend/src/db/migrations/0002_rls_policies.sql
-- [ ] T021 Create seed script for hazard types (hazard_code, hazard_name_sr, effective_date) in backend/src/db/seed/hazard-types.ts
+- [x] T016 Create users schema (id, email, password_hash, role, company_id, account_tier, trial_expiry_date, email_verified, email_verification_token, email_verified_at) in backend/src/db/schema/users.ts
+- [x] T017 Create companies schema (id, name, address, activity_code, pib, director, bzr_responsible_person) in backend/src/db/schema/companies.ts
+- [x] T018 Create audit_logs schema (id, user_id, entity_type, action, timestamp, old_values, new_values) in backend/src/db/schema/audit-logs.ts
+- [x] T019 Generate initial database migration using Drizzle Kit in backend/src/db/migrations/
+- [x] T020 Create PostgreSQL RLS policies SQL for users/companies tables in backend/src/db/migrations/0002_rls_policies.sql
+- [x] T021 Create seed script for hazard types (hazard_code, hazard_name_sr, effective_date) in backend/src/db/seed/hazard-types.ts
 
 ### Authentication & Security - Tests First (TDD)
 
 - [ ] T022 [P] Write password validation tests (bcrypt, 8+ chars, complexity) in backend/tests/unit/auth/password.test.ts
-- [ ] T023 [P] Write JWT tests (15-min access, 7-day refresh, payload structure) in backend/tests/unit/auth/jwt.test.ts
+- [x] T023 [P] Write JWT tests (15-min access, 7-day refresh, payload structure) in backend/tests/unit/lib/jwt.test.ts
 - [ ] T024 [P] Write email verification token tests (7-day expiry, single-use) in backend/tests/unit/auth/verification.test.ts
 - [ ] T025 [P] Write password reset token tests (15-60 min expiry) in backend/tests/unit/auth/reset-token.test.ts
 - [ ] T026 [P] Write registration tests (POST /api/auth/register) in backend/tests/integration/auth/register.test.ts
@@ -89,33 +89,33 @@ This task breakdown organizes implementation by user story priority to enable in
 
 ### Authentication & Security - Implementation
 
-- [ ] T030 Implement password hashing service using bcrypt in backend/src/services/password.ts
-- [ ] T031 Implement JWT service (access/refresh token generation) in backend/src/services/jwt.ts
-- [ ] T032 Implement email verification token service in backend/src/services/verification-token.ts
-- [ ] T033 Implement password reset token service in backend/src/services/reset-token.ts
-- [ ] T034 Implement Resend email service (Serbian Cyrillic templates) in backend/src/services/email.ts
-- [ ] T035 Create Serbian Cyrillic email templates (verification, password reset) in backend/src/templates/emails/
-- [ ] T036 Implement registration endpoint with trial account creation in backend/src/api/routes/auth.ts
-- [ ] T037 Implement email verification endpoint (sets trial_expiry_date = now + 14 days) in backend/src/api/routes/auth.ts
-- [ ] T038 Implement login endpoint with JWT issuance in backend/src/api/routes/auth.ts
-- [ ] T039 Implement password reset request endpoint in backend/src/api/routes/auth.ts
-- [ ] T040 Implement password reset completion endpoint in backend/src/api/routes/auth.ts
+- [x] T030 Implement password hashing service using bcrypt in backend/src/services/password.ts
+- [x] T031 Implement JWT service (access/refresh token generation) in backend/src/services/jwt.ts
+- [x] T032 Implement email verification token service in backend/src/services/verification-token.ts
+- [x] T033 Implement password reset token service in backend/src/services/reset-token.ts
+- [x] T034 Implement Resend email service (Serbian Cyrillic templates) in backend/src/services/email.ts
+- [x] T035 Create Serbian Cyrillic email templates (verification, password reset) in backend/src/templates/emails/
+- [x] T036 Implement registration endpoint with trial account creation in backend/src/api/routes/auth.ts
+- [x] T037 Implement email verification endpoint (sets trial_expiry_date = now + 14 days) in backend/src/api/routes/auth.ts
+- [x] T038 Implement login endpoint with JWT issuance in backend/src/api/routes/auth.ts
+- [x] T039 Implement password reset request endpoint in backend/src/api/routes/auth.ts
+- [x] T040 Implement password reset completion endpoint in backend/src/api/routes/auth.ts
 
 ### RBAC & RLS Middleware - Tests First
 
-- [ ] T041 [P] Write RBAC middleware tests (Admin, BZR Officer, HR Manager, Viewer) in backend/tests/unit/middleware/rbac.test.ts
-- [ ] T042 [P] Write RLS middleware tests (company_id session variable injection) in backend/tests/unit/middleware/rls.test.ts
-- [ ] T043 [P] Write cross-tenant access denial tests (user A cannot read user B's data) in backend/tests/integration/rls/cross-tenant.test.ts
-- [ ] T044 [P] Write rate limiting tests (5 docs/day, 100 req/min) in backend/tests/integration/middleware/rate-limit.test.ts
+- [x] T041 [P] Write RBAC middleware tests (Admin, BZR Officer, HR Manager, Viewer) in backend/tests/unit/middleware/rbac.middleware.test.ts
+- [x] T042 [P] Write RLS middleware tests (company_id session variable injection) in backend/tests/integration/auth.middleware.test.ts
+- [x] T043 [P] Write cross-tenant access denial tests (user A cannot read user B's data) in backend/tests/integration/rls/cross-tenant.test.ts
+- [x] T044 [P] Write rate limiting tests (5 docs/day, 100 req/min) in backend/tests/integration/rate-limit.middleware.test.ts
 
 ### RBAC & RLS Middleware - Implementation
 
-- [ ] T045 Implement JWT authentication middleware in backend/src/api/middleware/auth.ts
-- [ ] T046 Implement RBAC authorization middleware in backend/src/api/middleware/rbac.ts
-- [ ] T047 Implement RLS middleware (sets PostgreSQL app.current_company_id) in backend/src/api/middleware/rls.ts
-- [ ] T048 Implement rate limiting middleware (hono-rate-limiter) in backend/src/api/middleware/rate-limit.ts
-- [ ] T049 Implement audit logging service in backend/src/services/audit-logger.ts
-- [ ] T050 Implement structured logging (Pino) in backend/src/services/logger.ts
+- [x] T045 Implement JWT authentication middleware in backend/src/api/middleware/auth.ts
+- [x] T046 Implement RBAC authorization middleware in backend/src/api/middleware/rbac.ts
+- [x] T047 Implement RLS middleware (sets PostgreSQL app.current_company_id) in backend/src/api/middleware/rls.middleware.ts
+- [x] T048 Implement rate limiting middleware (hono-rate-limiter) in backend/src/api/middleware/rate-limit.ts
+- [x] T049 Implement audit logging service in backend/src/services/audit-logger.ts
+- [x] T050 Implement structured logging (Pino) in backend/src/services/logger.ts
 
 **Validation**: All Phase 2 tests passing, cross-tenant isolation verified
 
@@ -133,9 +133,9 @@ This task breakdown organizes implementation by user story priority to enable in
 
 ### Database Schema
 
-- [ ] T051 Create work_positions schema (id, company_id, position_name, department, required_education, employees_male, employees_female, work_hours_daily, job_description) in backend/src/db/schema/work-positions.ts
-- [ ] T052 Create risk_assessments schema (id, position_id, hazard_id, initial_e, initial_p, initial_f, initial_ri, corrective_measures, residual_e, residual_p, residual_f, residual_r) in backend/src/db/schema/risk-assessments.ts
-- [ ] T053 Create hazard_types schema (id, hazard_code, hazard_name_sr, hazard_description, effective_date) in backend/src/db/schema/hazard-types.ts
+- [x] T051 Create work_positions schema (id, company_id, position_name, department, required_education, employees_male, employees_female, work_hours_daily, job_description) in backend/src/db/schema/work-positions.ts
+- [x] T052 Create risk_assessments schema (id, position_id, hazard_id, initial_e, initial_p, initial_f, initial_ri, corrective_measures, residual_e, residual_p, residual_f, residual_r) in backend/src/db/schema/risk-assessments.ts
+- [x] T053 Create hazard_types schema (id, hazard_code, hazard_name_sr, hazard_description, effective_date) in backend/src/db/schema/hazards.ts
 - [ ] T054 Generate database migration for US1 entities in backend/src/db/migrations/
 - [ ] T055 Create indexes on work_positions(company_id), risk_assessments(position_id) in backend/src/db/migrations/
 - [ ] T056 Apply PostgreSQL RLS policies to work_positions, risk_assessments in backend/src/db/migrations/
@@ -143,57 +143,57 @@ This task breakdown organizes implementation by user story priority to enable in
 ### Validation Schemas
 
 - [ ] T057 [P] Create Zod schema for company validation (PIB checksum per FR-043b) in backend/src/validation/schemas.ts
-- [ ] T057a [P] Implement PIB modulo-11 checksum validation function with unit tests per FR-043b algorithm in backend/src/validation/pib-validator.ts (used by T057 Zod schema)
+- [x] T057a [P] Implement PIB modulo-11 checksum validation function with unit tests per FR-043b algorithm in backend/src/validation/pib-validator.ts (used by T057 Zod schema)
 - [ ] T058 [P] Create Zod schema for work position validation in backend/src/validation/schemas.ts
 - [ ] T059 [P] Create Zod schema for risk assessment validation (R < Ri per FR-044b) in backend/src/validation/schemas.ts
 
 ### Risk Calculator - Tests First (TDD - CRITICAL)
 
-- [ ] T060 [P] [US1] Write Ri = E × P × F tests in backend/tests/unit/services/risk-calculator.test.ts
-- [ ] T061 [P] [US1] Write R < Ri validation tests in backend/tests/unit/services/risk-calculator.test.ts
-- [ ] T062 [P] [US1] Write R > 70 high-risk flagging tests in backend/tests/unit/services/risk-calculator.test.ts
-- [ ] T063 [P] [US1] Write E/P/F range (1-6) validation tests in backend/tests/unit/services/risk-calculator.test.ts
+- [x] T060 [P] [US1] Write Ri = E × P × F tests in backend/tests/unit/services/risk-calculator.test.ts
+- [x] T061 [P] [US1] Write R < Ri validation tests in backend/tests/unit/services/risk-calculator.test.ts
+- [x] T062 [P] [US1] Write R > 70 high-risk flagging tests in backend/tests/unit/services/risk-calculator.test.ts
+- [x] T063 [P] [US1] Write E/P/F range (1-6) validation tests in backend/tests/unit/services/risk-calculator.test.ts
 
 ### Risk Calculator - Implementation
 
-- [ ] T064 [US1] Implement risk calculator service (calculateRi, validateReduction, isHighRisk) in backend/src/services/risk-calculator.ts
+- [x] T064 [US1] Implement risk calculator service (calculateRi, validateReduction, isHighRisk) in backend/src/services/risk-calculator.ts
 
 ### Company Management - Tests First
 
-- [ ] T065 [P] [US1] Write company creation tests (POST /api/companies) in backend/tests/integration/api/companies.test.ts
-- [ ] T066 [P] [US1] Write company retrieval tests (GET /api/companies/:id) in backend/tests/integration/api/companies.test.ts
-- [ ] T067 [P] [US1] Write company update tests (PATCH /api/companies/:id) in backend/tests/integration/api/companies.test.ts
+- [x] T065 [P] [US1] Write company creation tests (POST /api/companies) in backend/tests/contract/company.contract.test.ts
+- [x] T066 [P] [US1] Write company retrieval tests (GET /api/companies/:id) in backend/tests/contract/company.contract.test.ts
+- [x] T067 [P] [US1] Write company update tests (PATCH /api/companies/:id) in backend/tests/contract/company.contract.test.ts
 
 ### Company Management - Implementation
 
-- [ ] T068 [US1] Implement CompanyService (create, findById, update) in backend/src/services/company-service.ts
-- [ ] T069 [US1] Implement company API routes (POST, GET, PATCH /api/companies/:id) in backend/src/api/routes/companies.ts
+- [x] T068 [US1] Implement CompanyService (create, findById, update) in backend/src/services/company-service.ts
+- [x] T069 [US1] Implement company API routes (POST, GET, PATCH /api/companies/:id) in backend/src/api/routes/companies.ts
 
 ### Work Position Management - Tests First
 
-- [ ] T070 [P] [US1] Write position creation tests (POST /api/positions) in backend/tests/integration/api/positions.test.ts
-- [ ] T071 [P] [US1] Write position retrieval tests (GET /api/positions/:id) in backend/tests/integration/api/positions.test.ts
-- [ ] T072 [P] [US1] Write position list tests (GET /api/companies/:companyId/positions) in backend/tests/integration/api/positions.test.ts
+- [x] T070 [P] [US1] Write position creation tests (POST /api/positions) in backend/tests/contract/position.contract.test.ts
+- [x] T071 [P] [US1] Write position retrieval tests (GET /api/positions/:id) in backend/tests/contract/position.contract.test.ts
+- [x] T072 [P] [US1] Write position list tests (GET /api/companies/:companyId/positions) in backend/tests/contract/position.contract.test.ts
 
 ### Work Position Management - Implementation
 
-- [ ] T073 [US1] Implement PositionService (create, findById, findByCompany) in backend/src/services/position-service.ts
-- [ ] T074 [US1] Implement position API routes (POST, GET, DELETE /api/positions/:id) in backend/src/api/routes/positions.ts
+- [x] T073 [US1] Implement PositionService (create, findById, findByCompany) in backend/src/services/position-service.ts
+- [x] T074 [US1] Implement position API routes (POST, GET, DELETE /api/positions/:id) in backend/src/api/routes/positions.ts
 
 ### Risk Assessment Management - Tests First
 
-- [ ] T075 [P] [US1] Write risk creation tests (POST /api/risks) in backend/tests/integration/api/risks.test.ts
-- [ ] T076 [P] [US1] Write risk retrieval tests (GET /api/positions/:positionId/risks) in backend/tests/integration/api/risks.test.ts
-- [ ] T077 [P] [US1] Write duplicate hazard prevention tests in backend/tests/integration/api/risks.test.ts
+- [x] T075 [P] [US1] Write risk creation tests (POST /api/risks) in backend/tests/contract/risk.contract.test.ts
+- [x] T076 [P] [US1] Write risk retrieval tests (GET /api/positions/:positionId/risks) in backend/tests/contract/risk.contract.test.ts
+- [x] T077 [P] [US1] Write duplicate hazard prevention tests in backend/tests/contract/risk.contract.test.ts
 
 ### Risk Assessment Management - Implementation
 
-- [ ] T078 [US1] Implement RiskService (create, findByPosition, update) in backend/src/services/risk-service.ts
-- [ ] T079 [US1] Implement risk assessment API routes (POST, GET, PATCH /api/risks/:id) in backend/src/api/routes/risks.ts
+- [x] T078 [US1] Implement RiskService (create, findByPosition, update) in backend/src/services/risk-service.ts
+- [x] T079 [US1] Implement risk assessment API routes (POST, GET, PATCH /api/risks/:id) in backend/src/api/routes/risks.ts
 
 ### Document Generation - Template Creation (PREREQUISITE)
 
-- [ ] T084 [US1] Create DOCX template with FR-034-042 sections in backend/templates/Akt_Procena_Rizika_Template.docx
+- [x] T084 [US1] Create DOCX template with FR-034-042 sections in backend/templates/Akt_Procena_Rizika_Template.docx
   - **Acceptance Criteria**:
     - ✅ Cover page with company name placeholder {{company_name}}
     - ✅ Section 1: Uvod with legal basis text
@@ -205,65 +205,65 @@ This task breakdown organizes implementation by user story priority to enable in
 
 ### Document Generation - Tests First (DEPENDS ON T084)
 
-- [ ] T080 [P] [US1] Write template data compilation tests in backend/tests/unit/services/document-generator.test.ts
+- [x] T080 [P] [US1] Write template data compilation tests in backend/tests/unit/services/document-generator.test.ts
   - **Prerequisites**: T084 (template must exist)
-- [ ] T081 [P] [US1] Write document timeout tests (< 8s per FR-052b) in backend/tests/unit/services/document-generator.test.ts
+- [x] T081 [P] [US1] Write document timeout tests (< 8s per FR-052b) in backend/tests/unit/services/document-generator.test.ts
   - **Prerequisites**: T084
-- [ ] T082 [P] [US1] Write generation endpoint tests (POST /api/documents/generate) in backend/tests/integration/api/documents.test.ts
+- [x] T082 [P] [US1] Write generation endpoint tests (POST /api/documents/generate) in backend/tests/integration/api/documents.test.ts
   - **Prerequisites**: T084
-- [ ] T083 [P] [US1] Write download tests (GET /api/documents/:id/download) in backend/tests/integration/api/documents.test.ts
+- [x] T083 [P] [US1] Write download tests (GET /api/documents/:id/download) in backend/tests/integration/api/documents.test.ts
   - **Prerequisites**: T084
 
 ### Document Generation - Implementation
 
-- [ ] T085 [US1] Implement Wasabi S3 client (upload, generatePresignedUrl) in backend/src/services/storage.ts
-- [ ] T086 [US1] Implement document generator (docx-templates integration) in backend/src/services/document-generator.ts
+- [x] T085 [US1] Implement Wasabi S3 client (upload, generatePresignedUrl) in backend/src/services/storage.ts
+- [x] T086 [US1] Implement document generator (docx-templates integration) in backend/src/services/document-generator.ts
   - **Prerequisites**: T084 (uses template file)
-- [ ] T087 [US1] Implement document API routes (POST /api/documents/generate, GET download) in backend/src/api/routes/documents.ts
+- [x] T087 [US1] Implement document API routes (POST /api/documents/generate, GET download) in backend/src/api/routes/documents.ts
 
 ### Frontend - Company & Position Forms
 
-- [ ] T088 [P] [US1] Create Serbian Cyrillic i18n translations in frontend/src/i18n/sr-Cyrl-RS.ts
-- [ ] T089 [P] [US1] Create i18n utility function (t()) in frontend/src/i18n/index.ts
-- [ ] T090 [P] [US1] Setup shadcn/ui components (button, form, input, select, table) in frontend/src/components/ui/
-- [ ] T091 [US1] Create Zustand auth store (user, accessToken, login, logout) in frontend/src/stores/auth.ts
-- [ ] T092 [US1] Create TanStack Query hooks for companies (useCompanies, useCreateCompany) in frontend/src/services/api/companies.ts
-- [ ] T093 [US1] Create CompanyForm component with PIB validation in frontend/src/components/company/CompanyForm.tsx
-- [ ] T094 [US1] Create TanStack Query hooks for positions (usePositions, useCreatePosition) in frontend/src/services/api/positions.ts
-- [ ] T095 [US1] Create PositionForm component in frontend/src/components/positions/PositionForm.tsx
+- [x] T088 [P] [US1] Create Serbian Cyrillic i18n translations in frontend/src/i18n/sr-Cyrl-RS.ts
+- [x] T089 [P] [US1] Create i18n utility function (t()) in frontend/src/i18n/index.ts
+- [x] T090 [P] [US1] Setup shadcn/ui components (button, form, input, select, table) in frontend/src/components/ui/
+- [x] T091 [US1] Create Zustand auth store (user, accessToken, login, logout) in frontend/src/stores/auth.ts
+- [x] T092 [US1] Create TanStack Query hooks for companies (useCompanies, useCreateCompany) in frontend/src/services/api/companies.ts
+- [x] T093 [US1] Create CompanyForm component with PIB validation in frontend/src/components/forms/CompanyForm.tsx
+- [x] T094 [US1] Create TanStack Query hooks for positions (usePositions, useCreatePosition) in frontend/src/services/api/positions.ts
+- [x] T095 [US1] Create PositionForm component in frontend/src/components/forms/PositionWizard.tsx
 
 ### Frontend - Risk Assessment Wizard
 
-- [ ] T096 [P] [US1] Create TanStack Query hooks for risks (useRisks, useCreateRisk, useHazardTypes) in frontend/src/services/api/risks.ts
-- [ ] T097 [P] [US1] Create HazardSelector component in frontend/src/components/risk-assessment/HazardSelector.tsx
-- [ ] T098 [US1] Create RiskInputs (E/P/F with real-time Ri calculation) in frontend/src/components/risk-assessment/RiskInputs.tsx
-- [ ] T099 [US1] Create CorrectiveMeasures textarea (20-char minimum) in frontend/src/components/risk-assessment/CorrectiveMeasures.tsx
-- [ ] T100 [US1] Create ResidualRiskInputs (R < Ri validation, R > 70 warning) in frontend/src/components/risk-assessment/ResidualRiskInputs.tsx
-- [ ] T101 [US1] Create RiskTable with color-coded badges (green ≤36, yellow 36-70, red >70) in frontend/src/components/risk-assessment/RiskTable.tsx
+- [x] T096 [P] [US1] Create TanStack Query hooks for risks (useRisks, useCreateRisk, useHazardTypes) in frontend/src/services/api/risks.ts
+- [x] T097 [P] [US1] Create HazardSelector component in frontend/src/components/risk-assessment/HazardSelector.tsx
+- [x] T098 [US1] Create RiskInputs (E/P/F with real-time Ri calculation) in frontend/src/components/risk-assessment/RiskInputs.tsx
+- [x] T099 [US1] Create CorrectiveMeasures textarea (20-char minimum) in frontend/src/components/risk-assessment/CorrectiveMeasures.tsx
+- [x] T100 [US1] Create ResidualRiskInputs (R < Ri validation, R > 70 warning) in frontend/src/components/risk-assessment/ResidualRiskInputs.tsx
+- [x] T101 [US1] Create RiskTable with color-coded badges (green ≤36, yellow 36-70, red >70) in frontend/src/components/risk-assessment/RiskTable.tsx
 
 ### Frontend - Document Generation
 
-- [ ] T102 [P] [US1] Create TanStack Query hooks for documents (useGenerateDocument, useDocumentDownload) in frontend/src/services/api/documents.ts
-- [ ] T103 [US1] Create GenerateDocument button with progress indicator in frontend/src/components/documents/GenerateDocument.tsx
-- [ ] T104 [US1] Create DocumentList component in frontend/src/components/documents/DocumentList.tsx
-- [ ] T105 [US1] Create DocumentPreview modal in frontend/src/components/documents/DocumentPreview.tsx
+- [x] T102 [P] [US1] Create TanStack Query hooks for documents (useGenerateDocument, useDocumentDownload) in frontend/src/services/api/documents.ts
+- [x] T103 [US1] Create GenerateDocument button with progress indicator in frontend/src/components/documents/GenerateDocument.tsx
+- [x] T104 [US1] Create DocumentList component in frontend/src/components/documents/DocumentList.tsx
+- [x] T105 [US1] Create DocumentPreview modal in frontend/src/components/documents/DocumentPreview.tsx
 
 ### Frontend - Pages & Routing
 
-- [ ] T106 [P] [US1] Create LoginPage in frontend/src/pages/LoginPage.tsx
-- [ ] T107 [P] [US1] Create RegisterPage in frontend/src/pages/RegisterPage.tsx
-- [ ] T108 [P] [US1] Create VerifyEmailPage in frontend/src/pages/VerifyEmailPage.tsx
-- [ ] T109 [P] [US1] Create ForgotPasswordPage in frontend/src/pages/ForgotPasswordPage.tsx
-- [ ] T110 [P] [US1] Create ResetPasswordPage in frontend/src/pages/ResetPasswordPage.tsx
-- [ ] T111 [US1] Create DashboardPage with trial banner in frontend/src/pages/DashboardPage.tsx
-- [ ] T112 [US1] Create CompanyProfilePage in frontend/src/pages/CompanyProfilePage.tsx
-- [ ] T113 [US1] Create PositionWizardPage (multi-step) in frontend/src/pages/PositionWizardPage.tsx
-- [ ] T114 [US1] Create DocumentsPage in frontend/src/pages/DocumentsPage.tsx
-- [ ] T115 [US1] Setup React Router with protected routes in frontend/src/main.tsx
+- [x] T106 [P] [US1] Create LoginPage in frontend/src/pages/LoginPage.tsx
+- [x] T107 [P] [US1] Create RegisterPage in frontend/src/pages/RegisterPage.tsx
+- [x] T108 [P] [US1] Create VerifyEmailPage in frontend/src/pages/VerifyEmailPage.tsx
+- [x] T109 [P] [US1] Create ForgotPasswordPage in frontend/src/pages/ForgotPasswordPage.tsx
+- [x] T110 [P] [US1] Create ResetPasswordPage in frontend/src/pages/ResetPasswordPage.tsx
+- [x] T111 [US1] Create DashboardPage with trial banner in frontend/src/pages/DashboardPage.tsx
+- [x] T112 [US1] Create CompanyProfilePage in frontend/src/pages/CompanyProfilePage.tsx
+- [x] T113 [US1] Create PositionWizardPage (multi-step) in frontend/src/pages/PositionWizardPage.tsx
+- [x] T114 [US1] Create DocumentsPage in frontend/src/pages/DocumentsPage.tsx
+- [x] T115 [US1] Setup React Router with protected routes in frontend/src/main.tsx
 
 ### E2E Testing (User Story 1 Acceptance)
 
-- [ ] T116 [US1] Write complete US1 E2E test: register → verify → company → position → risks → generate → download in frontend/tests/e2e/user-story-1.spec.ts
+- [x] T116 [US1] Write complete US1 E2E test: register → verify → company → position → risks → generate → download in frontend/tests/e2e/user-story-1.spec.ts
 
 **Phase 3 Validation**: E2E test T116 passes, DOCX opens in Word with all FR-034-042 sections
 
@@ -279,9 +279,9 @@ This task breakdown organizes implementation by user story priority to enable in
 
 ### Database Schema
 
-- [ ] T117 Create ppe schema (id, position_id, ppe_type, en_standard, quantity) in backend/src/db/schema/ppe.ts
-- [ ] T118 Create training schema (id, position_id, training_type, frequency_months, duration_hours) in backend/src/db/schema/training.ts
-- [ ] T119 Create medical_exams schema (id, position_id, exam_type, frequency_months) in backend/src/db/schema/medical-exams.ts
+- [x] T117 Create ppe schema (id, position_id, ppe_type, en_standard, quantity) in backend/src/db/schema/ppe.ts
+- [x] T118 Create training schema (id, position_id, training_type, frequency_months, duration_hours) in backend/src/db/schema/training.ts
+- [x] T119 Create medical_exams schema (id, position_id, exam_type, frequency_months) in backend/src/db/schema/medical-exams.ts
 - [ ] T120 Generate US2 migration in backend/src/db/migrations/
 - [ ] T121 Apply RLS policies for US2 in backend/src/db/migrations/
 

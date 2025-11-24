@@ -129,7 +129,7 @@ export class RiskAssessmentService {
    * @returns Created risk assessment with calculated Ri and R
    * @throws Error if validation fails
    */
-  static async create(input: CreateRiskAssessmentInput, userId: string): Promise<any> {
+  static async create(input: CreateRiskAssessmentInput, userId: number): Promise<any> {
     // Validate risk assessment
     this.validateRiskAssessment(input);
 
@@ -164,7 +164,7 @@ export class RiskAssessmentService {
         })
         .returning();
 
-      logBusinessEvent('risk_assessment_created', parseInt(userId), input.positionId, {
+      logBusinessEvent('risk_assessment_created', userId, input.positionId, {
         assessmentId: assessment.id,
         hazardId: input.hazardId,
         initialRi,
@@ -221,7 +221,7 @@ export class RiskAssessmentService {
    * @returns Updated assessment
    * @throws Error if validation fails or assessment not found
    */
-  static async update(input: UpdateRiskAssessmentInput, userId: string): Promise<any> {
+  static async update(input: UpdateRiskAssessmentInput, userId: number): Promise<any> {
     const { id, ...updateData } = input;
 
     // Verify assessment exists
@@ -286,7 +286,7 @@ export class RiskAssessmentService {
         .where(eq(riskAssessments.id, id))
         .returning();
 
-      logBusinessEvent('risk_assessment_updated', parseInt(userId), updated.positionId, {
+      logBusinessEvent('risk_assessment_updated', userId, updated.positionId, {
         assessmentId: id,
         residualR: r,
         riskLevel: getRiskLevel(r),
@@ -309,7 +309,7 @@ export class RiskAssessmentService {
    * @param userId - User ID (for audit logging)
    * @throws Error if assessment not found
    */
-  static async delete(id: number, userId: string): Promise<void> {
+  static async delete(id: number, userId: number): Promise<void> {
     // Verify assessment exists
     const existing = await this.getById(id);
     if (!existing) {
@@ -319,7 +319,7 @@ export class RiskAssessmentService {
     try {
       await db.delete(riskAssessments).where(eq(riskAssessments.id, id));
 
-      logBusinessEvent('risk_assessment_deleted', parseInt(userId), existing.positionId, {
+      logBusinessEvent('risk_assessment_deleted', userId, existing.positionId, {
         assessmentId: id,
         hazardId: existing.hazardId,
       });

@@ -10,7 +10,7 @@ import { accountTierEnum } from './users';
  */
 export const companies = pgTable('companies', {
   id: serial('id').primaryKey(),
-  userId: varchar('user_id', { length: 255 }).notNull(), // For row-level security
+  userId: integer('user_id').notNull(), // Foreign key to users.id (for row-level security)
 
   // Company identification (FR-001)
   name: varchar('name', { length: 255 }).notNull(),

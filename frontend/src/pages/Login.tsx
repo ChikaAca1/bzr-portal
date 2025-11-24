@@ -8,7 +8,7 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { trpc } from '../services/api';
-import { useAuthStore } from '../store/auth';
+import { useAuthStore } from '../stores/authStore';
 import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
 import { Label } from '../components/ui/label';
@@ -25,7 +25,7 @@ export function Login() {
   // tRPC mutation for login
   const loginMutation = trpc.auth.login.useMutation({
     onSuccess: (data) => {
-      // Update Zustand store
+      // Update Zustand store with default values for trial fields
       login(data.accessToken, data.refreshToken, {
         userId: data.user.userId,
         email: data.user.email,
@@ -33,6 +33,10 @@ export function Login() {
         companyId: data.user.companyId,
         firstName: data.user.firstName,
         lastName: data.user.lastName,
+        // Add default trial values (TODO: backend should return these)
+        accountTier: 'trial',
+        emailVerified: false,
+        trialExpiryDate: null,
       });
 
       // Redirect to dashboard

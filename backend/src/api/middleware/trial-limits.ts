@@ -58,7 +58,7 @@ export async function enforceCompanyLimit(c: Context, next: Function) {
   const result = await db
     .select({ count: count() })
     .from(companies)
-    .where(eq(companies.userId, user.userId.toString()));
+    .where(eq(companies.userId, user.userId));
 
   const currentCount = result[0]?.count || 0;
 
@@ -89,7 +89,7 @@ export async function enforceWorkPositionLimit(c: Context, next: Function) {
   const userCompanies = await db
     .select({ id: companies.id })
     .from(companies)
-    .where(eq(companies.userId, user.userId.toString()));
+    .where(eq(companies.userId, user.userId));
 
   const companyIds = userCompanies.map((c) => c.id);
 
@@ -166,7 +166,7 @@ export async function getTrialStatus(userId: number) {
   const companyResult = await db
     .select({ count: count() })
     .from(companies)
-    .where(eq(companies.userId, userId.toString()));
+    .where(eq(companies.userId, userId));
 
   const companyCount = companyResult[0]?.count || 0;
 
@@ -174,7 +174,7 @@ export async function getTrialStatus(userId: number) {
   const userCompanies = await db
     .select({ id: companies.id })
     .from(companies)
-    .where(eq(companies.userId, userId.toString()));
+    .where(eq(companies.userId, userId));
 
   const companyIds = userCompanies.map((c) => c.id);
 

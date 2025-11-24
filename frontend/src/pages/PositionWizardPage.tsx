@@ -10,6 +10,10 @@ import { DashboardLayout } from '../components/layout/DashboardLayout';
 import { PositionBasicInfoForm } from '../components/positions/PositionBasicInfoForm';
 import { PositionWorkersForm } from '../components/positions/PositionWorkersForm';
 import { RiskAssessmentWizard } from '../components/risk-assessment/RiskAssessmentWizard';
+import { trpc } from '../services/api';
+import { useAuthStore } from '../stores/authStore';
+import { Alert, AlertDescription } from '../components/ui/alert';
+import { AlertCircle } from 'lucide-react';
 
 /**
  * PositionWizardPage Component (T113)
@@ -87,6 +91,16 @@ export function PositionWizardPage() {
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState<WizardStep>('basic-info');
   const [positionDraft, setPositionDraft] = useState<PositionDraft>({});
+  const [error, setError] = useState('');
+  const [createdPositionId, setCreatedPositionId] = useState<number | null>(null);
+
+  // Get user's companies to determine company ID
+  const { data: companies } = trpc.companies.list.useQuery();
+  const companyId = companies?.[0]?.id || null;
+
+  // tRPC mutations
+  const createWorkersMutation = trpc.workers.createMany.useMutation();
+  const createPositionMutation = trpc.positions.create.useMutation();
 
   const currentStepIndex = STEPS.findIndex((step) => step.id === currentStep);
   const progress = ((currentStepIndex + 1) / STEPS.length) * 100;
@@ -119,19 +133,41 @@ export function PositionWizardPage() {
     handleNext();
   };
 
-  const handleWorkersComplete = (data: {
+  const handleWorkersComplete = async (data: {
     workers: Array<{
       fullName: string;
       jmbg: string;
       gender: 'M' | 'F';
       dateOfBirth: string;
+      education: string;
+      coefficient: string;
+      yearsOfExperience: string;
     }>;
   }) => {
-    setPositionDraft((prev) => ({
-      ...prev,
-      ...data,
-    }));
-    handleNext();
+    if (!companyId) {
+      setError('Морате прво креирати предузеће.');
+      return;
+    }
+
+    try {
+      setError('');
+
+      // Save workers to database immediately
+      await createWorkersMutation.mutateAsync({
+        companyId,
+        positionId: createdPositionId, // Will be null for now, we'll assign later if needed
+        workers: data.workers,
+      });
+
+      setPositionDraft((prev) => ({
+        ...prev,
+        ...data,
+      }));
+
+      handleNext();
+    } catch (err) {
+      setError('Грешка при чувању радника: ' + (err instanceof Error ? err.message : 'Непозната грешка'));
+    }
   };
 
   const handleRiskAssessmentComplete = (data: {
@@ -180,6 +216,14 @@ export function PositionWizardPage() {
             Сачувај драфт
           </Button>
         </div>
+
+        {/* Error Display */}
+        {error && (
+          <Alert variant="destructive">
+            <AlertCircle className="h-4 w-4" />
+            <AlertDescription>{error}</AlertDescription>
+          </Alert>
+        )}
 
         {/* Progress Bar */}
         <div className="space-y-2">

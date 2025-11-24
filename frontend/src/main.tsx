@@ -48,9 +48,10 @@ const ResetPasswordPage = lazy(() => import('./pages/ResetPasswordPage').then(m 
 
 // Lazy-loaded Dashboard pages (T112-T114)
 const CompanyProfilePage = lazy(() => import('./pages/CompanyProfilePage').then(m => ({ default: m.CompanyProfilePage })));
-// TODO: Temporarily disabled until wizard components are created
-// const PositionWizardPage = lazy(() => import('./pages/PositionWizardPage').then(m => ({ default: m.PositionWizardPage })));
-// const DocumentsPage = lazy(() => import('./pages/DocumentsPage').then(m => ({ default: m.DocumentsPage })));
+const CreateCompanyPage = lazy(() => import('./pages/CreateCompanyPage').then(m => ({ default: m.CreateCompanyPage })));
+const PositionWizardPage = lazy(() => import('./pages/PositionWizardPage').then(m => ({ default: m.PositionWizardPage })));
+const PositionsListPage = lazy(() => import('./pages/PositionsListPage').then(m => ({ default: m.PositionsListPage })));
+const DocumentsPage = lazy(() => import('./pages/DocumentsPage').then(m => ({ default: m.DocumentsPage })));
 
 // Loading fallback for lazy routes
 function LoadingFallback() {
@@ -72,7 +73,6 @@ function ProtectedRoute({ children }: { children: React.ReactNode }) {
 
 // Placeholder components (legacy - most now have dedicated pages)
 const Companies = () => <div>Companies (Coming soon)</div>;
-const Positions = () => <div>Positions List (Coming soon)</div>;
 const RiskAssessment = () => <div>Risk Assessment (Coming soon)</div>;
 
 function App() {
@@ -118,6 +118,14 @@ function App() {
               path="/app/company"
               element={
                 <ProtectedRoute>
+                  <CreateCompanyPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/app/company/:id"
+              element={
+                <ProtectedRoute>
                   <CompanyProfilePage />
                 </ProtectedRoute>
               }
@@ -134,12 +142,11 @@ function App() {
               path="/app/positions"
               element={
                 <ProtectedRoute>
-                  <Positions />
+                  <PositionsListPage />
                 </ProtectedRoute>
               }
             />
-            {/* TODO: Re-enable when wizard components are created */}
-            {/* <Route
+            <Route
               path="/app/positions/new"
               element={
                 <ProtectedRoute>
@@ -154,7 +161,7 @@ function App() {
                   <DocumentsPage />
                 </ProtectedRoute>
               }
-            /> */}
+            />
             <Route
               path="/app/risks"
               element={

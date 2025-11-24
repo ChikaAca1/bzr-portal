@@ -74,15 +74,19 @@ export async function sendEmail(options: SendEmailOptions): Promise<string> {
 }
 
 /**
- * Send email verification email (Serbian Cyrillic)
+ * Send email verification email (Serbian Cyrillic) - T023
  *
  * @param to User email address
- * @param verificationToken Verification token
- * @param userName User's first name
+ * @param data Verification data (firstName, verificationUrl, expiryHours)
  */
-export async function sendVerificationEmail(to: string, verificationToken: string, userName: string): Promise<string> {
-  const verificationUrl = `${process.env.FRONTEND_URL || 'http://localhost:5173'}/verify-email?token=${verificationToken}`;
-
+export async function sendVerificationEmail(
+  to: string,
+  data: {
+    firstName: string;
+    verificationUrl: string;
+    expiryHours: number;
+  }
+): Promise<string> {
   const subject = 'Потврдите вашу имејл адресу - BZR Portal';
 
   const html = `
@@ -94,12 +98,12 @@ export async function sendVerificationEmail(to: string, verificationToken: strin
       <title>Потврда имејл адресе</title>
     </head>
     <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
-      <h1 style="color: #107C10;">Добродошли у BZR Portal, ${userName}!</h1>
+      <h1 style="color: #107C10;">Добродошли у BZR Portal, ${data.firstName}!</h1>
 
       <p>Хвала вам што сте се регистровали. Потврдите вашу имејл адресу кликом на дугме испод:</p>
 
       <div style="text-align: center; margin: 30px 0;">
-        <a href="${verificationUrl}"
+        <a href="${data.verificationUrl}"
            style="background-color: #107C10; color: white; padding: 12px 30px; text-decoration: none; border-radius: 5px; display: inline-block;">
           Потврди имејл адресу
         </a>
@@ -107,13 +111,76 @@ export async function sendVerificationEmail(to: string, verificationToken: strin
 
       <p style="color: #666; font-size: 14px;">
         Или копирајте ову адресу у ваш претраживач:<br>
-        <a href="${verificationUrl}" style="color: #107C10;">${verificationUrl}</a>
+        <a href="${data.verificationUrl}" style="color: #107C10;">${data.verificationUrl}</a>
+      </p>
+
+      <p style="color: #CA5010; font-size: 14px;">
+        ⚠️ Линк важи ${data.expiryHours} сати.
       </p>
 
       <hr style="border: none; border-top: 1px solid #eee; margin: 30px 0;">
 
       <p style="color: #999; font-size: 12px;">
         Ако нисте креирали налог на BZR Portal, молимо вас игноришите овај имејл.
+      </p>
+    </body>
+    </html>
+  `;
+
+  return sendEmail({ to, subject, html });
+}
+
+/**
+ * Send password reset email (Serbian Cyrillic) - T026
+ *
+ * @param to User email address
+ * @param data Reset data (firstName, resetUrl, expiryMinutes)
+ */
+export async function sendPasswordResetEmail(
+  to: string,
+  data: {
+    firstName: string;
+    resetUrl: string;
+    expiryMinutes: number;
+  }
+): Promise<string> {
+  const subject = 'Ресетовање лозинке - BZR Portal';
+
+  const html = `
+    <!DOCTYPE html>
+    <html lang="sr-Cyrl">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Ресетовање лозинке</title>
+    </head>
+    <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
+      <h1 style="color: #107C10;">Ресетовање лозинке</h1>
+
+      <p>Здраво ${data.firstName},</p>
+
+      <p>Затражили сте ресетовање лозинке за ваш BZR Portal налог. Кликните на дугме испод да креирате нову лозинку:</p>
+
+      <div style="text-align: center; margin: 30px 0;">
+        <a href="${data.resetUrl}"
+           style="background-color: #107C10; color: white; padding: 12px 30px; text-decoration: none; border-radius: 5px; display: inline-block;">
+          Ресетуј лозинку
+        </a>
+      </div>
+
+      <p style="color: #666; font-size: 14px;">
+        Или копирајте ову адресу у ваш претраживач:<br>
+        <a href="${data.resetUrl}" style="color: #107C10;">${data.resetUrl}</a>
+      </p>
+
+      <p style="color: #D13438; font-size: 14px;">
+        ⚠️ Линк важи ${data.expiryMinutes} минута из безбедносних разлога.
+      </p>
+
+      <hr style="border: none; border-top: 1px solid #eee; margin: 30px 0;">
+
+      <p style="color: #999; font-size: 12px;">
+        Ако нисте затражили ресетовање лозинке, молимо вас игноришите овај имејл. Ваша лозинка неће бити промењена.
       </p>
     </body>
     </html>
@@ -284,6 +351,7 @@ ${data.message}
 export const emailService = {
   sendEmail,
   sendVerificationEmail,
+  sendPasswordResetEmail,
   sendTrialExpiryEmail,
   sendDocumentReadyEmail,
   sendContactFormEmail,

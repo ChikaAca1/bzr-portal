@@ -85,7 +85,7 @@ export class DocumentGeneratorService {
    * @param userId - User ID (for authorization)
    * @returns Document data ready for template rendering
    */
-  async generateDocumentData(companyId: number, userId: string): Promise<DocumentData> {
+  async generateDocumentData(companyId: number, userId: number): Promise<DocumentData> {
     // Get company
     const [company] = await this.db
       .select()

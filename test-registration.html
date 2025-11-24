@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head><title>Test Registration</title></head>
+<body>
+  <button onclick="testReg()">Test Registration</button>
+  <pre id="result"></pre>
+  <script>
+    async function testReg() {
+      const result = document.getElementById('result');
+      result.textContent = 'Sending...';
+      
+      try {
+        const response = await fetch('https://bzr-portal-backend.onrender.com/trpc/auth.register', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email: 'test@example.com',
+            password: 'test12345',
+            firstName: 'Test',
+            lastName: 'User'
+          })
+        });
+        
+        const data = await response.text();
+        result.textContent = `Status: ${response.status}\n\n${data}`;
+      } catch (error) {
+        result.textContent = `Error: ${error.message}`;
+      }
+    }
+  </script>
+</body>
+</html>

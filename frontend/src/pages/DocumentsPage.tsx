@@ -15,6 +15,8 @@ import {
 import { Alert, AlertDescription } from '../components/ui/alert';
 import { DashboardLayout } from '../components/layout/DashboardLayout';
 import { DocumentList } from '../components/documents/DocumentList';
+import { UploadDocuments } from '../components/documents/UploadDocuments';
+import { UploadedDocumentsList } from '../components/documents/UploadedDocumentsList';
 import { trpc } from '../lib/trpc';
 
 /**
@@ -46,15 +48,24 @@ export function DocumentsPage() {
   const [filterStatus, setFilterStatus] = useState<DocumentFilter>('all');
   const [sortBy, setSortBy] = useState<DocumentSort>('newest');
 
-  // Fetch documents
-  const { data: documents, isLoading, error } = trpc.documents.listDocuments.useQuery({
-    search: searchQuery || undefined,
-    status: filterStatus === 'all' ? undefined : filterStatus,
-    sortBy,
-  });
+  // Fetch uploaded documents (user uploads for AI extraction)
+  const { data: uploadedDocs, isLoading: isLoadingUploaded, refetch: refetchUploaded } = trpc.documents.listUploaded.useQuery();
 
-  // Fetch subscription status
-  const { data: subscription } = trpc.company.getSubscriptionStatus.useQuery();
+  // Fetch generated documents (if this endpoint exists - seems to be referenced but not in documentsRouter)
+  // const { data: documents, isLoading, error } = trpc.documents.listDocuments.useQuery({
+  //   search: searchQuery || undefined,
+  //   status: filterStatus === 'all' ? undefined : filterStatus,
+  //   sortBy,
+  // });
+
+  // For now, use uploaded documents as the main document list
+  const documents = uploadedDocs || [];
+  const isLoading = isLoadingUploaded;
+  const error = null;
+
+  // Fetch subscription status (if this endpoint exists)
+  // const { data: subscription } = trpc.company.getSubscriptionStatus.useQuery();
+  const subscription = { subscriptionTier: 'professional' }; // Mock for now
 
   const handleSearch = (value: string) => {
     setSearchQuery(value);
@@ -114,6 +125,18 @@ export function DocumentsPage() {
         )}
 
         <Separator />
+
+        {/* Upload Documents Section */}
+        <UploadDocuments
+          onUploadComplete={(fileId, extractedData) => {
+            console.log('Upload complete:', fileId, extractedData);
+            // Refresh the uploaded documents list
+            refetchUploaded();
+          }}
+        />
+
+        {/* Uploaded Documents List */}
+        <UploadedDocumentsList />
 
         {/* Filters and Search */}
         <Card>

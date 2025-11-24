@@ -12,7 +12,7 @@ import type { AccessTokenPayload } from '../../lib/utils/jwt';
 
 export interface Context {
   db: typeof db;
-  userId: string | null;
+  userId: number | null;
   user: AccessTokenPayload | null;
   req: Request;
 }
@@ -33,7 +33,7 @@ export async function createContext(opts: FetchCreateContextFnOptions): Promise<
 
   // Extract JWT from Authorization header
   const authHeader = req.headers.get('Authorization');
-  let userId: string | null = null;
+  let userId: number | null = null;
   let user: AccessTokenPayload | null = null;
 
   if (authHeader && authHeader.startsWith('Bearer ')) {
@@ -43,7 +43,7 @@ export async function createContext(opts: FetchCreateContextFnOptions): Promise<
       // Import JWT utilities
       const { verifyAccessToken } = await import('../../lib/utils/jwt');
       const payload = verifyAccessToken(token);
-      userId = payload.userId.toString();
+      userId = payload.userId;
       user = payload;
 
       // Set PostgreSQL RLS session variable for multi-tenant isolation (FR-053c)

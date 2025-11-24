@@ -14,7 +14,7 @@ type DB = typeof db;
  */
 
 export class CompanyService {
-  constructor(private db: DB, private userId: string) {}
+  constructor(private db: DB, private userId: number) {}
 
   /**
    * Create new company

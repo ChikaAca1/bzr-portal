@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '../components/ui/card';
 import { Button } from '../components/ui/button';
 import { trpc } from '../services/api';
-import { useAuthStore } from '../store/auth';
+import { useAuthStore } from '../stores/authStore';
 
 export function Dashboard() {
   const user = useAuthStore((state) => state.user);
@@ -117,16 +117,16 @@ export function Dashboard() {
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="flex flex-wrap gap-4">
-            <Link to="/companies">
+            <Link to="/app/company">
               <Button>Додај предузеће</Button>
             </Link>
-            <Link to="/positions">
+            <Link to="/app/positions">
               <Button variant="outline">Управљај радним местима</Button>
             </Link>
-            <Link to="/risks">
+            <Link to="/app/risks">
               <Button variant="outline">Процени ризике</Button>
             </Link>
-            <Link to="/documents">
+            <Link to="/app/documents">
               <Button variant="secondary">Генериши документ</Button>
             </Link>
           </div>
@@ -155,7 +155,7 @@ export function Dashboard() {
                       PIB: {company.pib} | {company.activityCode}
                     </p>
                   </div>
-                  <Link to={`/companies/${company.id}`}>
+                  <Link to={`/app/company/${company.id}`}>
                     <Button variant="ghost" size="sm">
                       Детаљи →
                     </Button>
@@ -181,7 +181,7 @@ export function Dashboard() {
               <p className="text-muted-foreground mb-4">
                 Још увек немате регистрована предузећа.
               </p>
-              <Link to="/companies">
+              <Link to="/app/company">
                 <Button>Додај прво предузеће</Button>
               </Link>
             </div>

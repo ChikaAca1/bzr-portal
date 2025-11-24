@@ -13,6 +13,7 @@
 import { Context } from 'hono';
 import { verifyAccessToken, extractBearerToken, type AccessTokenPayload } from '../../lib/utils/jwt';
 import { db } from '../../db';
+import { sql } from 'drizzle-orm';
 
 // =============================================================================
 // Extended Context Type (with user data)
@@ -61,10 +62,10 @@ export async function authMiddleware(c: Context, next: Function) {
     // Set PostgreSQL session variables for RLS policies (T017)
     // These variables are used in backend/drizzle/0001_rls_policies.sql
     try {
-      await db.execute(`SET LOCAL app.current_user_id = '${payload.userId}'`);
+      await db.execute(sql`SET LOCAL app.current_user_id = ${payload.userId.toString()}`);
 
       if (payload.companyId) {
-        await db.execute(`SET LOCAL app.current_company_id = '${payload.companyId}'`);
+        await db.execute(sql`SET LOCAL app.current_company_id = ${payload.companyId.toString()}`);
       }
     } catch (dbError) {
       console.error('Failed to set RLS session variables:', dbError);

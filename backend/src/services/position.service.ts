@@ -14,7 +14,7 @@ import { throwNotFoundError, throwForbiddenError } from '../api/middleware/error
  */
 
 export class PositionService {
-  constructor(private db: DB, private userId: string) {}
+  constructor(private db: DB, private userId: number) {}
 
   /**
    * Create new work position

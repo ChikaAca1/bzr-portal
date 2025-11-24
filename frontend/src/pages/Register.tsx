@@ -14,7 +14,7 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { trpc } from '../services/api';
-import { useAuthStore } from '../store/auth';
+import { useAuthStore } from '../stores/authStore';
 import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
 import { Label } from '../components/ui/label';
@@ -36,7 +36,7 @@ export function Register() {
   // tRPC mutation for registration
   const registerMutation = trpc.auth.register.useMutation({
     onSuccess: (data) => {
-      // Auto-login after registration
+      // Auto-login after registration with default trial values
       login(data.accessToken, data.refreshToken, {
         userId: data.user.userId,
         email: data.user.email,
@@ -44,6 +44,10 @@ export function Register() {
         companyId: data.user.companyId,
         firstName: data.user.firstName,
         lastName: data.user.lastName,
+        // Add default trial values (TODO: backend should return these)
+        accountTier: 'trial',
+        emailVerified: false,
+        trialExpiryDate: null,
       });
 
       // Redirect to dashboard

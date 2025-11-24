@@ -135,6 +135,22 @@ app.post('/api/contact', contactLimiter, async (c) => {
   }
 });
 
+// Auth routes (T023-T027)
+import('./routes/auth').then((module) => {
+  app.route('/api/auth', module.default);
+  console.log('✅ Auth routes enabled');
+}).catch((error) => {
+  console.error('⚠️  Auth routes failed to load:', error);
+});
+
+// Document upload routes
+import('./routes/document-upload').then((module) => {
+  app.route('/api/documents', module.default);
+  console.log('✅ Document upload routes enabled');
+}).catch((error) => {
+  console.error('⚠️  Document upload routes failed to load:', error);
+});
+
 // AI Chat routes (only if AI providers are configured)
 // This prevents backend startup failure if AI API keys are not set
 const hasAIProviders =

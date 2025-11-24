@@ -1,0 +1,8 @@
+{
+  "chunk1": "from agent 1 - positions 1-18",
+  "chunk3": "from agent 2 - positions 26-45",
+  "chunk6": "from agent 3 - positions 61-65",
+  "chunk7": "from agent 4 - positions 79-93",
+  "chunk8": "from agent 5 - positions 116-136",
+  "note": "Paste JSON arrays from each agent output above, then run merge script"
+}

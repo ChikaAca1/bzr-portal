@@ -122,7 +122,11 @@ export function logQuery(query: string, duration: number, meta?: Record<string, 
 /**
  * Log authentication event
  */
-export function logAuth(event: 'login' | 'logout' | 'token_refresh' | 'auth_failure', userId?: number, meta?: Record<string, unknown>) {
+export function logAuth(
+  event: 'login' | 'logout' | 'token_refresh' | 'token_refreshed' | 'auth_failure' | 'email_verified' | 'password_reset_requested' | 'password_reset_success',
+  userId?: number,
+  meta?: Record<string, unknown>
+) {
   logger.info(
     {
       type: 'auth',

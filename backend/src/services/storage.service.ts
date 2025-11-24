@@ -187,8 +187,68 @@ export async function getCompanyStorageUsage(companyId: number): Promise<number>
   throw new Error('getCompanyStorageUsage not yet implemented - track file_size_bytes in database');
 }
 
+/**
+ * Upload user document for AI extraction (different from generated documents)
+ *
+ * @param options Upload configuration with originalFilename
+ * @returns S3 object key and storage URL
+ *
+ * @example
+ * ```ts
+ * const result = await storageService.uploadUserDocument({
+ *   companyId: 123,
+ *   userId: 5,
+ *   fileBuffer: pdfBuffer,
+ *   originalFilename: 'Akt_o_proceni_rizika_2024.pdf',
+ *   contentType: 'application/pdf',
+ * });
+ * ```
+ */
+export async function uploadUserDocument(options: {
+  companyId: number;
+  userId: number;
+  fileBuffer: Buffer;
+  originalFilename: string;
+  contentType: string;
+}): Promise<{ storageKey: string; storageUrl: string }> {
+  const { companyId, userId, fileBuffer, originalFilename, contentType } = options;
+
+  // Generate unique filename with timestamp
+  const timestamp = Date.now();
+  const ext = originalFilename.split('.').pop();
+  const filename = `upload_${timestamp}_${Math.random().toString(36).substring(7)}.${ext}`;
+
+  // Multi-tenant folder structure: uploads/{company_id}/{user_id}/{filename}
+  const storageKey = `uploads/${companyId}/${userId}/${filename}`;
+
+  const command = new PutObjectCommand({
+    Bucket: WASABI_BUCKET_NAME,
+    Key: storageKey,
+    Body: fileBuffer,
+    ContentType: contentType,
+    Metadata: {
+      company_id: companyId.toString(),
+      user_id: userId.toString(),
+      // URL encode original filename to support Cyrillic and special characters
+      original_filename: encodeURIComponent(originalFilename),
+      upload_timestamp: new Date().toISOString(),
+    },
+  });
+
+  try {
+    await s3Client.send(command);
+    const storageUrl = `https://${WASABI_BUCKET_NAME}.${process.env.WASABI_REGION}.wasabisys.com/${storageKey}`;
+    console.log(`✅ Uploaded user document to Wasabi: ${storageKey}`);
+    return { storageKey, storageUrl };
+  } catch (error) {
+    console.error(`❌ Failed to upload user document to Wasabi: ${storageKey}`, error);
+    throw new Error(`User document upload failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
+  }
+}
+
 export const storageService = {
   uploadDocument,
+  uploadUserDocument,
   getDownloadUrl,
   deleteDocument,
   documentExists,

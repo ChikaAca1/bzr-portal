@@ -1,0 +1,2640 @@
+{
+  "companyInfo": {
+    "name": "ЈКП\"ЗЕЛЕНИЛО\" ПАНЧЕВО",
+    "documentType": "СИСТЕМАТИЗАЦИЈА 2025",
+    "documentNumber": "92-308",
+    "lastUpdated": "01.04.2025."
+  },
+  "employees": [
+    {
+      "id": "EMP-0001",
+      "fullName": "Станић Зоран",
+      "positionNumber": "1",
+      "positionTitle": "Извршни директор за оперативне послове",
+      "coefficient": "5.60",
+      "sector": "РЈ „ЗАЈЕДНИЧКЕ СЛУЖБЕ“",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0002",
+      "fullName": "Маринковић Жења",
+      "positionNumber": "5",
+      "positionTitle": "4.20",
+      "coefficient": "1.",
+      "sector": "РЈ „ЗАЈЕДНИЧКЕ СЛУЖБЕ“",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0003",
+      "fullName": "Биљана Регоје",
+      "positionNumber": "7",
+      "positionTitle": "Самостални сарадник за инвестиције, план и анализу",
+      "coefficient": "3.40",
+      "sector": "РЈ „ЗАЈЕДНИЧКЕ СЛУЖБЕ“",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0004",
+      "fullName": "Ивана Илијев",
+      "positionNumber": "8",
+      "positionTitle": "Самост. коорд.за екстерне и интерне односе са јавношћу",
+      "coefficient": "3.20",
+      "sector": "РЈ „ЗАЈЕДНИЧКЕ СЛУЖБЕ“",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0005",
+      "fullName": "Чворовић Славиша",
+      "positionNumber": "9",
+      "positionTitle": "Возач механичар",
+      "coefficient": "2.80",
+      "sector": "РЈ „ЗАЈЕДНИЧКЕ СЛУЖБЕ“",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0006",
+      "fullName": "Агатоновић-Стејић Снежана",
+      "positionNumber": "10",
+      "positionTitle": "Руководилац сектора",
+      "coefficient": "4.50",
+      "sector": "СЕКТОР ЗА ОПШТЕ, ПРАВНЕ И КАДРОВСКЕ ПОСЛОВЕ",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0007",
+      "fullName": "Вук Вујановић",
+      "positionNumber": "11",
+      "positionTitle": "4.10",
+      "coefficient": "1.",
+      "sector": "СЕКТОР ЗА ОПШТЕ, ПРАВНЕ И КАДРОВСКЕ ПОСЛОВЕ",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0008",
+      "fullName": "Весна Вујовић",
+      "positionNumber": "12",
+      "positionTitle": "3.40",
+      "coefficient": "1.",
+      "sector": "СЕКТОР ЗА ОПШТЕ, ПРАВНЕ И КАДРОВСКЕ ПОСЛОВЕ",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0009",
+      "fullName": "Душица Сибић",
+      "positionNumber": "13",
+      "positionTitle": "3.20",
+      "coefficient": "1.",
+      "sector": "СЕКТОР ЗА ОПШТЕ, ПРАВНЕ И КАДРОВСКЕ ПОСЛОВЕ",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0010",
+      "fullName": "Срећковић Горан",
+      "positionNumber": "14",
+      "positionTitle": "3.00",
+      "coefficient": "1.",
+      "sector": "СЕКТОР ЗА ОПШТЕ, ПРАВНЕ И КАДРОВСКЕ ПОСЛОВЕ",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0011",
+      "fullName": "Домазет Никола",
+      "positionNumber": "16",
+      "positionTitle": "Администратор процеса рада",
+      "coefficient": "2.20",
+      "sector": "СЕКТОР ЗА ОПШТЕ, ПРАВНЕ И КАДРОВСКЕ ПОСЛОВЕ",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0012",
+      "fullName": "Данило Бјелица 08.07.2024.-",
+      "positionNumber": "16",
+      "positionTitle": "Администратор процеса рада",
+      "coefficient": "2.20",
+      "sector": "СЕКТОР ЗА ОПШТЕ, ПРАВНЕ И КАДРОВСКЕ ПОСЛОВЕ",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0013",
+      "fullName": "Максимовић Владислава",
+      "positionNumber": "16",
+      "positionTitle": "Администратор процеса рада",
+      "coefficient": "2.20",
+      "sector": "СЕКТОР ЗА ОПШТЕ, ПРАВНЕ И КАДРОВСКЕ ПОСЛОВЕ",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0014",
+      "fullName": "Главни саветник за техничке послове Бјелица Данило Мировање",
+      "positionNumber": "16",
+      "positionTitle": "Администратор процеса рада",
+      "coefficient": "2.20",
+      "sector": "СЕКТОР ЗА ОПШТЕ, ПРАВНЕ И КАДРОВСКЕ ПОСЛОВЕ",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0015",
+      "fullName": "стажа од 07.05.2018.",
+      "positionNumber": "16",
+      "positionTitle": "Администратор процеса рада",
+      "coefficient": "2.20",
+      "sector": "СЕКТОР ЗА ОПШТЕ, ПРАВНЕ И КАДРОВСКЕ ПОСЛОВЕ",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0016",
+      "fullName": "Руководилац просторног планирања, пројектовања и",
+      "positionNumber": "16",
+      "positionTitle": "Администратор процеса рада",
+      "coefficient": "2.20",
+      "sector": "СЕКТОР ЗА ОПШТЕ, ПРАВНЕ И КАДРОВСКЕ ПОСЛОВЕ",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0017",
+      "fullName": "уређења зелених површина",
+      "positionNumber": "16",
+      "positionTitle": "Администратор процеса рада",
+      "coefficient": "2.20",
+      "sector": "СЕКТОР ЗА ОПШТЕ, ПРАВНЕ И КАДРОВСКЕ ПОСЛОВЕ",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0018",
+      "fullName": "Самостални стр. сарадник за информатику и",
+      "positionNumber": "16",
+      "positionTitle": "Администратор процеса рада",
+      "coefficient": "2.20",
+      "sector": "СЕКТОР ЗА ОПШТЕ, ПРАВНЕ И КАДРОВСКЕ ПОСЛОВЕ",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0019",
+      "fullName": "информациону технологију и заштиту података 1. Грос Љиљана",
+      "positionNumber": "16",
+      "positionTitle": "Администратор процеса рада",
+      "coefficient": "2.20",
+      "sector": "СЕКТОР ЗА ОПШТЕ, ПРАВНЕ И КАДРОВСКЕ ПОСЛОВЕ",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0020",
+      "fullName": "Самостални стручни сарадник за опште и правне",
+      "positionNumber": "16",
+      "positionTitle": "Администратор процеса рада",
+      "coefficient": "2.20",
+      "sector": "СЕКТОР ЗА ОПШТЕ, ПРАВНЕ И КАДРОВСКЕ ПОСЛОВЕ",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0021",
+      "fullName": "Виши стручни сарадник за људске ресурсе, опште и",
+      "positionNumber": "16",
+      "positionTitle": "Администратор процеса рада",
+      "coefficient": "2.20",
+      "sector": "СЕКТОР ЗА ОПШТЕ, ПРАВНЕ И КАДРОВСКЕ ПОСЛОВЕ",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0022",
+      "fullName": "правне послове",
+      "positionNumber": "16",
+      "positionTitle": "Администратор процеса рада",
+      "coefficient": "2.20",
+      "sector": "СЕКТОР ЗА ОПШТЕ, ПРАВНЕ И КАДРОВСКЕ ПОСЛОВЕ",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0023",
+      "fullName": "Самостални сарадник за људске ресурсе,опште и правне",
+      "positionNumber": "16",
+      "positionTitle": "Администратор процеса рада",
+      "coefficient": "2.20",
+      "sector": "СЕКТОР ЗА ОПШТЕ, ПРАВНЕ И КАДРОВСКЕ ПОСЛОВЕ",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0024",
+      "fullName": "Сарадник за опште послове и односе са јавношћу и",
+      "positionNumber": "16",
+      "positionTitle": "Администратор процеса рада",
+      "coefficient": "2.20",
+      "sector": "СЕКТОР ЗА ОПШТЕ, ПРАВНЕ И КАДРОВСКЕ ПОСЛОВЕ",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0025",
+      "fullName": "информациону технологију и осугурање",
+      "positionNumber": "16",
+      "positionTitle": "Администратор процеса рада",
+      "coefficient": "2.20",
+      "sector": "СЕКТОР ЗА ОПШТЕ, ПРАВНЕ И КАДРОВСКЕ ПОСЛОВЕ",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0026",
+      "fullName": "Стручни сарадник одбране, безбедности, здравља и",
+      "positionNumber": "16",
+      "positionTitle": "Администратор процеса рада",
+      "coefficient": "2.20",
+      "sector": "СЛУЖБА ОДБРАНЕ, БЕЗБЕДНОСТИ, ЗДРАВЉА НА РАДУ И ПРОТИВПОЖАРНУ ЗАШТИТУ",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0027",
+      "fullName": "противпожарне заштите",
+      "positionNumber": "16",
+      "positionTitle": "Администратор процеса рада",
+      "coefficient": "2.20",
+      "sector": "СЛУЖБА ОДБРАНЕ, БЕЗБЕДНОСТИ, ЗДРАВЉА НА РАДУ И ПРОТИВПОЖАРНУ ЗАШТИТУ",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0028",
+      "fullName": "Маријана Радић",
+      "positionNumber": "18",
+      "positionTitle": "3.20",
+      "coefficient": "1.",
+      "sector": "СЛУЖБА ОДБРАНЕ, БЕЗБЕДНОСТИ, ЗДРАВЉА НА РАДУ И ПРОТИВПОЖАРНУ ЗАШТИТУ",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0029",
+      "fullName": "Бујак Срђан",
+      "positionNumber": "19",
+      "positionTitle": "Шеф службе",
+      "coefficient": "3.40",
+      "sector": "СЛУЖБА ОБЕЗБЕЂЕЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0030",
+      "fullName": "Батинић Јелена",
+      "positionNumber": "21",
+      "positionTitle": "Руководилац сектора за финансије, план и анализу",
+      "coefficient": "4.80",
+      "sector": "СЕКТОР ЕКОНОМСКО ФИНАНСИЈСКИХ ПОСЛОВА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0031",
+      "fullName": "Стрезоска Ивона",
+      "positionNumber": "22",
+      "positionTitle": "Шеф рачуноводства",
+      "coefficient": "4.20",
+      "sector": "СЕКТОР ЕКОНОМСКО ФИНАНСИЈСКИХ ПОСЛОВА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0032",
+      "fullName": "Поповић Лазаров Сузана",
+      "positionNumber": "23",
+      "positionTitle": "Стручни сарадник за планирање и интерну контролу",
+      "coefficient": "4.20",
+      "sector": "СЕКТОР ЕКОНОМСКО ФИНАНСИЈСКИХ ПОСЛОВА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0033",
+      "fullName": "Јовановић Валентина",
+      "positionNumber": "24",
+      "positionTitle": "Шеф књиговодства",
+      "coefficient": "4.10",
+      "sector": "СЕКТОР ЕКОНОМСКО ФИНАНСИЈСКИХ ПОСЛОВА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0034",
+      "fullName": "Дрезгић Сања",
+      "positionNumber": "26",
+      "positionTitle": "Координатор за наплату потраживања и ФУК",
+      "coefficient": "3.30",
+      "sector": "СЕКТОР ЕКОНОМСКО ФИНАНСИЈСКИХ ПОСЛОВА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0035",
+      "fullName": "Божовић Мина",
+      "positionNumber": "27",
+      "positionTitle": "Виши референт за наплату потраживања",
+      "coefficient": "3.30",
+      "sector": "СЕКТОР ЕКОНОМСКО ФИНАНСИЈСКИХ ПОСЛОВА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0036",
+      "fullName": "Самостални референт за безбедност и здравље на раду",
+      "positionNumber": "27",
+      "positionTitle": "Виши референт за наплату потраживања",
+      "coefficient": "3.30",
+      "sector": "СЕКТОР ЕКОНОМСКО ФИНАНСИЈСКИХ ПОСЛОВА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0037",
+      "fullName": "и противпожарну заштиту",
+      "positionNumber": "27",
+      "positionTitle": "Виши референт за наплату потраживања",
+      "coefficient": "3.30",
+      "sector": "СЕКТОР ЕКОНОМСКО ФИНАНСИЈСКИХ ПОСЛОВА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0038",
+      "fullName": "Лаки Милан",
+      "positionNumber": "27",
+      "positionTitle": "Виши референт за наплату потраживања",
+      "coefficient": "3.30",
+      "sector": "СЕКТОР ЕКОНОМСКО ФИНАНСИЈСКИХ ПОСЛОВА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0039",
+      "fullName": "Благовић Срђан",
+      "positionNumber": "27",
+      "positionTitle": "Виши референт за наплату потраживања",
+      "coefficient": "3.30",
+      "sector": "СЕКТОР ЕКОНОМСКО ФИНАНСИЈСКИХ ПОСЛОВА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0040",
+      "fullName": "Младеновски Предраг",
+      "positionNumber": "27",
+      "positionTitle": "Виши референт за наплату потраживања",
+      "coefficient": "3.30",
+      "sector": "СЕКТОР ЕКОНОМСКО ФИНАНСИЈСКИХ ПОСЛОВА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0041",
+      "fullName": "Костадиновић Иван",
+      "positionNumber": "27",
+      "positionTitle": "Виши референт за наплату потраживања",
+      "coefficient": "3.30",
+      "sector": "СЕКТОР ЕКОНОМСКО ФИНАНСИЈСКИХ ПОСЛОВА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0042",
+      "fullName": "Грујић Небојша Одређено",
+      "positionNumber": "27",
+      "positionTitle": "Виши референт за наплату потраживања",
+      "coefficient": "3.30",
+      "sector": "СЕКТОР ЕКОНОМСКО ФИНАНСИЈСКИХ ПОСЛОВА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0043",
+      "fullName": "време: 6. Лазић Илија",
+      "positionNumber": "27",
+      "positionTitle": "Виши референт за наплату потраживања",
+      "coefficient": "3.30",
+      "sector": "СЕКТОР ЕКОНОМСКО ФИНАНСИЈСКИХ ПОСЛОВА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0044",
+      "fullName": "Самостални стручни сарадник за јавне набавке, план и",
+      "positionNumber": "27",
+      "positionTitle": "Виши референт за наплату потраживања",
+      "coefficient": "3.30",
+      "sector": "СЕКТОР ЕКОНОМСКО ФИНАНСИЈСКИХ ПОСЛОВА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0045",
+      "fullName": "Перић Јасна",
+      "positionNumber": "27",
+      "positionTitle": "Виши референт за наплату потраживања",
+      "coefficient": "3.30",
+      "sector": "СЕКТОР ЕКОНОМСКО ФИНАНСИЈСКИХ ПОСЛОВА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0046",
+      "fullName": "Грујоски Светлана",
+      "positionNumber": "27",
+      "positionTitle": "Виши референт за наплату потраживања",
+      "coefficient": "3.30",
+      "sector": "СЕКТОР ЕКОНОМСКО ФИНАНСИЈСКИХ ПОСЛОВА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0047",
+      "fullName": "Бјелош Славица",
+      "positionNumber": "27",
+      "positionTitle": "Виши референт за наплату потраживања",
+      "coefficient": "3.30",
+      "sector": "СЕКТОР ЕКОНОМСКО ФИНАНСИЈСКИХ ПОСЛОВА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0048",
+      "fullName": "Јовчић Марина",
+      "positionNumber": "27",
+      "positionTitle": "Виши референт за наплату потраживања",
+      "coefficient": "3.30",
+      "sector": "СЕКТОР ЕКОНОМСКО ФИНАНСИЈСКИХ ПОСЛОВА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0049",
+      "fullName": "Јокић Виолета",
+      "positionNumber": "27",
+      "positionTitle": "Виши референт за наплату потраживања",
+      "coefficient": "3.30",
+      "sector": "СЕКТОР ЕКОНОМСКО ФИНАНСИЈСКИХ ПОСЛОВА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0050",
+      "fullName": "Милановић Ема",
+      "positionNumber": "27",
+      "positionTitle": "Виши референт за наплату потраживања",
+      "coefficient": "3.30",
+      "sector": "СЕКТОР ЕКОНОМСКО ФИНАНСИЈСКИХ ПОСЛОВА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0051",
+      "fullName": "Књиговођа аналит.добављача залихе материјала, ситног",
+      "positionNumber": "27",
+      "positionTitle": "Виши референт за наплату потраживања",
+      "coefficient": "3.30",
+      "sector": "СЕКТОР ЕКОНОМСКО ФИНАНСИЈСКИХ ПОСЛОВА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0052",
+      "fullName": "инвентара , ауто гума ХТЗ опреме",
+      "positionNumber": "27",
+      "positionTitle": "Виши референт за наплату потраживања",
+      "coefficient": "3.30",
+      "sector": "СЕКТОР ЕКОНОМСКО ФИНАНСИЈСКИХ ПОСЛОВА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0053",
+      "fullName": "Лукић Љиљана",
+      "positionNumber": "27",
+      "positionTitle": "Виши референт за наплату потраживања",
+      "coefficient": "3.30",
+      "sector": "СЕКТОР ЕКОНОМСКО ФИНАНСИЈСКИХ ПОСЛОВА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0054",
+      "fullName": "Марковић Илинка",
+      "positionNumber": "27",
+      "positionTitle": "Виши референт за наплату потраживања",
+      "coefficient": "3.30",
+      "sector": "СЕКТОР ЕКОНОМСКО ФИНАНСИЈСКИХ ПОСЛОВА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0055",
+      "fullName": "Стојоска Љиљана",
+      "positionNumber": "31",
+      "positionTitle": "Сарадник процеса фактурисања",
+      "coefficient": "2.80",
+      "sector": "СЕКТОР ЕКОНОМСКО ФИНАНСИЈСКИХ ПОСЛОВА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0056",
+      "fullName": "КОМЕРЦИЈАЛНО-МАРКЕТИНШКИ СЕКТОР",
+      "positionNumber": "31",
+      "positionTitle": "Сарадник процеса фактурисања",
+      "coefficient": "2.80",
+      "sector": "СЕКТОР ЕКОНОМСКО ФИНАНСИЈСКИХ ПОСЛОВА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0057",
+      "fullName": "Зарија Петар",
+      "positionNumber": "35",
+      "positionTitle": "Руководилац сектора",
+      "coefficient": "4.50",
+      "sector": "СЕКТОР ЕКОНОМСКО ФИНАНСИЈСКИХ ПОСЛОВА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0058",
+      "fullName": "Бркић Огњен",
+      "positionNumber": "36",
+      "positionTitle": "3.70",
+      "coefficient": "1.",
+      "sector": "СЕКТОР ЕКОНОМСКО ФИНАНСИЈСКИХ ПОСЛОВА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0059",
+      "fullName": "Вујновић Јелена",
+      "positionNumber": "38",
+      "positionTitle": "Референт за маркетинг и комерцијалу",
+      "coefficient": "3.20",
+      "sector": "СЕКТОР ЕКОНОМСКО ФИНАНСИЈСКИХ ПОСЛОВА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0060",
+      "fullName": "Петровић Оливера",
+      "positionNumber": "40",
+      "positionTitle": "Референт за административне и комерцијалне послове",
+      "coefficient": "2.80",
+      "sector": "СЕКТОР ЕКОНОМСКО ФИНАНСИЈСКИХ ПОСЛОВА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0061",
+      "fullName": "Ненадовић Весна",
+      "positionNumber": "40",
+      "positionTitle": "Референт за административне и комерцијалне послове",
+      "coefficient": "2.80",
+      "sector": "РЈ \"ГРАДСКО ЗЕЛЕНИЛО\"",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0062",
+      "fullName": "Антонијевић Јелена",
+      "positionNumber": "40",
+      "positionTitle": "Референт за административне и комерцијалне послове",
+      "coefficient": "2.80",
+      "sector": "РЈ \"ГРАДСКО ЗЕЛЕНИЛО\"",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0063",
+      "fullName": "Вујичић Рајка",
+      "positionNumber": "40",
+      "positionTitle": "Референт за административне и комерцијалне послове",
+      "coefficient": "2.80",
+      "sector": "РЈ \"ГРАДСКО ЗЕЛЕНИЛО\"",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0064",
+      "fullName": "1. Божић",
+      "positionNumber": "40",
+      "positionTitle": "Референт за административне и комерцијалне послове",
+      "coefficient": "2.80",
+      "sector": "РЈ \"ГРАДСКО ЗЕЛЕНИЛО\"",
+      "employmentStatus": "temporary"
+    },
+    {
+      "id": "EMP-0065",
+      "fullName": "Самостални сарадник за комуникације и односе са",
+      "positionNumber": "40",
+      "positionTitle": "Референт за административне и комерцијалне послове",
+      "coefficient": "2.80",
+      "sector": "РЈ \"ГРАДСКО ЗЕЛЕНИЛО\"",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0066",
+      "fullName": "Милчић Миодраг",
+      "positionNumber": "40",
+      "positionTitle": "Референт за административне и комерцијалне послове",
+      "coefficient": "2.80",
+      "sector": "РЈ \"ГРАДСКО ЗЕЛЕНИЛО\"",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0067",
+      "fullName": "Извршни пословођа у кафе галерији ,,Еко павиљон",
+      "positionNumber": "40",
+      "positionTitle": "Референт за административне и комерцијалне послове",
+      "coefficient": "2.80",
+      "sector": "РЈ \"ГРАДСКО ЗЕЛЕНИЛО\"",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0068",
+      "fullName": "народна башта,,",
+      "positionNumber": "40",
+      "positionTitle": "Референт за административне и комерцијалне послове",
+      "coefficient": "2.80",
+      "sector": "РЈ \"ГРАДСКО ЗЕЛЕНИЛО\"",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0069",
+      "fullName": "Николић Горан",
+      "positionNumber": "40",
+      "positionTitle": "Референт за административне и комерцијалне послове",
+      "coefficient": "2.80",
+      "sector": "РЈ \"ГРАДСКО ЗЕЛЕНИЛО\"",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0070",
+      "fullName": "Трговац у кафе",
+      "positionNumber": "40",
+      "positionTitle": "Референт за административне и комерцијалне послове",
+      "coefficient": "2.80",
+      "sector": "РЈ \"ГРАДСКО ЗЕЛЕНИЛО\"",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0071",
+      "fullName": "галерији ,,Еко павиљон народна башта,,",
+      "positionNumber": "40",
+      "positionTitle": "Референт за административне и комерцијалне послове",
+      "coefficient": "2.80",
+      "sector": "РЈ \"ГРАДСКО ЗЕЛЕНИЛО\"",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0072",
+      "fullName": "Анђеловска Драгана,",
+      "positionNumber": "40",
+      "positionTitle": "Референт за административне и комерцијалне послове",
+      "coefficient": "2.80",
+      "sector": "РЈ \"ГРАДСКО ЗЕЛЕНИЛО\"",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0073",
+      "fullName": "Станић Јована,",
+      "positionNumber": "40",
+      "positionTitle": "Референт за административне и комерцијалне послове",
+      "coefficient": "2.80",
+      "sector": "РЈ \"ГРАДСКО ЗЕЛЕНИЛО\"",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0074",
+      "fullName": "Угреновић Драгана",
+      "positionNumber": "40",
+      "positionTitle": "Референт за административне и комерцијалне послове",
+      "coefficient": "2.80",
+      "sector": "РЈ \"ГРАДСКО ЗЕЛЕНИЛО\"",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0075",
+      "fullName": "Поткоњак Живана",
+      "positionNumber": "40",
+      "positionTitle": "Референт за административне и комерцијалне послове",
+      "coefficient": "2.80",
+      "sector": "РЈ \"ГРАДСКО ЗЕЛЕНИЛО\"",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0076",
+      "fullName": "Стефановић Ружица",
+      "positionNumber": "40",
+      "positionTitle": "Референт за административне и комерцијалне послове",
+      "coefficient": "2.80",
+      "sector": "РЈ \"ГРАДСКО ЗЕЛЕНИЛО\"",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0077",
+      "fullName": "Лазић Драгана",
+      "positionNumber": "40",
+      "positionTitle": "Референт за административне и комерцијалне послове",
+      "coefficient": "2.80",
+      "sector": "РЈ \"ГРАДСКО ЗЕЛЕНИЛО\"",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0078",
+      "fullName": "Бундра Јасмина",
+      "positionNumber": "40",
+      "positionTitle": "Референт за административне и комерцијалне послове",
+      "coefficient": "2.80",
+      "sector": "РЈ \"ГРАДСКО ЗЕЛЕНИЛО\"",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0079",
+      "fullName": "Милутиновић Милан",
+      "positionNumber": "40",
+      "positionTitle": "Референт за административне и комерцијалне послове",
+      "coefficient": "2.80",
+      "sector": "РЈ \"ГРАДСКО ЗЕЛЕНИЛО\"",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0080",
+      "fullName": "Мате Снежана",
+      "positionNumber": "46",
+      "positionTitle": "Самостални технички координатор",
+      "coefficient": "2.80",
+      "sector": "РЈ \"ГРАДСКО ЗЕЛЕНИЛО\"",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0081",
+      "fullName": "Немет Андраш",
+      "positionNumber": "48",
+      "positionTitle": "Чувар и рибочувар парка природе „Поњавица“",
+      "coefficient": "2.40",
+      "sector": "РЈ \"ГРАДСКО ЗЕЛЕНИЛО\"",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0082",
+      "fullName": "Крњајић Горан",
+      "positionNumber": "49",
+      "positionTitle": "Рибочувар парка природе „Поњавица“",
+      "coefficient": "2.40",
+      "sector": "РЈ \"ГРАДСКО ЗЕЛЕНИЛО\"",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0083",
+      "fullName": "Митровић Славко",
+      "positionNumber": "51",
+      "positionTitle": "Руководилац сектора",
+      "coefficient": "4.20",
+      "sector": "СЕКТОР ОДРЖАВАЊА ЗЕЛЕНИХ ПОВРШИНА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0084",
+      "fullName": "Наташа Шпица",
+      "positionNumber": "54",
+      "positionTitle": "Инжењер на одржавању зелених површина",
+      "coefficient": "3.60",
+      "sector": "СЕКТОР ОДРЖАВАЊА ЗЕЛЕНИХ ПОВРШИНА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0085",
+      "fullName": "Филиповић Милан",
+      "positionNumber": "55",
+      "positionTitle": "Координатор Сектора одржавања зелених површина",
+      "coefficient": "3.50",
+      "sector": "СЕКТОР ОДРЖАВАЊА ЗЕЛЕНИХ ПОВРШИНА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0086",
+      "fullName": "Кренски Дане",
+      "positionNumber": "56",
+      "positionTitle": "Шеф одржавања",
+      "coefficient": "3.50",
+      "sector": "СЕКТОР ОДРЖАВАЊА ЗЕЛЕНИХ ПОВРШИНА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0087",
+      "fullName": "Марковић Снежана,",
+      "positionNumber": "56",
+      "positionTitle": "Шеф одржавања",
+      "coefficient": "3.50",
+      "sector": "СЕКТОР ОДРЖАВАЊА ЗЕЛЕНИХ ПОВРШИНА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0088",
+      "fullName": "Милошевић Драгана",
+      "positionNumber": "56",
+      "positionTitle": "Шеф одржавања",
+      "coefficient": "3.50",
+      "sector": "СЕКТОР ОДРЖАВАЊА ЗЕЛЕНИХ ПОВРШИНА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0089",
+      "fullName": "Јасмина Гроздановић",
+      "positionNumber": "56",
+      "positionTitle": "Шеф одржавања",
+      "coefficient": "3.50",
+      "sector": "СЕКТОР ОДРЖАВАЊА ЗЕЛЕНИХ ПОВРШИНА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0090",
+      "fullName": "Љиљак Ђуро",
+      "positionNumber": "56",
+      "positionTitle": "Шеф одржавања",
+      "coefficient": "3.50",
+      "sector": "СЕКТОР ОДРЖАВАЊА ЗЕЛЕНИХ ПОВРШИНА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0091",
+      "fullName": "Димитријевски Снежана",
+      "positionNumber": "56",
+      "positionTitle": "Шеф одржавања",
+      "coefficient": "3.50",
+      "sector": "СЕКТОР ОДРЖАВАЊА ЗЕЛЕНИХ ПОВРШИНА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0092",
+      "fullName": "Самостални стручни сарадник на катастру и одржавању",
+      "positionNumber": "56",
+      "positionTitle": "Шеф одржавања",
+      "coefficient": "3.50",
+      "sector": "СЕКТОР ОДРЖАВАЊА ЗЕЛЕНИХ ПОВРШИНА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0093",
+      "fullName": "зелених површина",
+      "positionNumber": "56",
+      "positionTitle": "Шеф одржавања",
+      "coefficient": "3.50",
+      "sector": "СЕКТОР ОДРЖАВАЊА ЗЕЛЕНИХ ПОВРШИНА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0094",
+      "fullName": "Антонић Новица",
+      "positionNumber": "56",
+      "positionTitle": "Шеф одржавања",
+      "coefficient": "3.50",
+      "sector": "СЕКТОР ОДРЖАВАЊА ЗЕЛЕНИХ ПОВРШИНА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0095",
+      "fullName": "Мировање стажа од",
+      "positionNumber": "56",
+      "positionTitle": "Шеф одржавања",
+      "coefficient": "3.50",
+      "sector": "СЕКТОР ОДРЖАВАЊА ЗЕЛЕНИХ ПОВРШИНА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0096",
+      "fullName": "Марковић",
+      "positionNumber": "56",
+      "positionTitle": "Шеф одржавања",
+      "coefficient": "3.50",
+      "sector": "СЕКТОР ОДРЖАВАЊА ЗЕЛЕНИХ ПОВРШИНА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0097",
+      "fullName": "Дотлић Милан",
+      "positionNumber": "56",
+      "positionTitle": "Шеф одржавања",
+      "coefficient": "3.50",
+      "sector": "СЕКТОР ОДРЖАВАЊА ЗЕЛЕНИХ ПОВРШИНА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0098",
+      "fullName": "Шикл Драган",
+      "positionNumber": "56",
+      "positionTitle": "Шеф одржавања",
+      "coefficient": "3.50",
+      "sector": "СЕКТОР ОДРЖАВАЊА ЗЕЛЕНИХ ПОВРШИНА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0099",
+      "fullName": "Курјачки Мита",
+      "positionNumber": "56",
+      "positionTitle": "Шеф одржавања",
+      "coefficient": "3.50",
+      "sector": "СЕКТОР ОДРЖАВАЊА ЗЕЛЕНИХ ПОВРШИНА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0100",
+      "fullName": "Цветковић",
+      "positionNumber": "56",
+      "positionTitle": "Шеф одржавања",
+      "coefficient": "3.50",
+      "sector": "СЕКТОР ОДРЖАВАЊА ЗЕЛЕНИХ ПОВРШИНА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0101",
+      "fullName": "Слободан 5. Стојадинов Драган",
+      "positionNumber": "56",
+      "positionTitle": "Шеф одржавања",
+      "coefficient": "3.50",
+      "sector": "СЕКТОР ОДРЖАВАЊА ЗЕЛЕНИХ ПОВРШИНА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0102",
+      "fullName": "Модошки Зоран",
+      "positionNumber": "56",
+      "positionTitle": "Шеф одржавања",
+      "coefficient": "3.50",
+      "sector": "СЕКТОР ОДРЖАВАЊА ЗЕЛЕНИХ ПОВРШИНА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0103",
+      "fullName": "Рендић Александар",
+      "positionNumber": "56",
+      "positionTitle": "Шеф одржавања",
+      "coefficient": "3.50",
+      "sector": "СЕКТОР ОДРЖАВАЊА ЗЕЛЕНИХ ПОВРШИНА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0104",
+      "fullName": "Стојановић Дејан",
+      "positionNumber": "61",
+      "positionTitle": "Руководилац сектора",
+      "coefficient": "4.20",
+      "sector": "СЕКТОР ОДРЖАВАЊА ЗЕЛЕНИХ ПОВРШИНА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0105",
+      "fullName": "Руковалац ситне механизације",
+      "positionNumber": "61",
+      "positionTitle": "Руководилац сектора",
+      "coefficient": "4.20",
+      "sector": "СЕКТОР ОДРЖАВАЊА ЗЕЛЕНИХ ПОВРШИНА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0106",
+      "fullName": "Савић Тихомир,",
+      "positionNumber": "61",
+      "positionTitle": "Руководилац сектора",
+      "coefficient": "4.20",
+      "sector": "СЕКТОР ОДРЖАВАЊА ЗЕЛЕНИХ ПОВРШИНА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0107",
+      "fullName": "Ђорић",
+      "positionNumber": "61",
+      "positionTitle": "Руководилац сектора",
+      "coefficient": "4.20",
+      "sector": "СЕКТОР ОДРЖАВАЊА ЗЕЛЕНИХ ПОВРШИНА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0108",
+      "fullName": "Чедомир 3.Момчиловић",
+      "positionNumber": "61",
+      "positionTitle": "Руководилац сектора",
+      "coefficient": "4.20",
+      "sector": "СЕКТОР ОДРЖАВАЊА ЗЕЛЕНИХ ПОВРШИНА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0109",
+      "fullName": "Часлав, 4.Младеновић Дејан,",
+      "positionNumber": "61",
+      "positionTitle": "Руководилац сектора",
+      "coefficient": "4.20",
+      "sector": "СЕКТОР ОДРЖАВАЊА ЗЕЛЕНИХ ПОВРШИНА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0110",
+      "fullName": "Стошић Боривоје",
+      "positionNumber": "61",
+      "positionTitle": "Руководилац сектора",
+      "coefficient": "4.20",
+      "sector": "СЕКТОР ОДРЖАВАЊА ЗЕЛЕНИХ ПОВРШИНА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0111",
+      "fullName": "Стојановић Горан 7.Бањаш",
+      "positionNumber": "61",
+      "positionTitle": "Руководилац сектора",
+      "coefficient": "4.20",
+      "sector": "СЕКТОР ОДРЖАВАЊА ЗЕЛЕНИХ ПОВРШИНА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0112",
+      "fullName": "Невен, 8.Залокар Антонио,",
+      "positionNumber": "61",
+      "positionTitle": "Руководилац сектора",
+      "coefficient": "4.20",
+      "sector": "СЕКТОР ОДРЖАВАЊА ЗЕЛЕНИХ ПОВРШИНА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0113",
+      "fullName": ".Кираљ Славица,",
+      "positionNumber": "61",
+      "positionTitle": "Руководилац сектора",
+      "coefficient": "4.20",
+      "sector": "СЕКТОР ОДРЖАВАЊА ЗЕЛЕНИХ ПОВРШИНА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0114",
+      "fullName": "Царан",
+      "positionNumber": "61",
+      "positionTitle": "Руководилац сектора",
+      "coefficient": "4.20",
+      "sector": "СЕКТОР ОДРЖАВАЊА ЗЕЛЕНИХ ПОВРШИНА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0115",
+      "fullName": "Данијел, 11 .Стражмештеров",
+      "positionNumber": "61",
+      "positionTitle": "Руководилац сектора",
+      "coefficient": "4.20",
+      "sector": "СЕКТОР ОДРЖАВАЊА ЗЕЛЕНИХ ПОВРШИНА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0116",
+      "fullName": "Младен , 12.Чикош Љубомир",
+      "positionNumber": "61",
+      "positionTitle": "Руководилац сектора",
+      "coefficient": "4.20",
+      "sector": "СЕКТОР ОДРЖАВАЊА ЗЕЛЕНИХ ПОВРШИНА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0117",
+      "fullName": "Миленковски Миле,",
+      "positionNumber": "61",
+      "positionTitle": "Руководилац сектора",
+      "coefficient": "4.20",
+      "sector": "СЕКТОР ОДРЖАВАЊА ЗЕЛЕНИХ ПОВРШИНА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0118",
+      "fullName": "Ердеи Иштван,",
+      "positionNumber": "61",
+      "positionTitle": "Руководилац сектора",
+      "coefficient": "4.20",
+      "sector": "СЕКТОР ОДРЖАВАЊА ЗЕЛЕНИХ ПОВРШИНА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0119",
+      "fullName": "Момчило Одређено време:",
+      "positionNumber": "61",
+      "positionTitle": "Руководилац сектора",
+      "coefficient": "4.20",
+      "sector": "СЕКТОР ОДРЖАВАЊА ЗЕЛЕНИХ ПОВРШИНА",
+      "employmentStatus": "temporary"
+    },
+    {
+      "id": "EMP-0120",
+      "fullName": "Николић Зоран",
+      "positionNumber": "61",
+      "positionTitle": "Руководилац сектора",
+      "coefficient": "4.20",
+      "sector": "СЕКТОР ОДРЖАВАЊА ЗЕЛЕНИХ ПОВРШИНА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0121",
+      "fullName": "Лакић",
+      "positionNumber": "61",
+      "positionTitle": "Руководилац сектора",
+      "coefficient": "4.20",
+      "sector": "СЕКТОР ОДРЖАВАЊА ЗЕЛЕНИХ ПОВРШИНА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0122",
+      "fullName": "Симанић Ружица",
+      "positionNumber": "61",
+      "positionTitle": "Руководилац сектора",
+      "coefficient": "4.20",
+      "sector": "СЕКТОР ОДРЖАВАЊА ЗЕЛЕНИХ ПОВРШИНА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0123",
+      "fullName": "Ђорђевић Драгица",
+      "positionNumber": "61",
+      "positionTitle": "Руководилац сектора",
+      "coefficient": "4.20",
+      "sector": "СЕКТОР ОДРЖАВАЊА ЗЕЛЕНИХ ПОВРШИНА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0124",
+      "fullName": "НА ЗЕЛЕНИМ ПОВРШИНАМА",
+      "positionNumber": "61",
+      "positionTitle": "Руководилац сектора",
+      "coefficient": "4.20",
+      "sector": "СЕКТОР ОДРЖАВАЊА ВИСОКЕ ВЕГЕТАЦИЈЕ",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0125",
+      "fullName": "Виши пословођа",
+      "positionNumber": "61",
+      "positionTitle": "Руководилац сектора",
+      "coefficient": "4.20",
+      "sector": "СЕКТОР ОДРЖАВАЊА ВИСОКЕ ВЕГЕТАЦИЈЕ",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0126",
+      "fullName": ".Љубановић Горан,",
+      "positionNumber": "61",
+      "positionTitle": "Руководилац сектора",
+      "coefficient": "4.20",
+      "sector": "СЕКТОР ОДРЖАВАЊА ВИСОКЕ ВЕГЕТАЦИЈЕ",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0127",
+      "fullName": "Анђелковић Новица,",
+      "positionNumber": "61",
+      "positionTitle": "Руководилац сектора",
+      "coefficient": "4.20",
+      "sector": "СЕКТОР ОДРЖАВАЊА ВИСОКЕ ВЕГЕТАЦИЈЕ",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0128",
+      "fullName": "Ристић Зоран,",
+      "positionNumber": "61",
+      "positionTitle": "Руководилац сектора",
+      "coefficient": "4.20",
+      "sector": "СЕКТОР ОДРЖАВАЊА ВИСОКЕ ВЕГЕТАЦИЈЕ",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0129",
+      "fullName": "Ђорић Мирослав, ,",
+      "positionNumber": "61",
+      "positionTitle": "Руководилац сектора",
+      "coefficient": "4.20",
+      "sector": "СЕКТОР ОДРЖАВАЊА ВИСОКЕ ВЕГЕТАЦИЈЕ",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0130",
+      "fullName": "Дудуј",
+      "positionNumber": "61",
+      "positionTitle": "Руководилац сектора",
+      "coefficient": "4.20",
+      "sector": "СЕКТОР ОДРЖАВАЊА ВИСОКЕ ВЕГЕТАЦИЈЕ",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0131",
+      "fullName": "Фрања, Одређено време: 6.",
+      "positionNumber": "61",
+      "positionTitle": "Руководилац сектора",
+      "coefficient": "4.20",
+      "sector": "СЕКТОР ОДРЖАВАЊА ВИСОКЕ ВЕГЕТАЦИЈЕ",
+      "employmentStatus": "temporary"
+    },
+    {
+      "id": "EMP-0132",
+      "fullName": "Бањаш Сима 7. Думитру Бојан",
+      "positionNumber": "61",
+      "positionTitle": "Руководилац сектора",
+      "coefficient": "4.20",
+      "sector": "СЕКТОР ОДРЖАВАЊА ВИСОКЕ ВЕГЕТАЦИЈЕ",
+      "employmentStatus": "temporary"
+    },
+    {
+      "id": "EMP-0133",
+      "fullName": "Станојевић Бранислав",
+      "positionNumber": "61",
+      "positionTitle": "Руководилац сектора",
+      "coefficient": "4.20",
+      "sector": "СЕКТОР ОДРЖАВАЊА ВИСОКЕ ВЕГЕТАЦИЈЕ",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0134",
+      "fullName": "ТЕХНИЧКИ СЕКТОР",
+      "positionNumber": "61",
+      "positionTitle": "Руководилац сектора",
+      "coefficient": "4.20",
+      "sector": "СЕКТОР ОДРЖАВАЊА ВИСОКЕ ВЕГЕТАЦИЈЕ",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0135",
+      "fullName": "Миричић Драган",
+      "positionNumber": "65",
+      "positionTitle": "Пословођа аутомеханичарске радионице",
+      "coefficient": "3.50",
+      "sector": "СЕКТОР ОДРЖАВАЊА ВИСОКЕ ВЕГЕТАЦИЈЕ",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0136",
+      "fullName": "Крстић Небојша",
+      "positionNumber": "66",
+      "positionTitle": "Пословођа браварско-зидарске радионице",
+      "coefficient": "3.10",
+      "sector": "СЕКТОР ОДРЖАВАЊА ВИСОКЕ ВЕГЕТАЦИЈЕ",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0137",
+      "fullName": "Ђуришић Златан",
+      "positionNumber": "67",
+      "positionTitle": "Возач-аутомеханичар",
+      "coefficient": "2.80",
+      "sector": "СЕКТОР ОДРЖАВАЊА ВИСОКЕ ВЕГЕТАЦИЈЕ",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0138",
+      "fullName": "Павловић Милан",
+      "positionNumber": "69",
+      "positionTitle": "Самостални столар",
+      "coefficient": "2.70",
+      "sector": "СЕКТОР ОДРЖАВАЊА ВИСОКЕ ВЕГЕТАЦИЈЕ",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0139",
+      "fullName": "Форго Дејан",
+      "positionNumber": "70",
+      "positionTitle": "Самостални електричар",
+      "coefficient": "2.70",
+      "sector": "СЕКТОР ОДРЖАВАЊА ВИСОКЕ ВЕГЕТАЦИЈЕ",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0140",
+      "fullName": "Костић Ненад",
+      "positionNumber": "73",
+      "positionTitle": "Бравар-заваривач",
+      "coefficient": "2.60",
+      "sector": "СЕКТОР ОДРЖАВАЊА ВИСОКЕ ВЕГЕТАЦИЈЕ",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0141",
+      "fullName": "Руководилац сектора техничких, грађевинских и",
+      "positionNumber": "73",
+      "positionTitle": "Бравар-заваривач",
+      "coefficient": "2.60",
+      "sector": "СЕКТОР ОДРЖАВАЊА ВИСОКЕ ВЕГЕТАЦИЈЕ",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0142",
+      "fullName": "механичарских послова",
+      "positionNumber": "73",
+      "positionTitle": "Бравар-заваривач",
+      "coefficient": "2.60",
+      "sector": "СЕКТОР ОДРЖАВАЊА ВИСОКЕ ВЕГЕТАЦИЈЕ",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0143",
+      "fullName": "Самостални бравар 1.Кољевић Срђан",
+      "positionNumber": "73",
+      "positionTitle": "Бравар-заваривач",
+      "coefficient": "2.60",
+      "sector": "СЕКТОР ОДРЖАВАЊА ВИСОКЕ ВЕГЕТАЦИЈЕ",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0144",
+      "fullName": "Ђурков Данијел",
+      "positionNumber": "73",
+      "positionTitle": "Бравар-заваривач",
+      "coefficient": "2.60",
+      "sector": "СЕКТОР ОДРЖАВАЊА ВИСОКЕ ВЕГЕТАЦИЈЕ",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0145",
+      "fullName": "Николић Далибор",
+      "positionNumber": "73",
+      "positionTitle": "Бравар-заваривач",
+      "coefficient": "2.60",
+      "sector": "СЕКТОР ОДРЖАВАЊА ВИСОКЕ ВЕГЕТАЦИЈЕ",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0146",
+      "fullName": "Мушкиња Душан",
+      "positionNumber": "73",
+      "positionTitle": "Бравар-заваривач",
+      "coefficient": "2.60",
+      "sector": "СЕКТОР ОДРЖАВАЊА ВИСОКЕ ВЕГЕТАЦИЈЕ",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0147",
+      "fullName": "Алексовски Горан",
+      "positionNumber": "73",
+      "positionTitle": "Бравар-заваривач",
+      "coefficient": "2.60",
+      "sector": "СЕКТОР ОДРЖАВАЊА ВИСОКЕ ВЕГЕТАЦИЈЕ",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0148",
+      "fullName": "Станимировић Предраг,",
+      "positionNumber": "73",
+      "positionTitle": "Бравар-заваривач",
+      "coefficient": "2.60",
+      "sector": "СЕКТОР ОДРЖАВАЊА ВИСОКЕ ВЕГЕТАЦИЈЕ",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0149",
+      "fullName": "Најдовски Горан",
+      "positionNumber": "73",
+      "positionTitle": "Бравар-заваривач",
+      "coefficient": "2.60",
+      "sector": "СЕКТОР ОДРЖАВАЊА ВИСОКЕ ВЕГЕТАЦИЈЕ",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0150",
+      "fullName": "Каранфиловски Дејан",
+      "positionNumber": "73",
+      "positionTitle": "Бравар-заваривач",
+      "coefficient": "2.60",
+      "sector": "СЕКТОР ОДРЖАВАЊА ВИСОКЕ ВЕГЕТАЦИЈЕ",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0151",
+      "fullName": "Алексић Горан",
+      "positionNumber": "73",
+      "positionTitle": "Бравар-заваривач",
+      "coefficient": "2.60",
+      "sector": "СЕКТОР ОДРЖАВАЊА ВИСОКЕ ВЕГЕТАЦИЈЕ",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0152",
+      "fullName": "Крста Сава,",
+      "positionNumber": "73",
+      "positionTitle": "Бравар-заваривач",
+      "coefficient": "2.60",
+      "sector": "СЕКТОР ОДРЖАВАЊА ВИСОКЕ ВЕГЕТАЦИЈЕ",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0153",
+      "fullName": "Веселиновић Југослав,",
+      "positionNumber": "73",
+      "positionTitle": "Бравар-заваривач",
+      "coefficient": "2.60",
+      "sector": "СЕКТОР ОДРЖАВАЊА ВИСОКЕ ВЕГЕТАЦИЈЕ",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0154",
+      "fullName": "Загајчан Васа",
+      "positionNumber": "73",
+      "positionTitle": "Бравар-заваривач",
+      "coefficient": "2.60",
+      "sector": "СЕКТОР ОДРЖАВАЊА ВИСОКЕ ВЕГЕТАЦИЈЕ",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0155",
+      "fullName": "Цветковић",
+      "positionNumber": "73",
+      "positionTitle": "Бравар-заваривач",
+      "coefficient": "2.60",
+      "sector": "СЕКТОР ОДРЖАВАЊА ВИСОКЕ ВЕГЕТАЦИЈЕ",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0156",
+      "fullName": "Данијел 7.Батало Љубиша",
+      "positionNumber": "73",
+      "positionTitle": "Бравар-заваривач",
+      "coefficient": "2.60",
+      "sector": "СЕКТОР ОДРЖАВАЊА ВИСОКЕ ВЕГЕТАЦИЈЕ",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0157",
+      "fullName": "Стојанов Зоран",
+      "positionNumber": "73",
+      "positionTitle": "Бравар-заваривач",
+      "coefficient": "2.60",
+      "sector": "СЕКТОР ОДРЖАВАЊА ВИСОКЕ ВЕГЕТАЦИЈЕ",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0158",
+      "fullName": "Васиљевић Саша",
+      "positionNumber": "73",
+      "positionTitle": "Бравар-заваривач",
+      "coefficient": "2.60",
+      "sector": "СЕКТОР ОДРЖАВАЊА ВИСОКЕ ВЕГЕТАЦИЈЕ",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0159",
+      "fullName": "10.",
+      "positionNumber": "73",
+      "positionTitle": "Бравар-заваривач",
+      "coefficient": "2.60",
+      "sector": "СЕКТОР ОДРЖАВАЊА ВИСОКЕ ВЕГЕТАЦИЈЕ",
+      "employmentStatus": "temporary"
+    },
+    {
+      "id": "EMP-0160",
+      "fullName": "Стаменковић Слободан",
+      "positionNumber": "73",
+      "positionTitle": "Бравар-заваривач",
+      "coefficient": "2.60",
+      "sector": "СЕКТОР ОДРЖАВАЊА ВИСОКЕ ВЕГЕТАЦИЈЕ",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0161",
+      "fullName": "Ђуришић Жива",
+      "positionNumber": "73",
+      "positionTitle": "Бравар-заваривач",
+      "coefficient": "2.60",
+      "sector": "СЕКТОР ОДРЖАВАЊА ВИСОКЕ ВЕГЕТАЦИЈЕ",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0162",
+      "fullName": "Ђуришић Милорад",
+      "positionNumber": "73",
+      "positionTitle": "Бравар-заваривач",
+      "coefficient": "2.60",
+      "sector": "СЕКТОР ОДРЖАВАЊА ВИСОКЕ ВЕГЕТАЦИЈЕ",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0163",
+      "fullName": "Радуљ Оливер",
+      "positionNumber": "78",
+      "positionTitle": "Радник на одрж. чувању и зашт.објеката",
+      "coefficient": "2.20",
+      "sector": "СЕКТОР ОДРЖАВАЊА ВИСОКЕ ВЕГЕТАЦИЈЕ",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0164",
+      "fullName": "Момчиловић Горан",
+      "positionNumber": "81",
+      "positionTitle": "Возач трактора са прикључним машинама",
+      "coefficient": "2.00",
+      "sector": "СЕКТОР ОДРЖАВАЊА ВИСОКЕ ВЕГЕТАЦИЈЕ",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0165",
+      "fullName": "Пекић Сања",
+      "positionNumber": "85",
+      "positionTitle": "Самостални стручни сарадник за хортикултурно уређење",
+      "coefficient": "4.20",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0166",
+      "fullName": "Балатон Чворовић Ирена",
+      "positionNumber": "86",
+      "positionTitle": "Стручни техничар у производњи",
+      "coefficient": "3.20",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0167",
+      "fullName": "Буњевац Оливера",
+      "positionNumber": "87",
+      "positionTitle": "Виши пословођа",
+      "coefficient": "3.00",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0168",
+      "fullName": "Стојиљковић Слађан",
+      "positionNumber": "87",
+      "positionTitle": "Виши пословођа",
+      "coefficient": "3.00",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0169",
+      "fullName": "Митровић Бојан 3. Миноски",
+      "positionNumber": "87",
+      "positionTitle": "Виши пословођа",
+      "coefficient": "3.00",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0170",
+      "fullName": "Цревар Љубомир",
+      "positionNumber": "87",
+      "positionTitle": "Виши пословођа",
+      "coefficient": "3.00",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0171",
+      "fullName": "Грубетић Ђурица",
+      "positionNumber": "87",
+      "positionTitle": "Виши пословођа",
+      "coefficient": "3.00",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0172",
+      "fullName": "Радник на обезбеђивању и издавању горива и одржавању",
+      "positionNumber": "87",
+      "positionTitle": "Виши пословођа",
+      "coefficient": "3.00",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0173",
+      "fullName": "Миленовић Иван",
+      "positionNumber": "87",
+      "positionTitle": "Виши пословођа",
+      "coefficient": "3.00",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0174",
+      "fullName": "Рајчић",
+      "positionNumber": "87",
+      "positionTitle": "Виши пословођа",
+      "coefficient": "3.00",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0175",
+      "fullName": "Милан 3.Бањаш Синиша",
+      "positionNumber": "87",
+      "positionTitle": "Виши пословођа",
+      "coefficient": "3.00",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0176",
+      "fullName": "Митревски Горан",
+      "positionNumber": "87",
+      "positionTitle": "Виши пословођа",
+      "coefficient": "3.00",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0177",
+      "fullName": "Варга",
+      "positionNumber": "87",
+      "positionTitle": "Виши пословођа",
+      "coefficient": "3.00",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0178",
+      "fullName": "Ђорђе 6. Анђеловић Милош 7.",
+      "positionNumber": "87",
+      "positionTitle": "Виши пословођа",
+      "coefficient": "3.00",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0179",
+      "fullName": "Алексић Милутин 8.Ђуришић",
+      "positionNumber": "87",
+      "positionTitle": "Виши пословођа",
+      "coefficient": "3.00",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0180",
+      "fullName": "Гојко 9. Колевски Дарко 10.",
+      "positionNumber": "87",
+      "positionTitle": "Виши пословођа",
+      "coefficient": "3.00",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0181",
+      "fullName": "Ковачић Горан",
+      "positionNumber": "87",
+      "positionTitle": "Виши пословођа",
+      "coefficient": "3.00",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0182",
+      "fullName": "Руководилац сектора производње и хортикултурног",
+      "positionNumber": "87",
+      "positionTitle": "Виши пословођа",
+      "coefficient": "3.00",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0183",
+      "fullName": "Првуљ Дејан,",
+      "positionNumber": "87",
+      "positionTitle": "Виши пословођа",
+      "coefficient": "3.00",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0184",
+      "fullName": "Пуцар Петар",
+      "positionNumber": "87",
+      "positionTitle": "Виши пословођа",
+      "coefficient": "3.00",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0185",
+      "fullName": "Андоновски Марјан,",
+      "positionNumber": "87",
+      "positionTitle": "Виши пословођа",
+      "coefficient": "3.00",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0186",
+      "fullName": "Манаиловић Зоран,",
+      "positionNumber": "87",
+      "positionTitle": "Виши пословођа",
+      "coefficient": "3.00",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0187",
+      "fullName": "Ђорђевић Бобан,",
+      "positionNumber": "87",
+      "positionTitle": "Виши пословођа",
+      "coefficient": "3.00",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0188",
+      "fullName": "Првуљ Драган,",
+      "positionNumber": "87",
+      "positionTitle": "Виши пословођа",
+      "coefficient": "3.00",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0189",
+      "fullName": "Првуљ Никола",
+      "positionNumber": "87",
+      "positionTitle": "Виши пословођа",
+      "coefficient": "3.00",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0190",
+      "fullName": "Ђорђевић Саша",
+      "positionNumber": "87",
+      "positionTitle": "Виши пословођа",
+      "coefficient": "3.00",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0191",
+      "fullName": "Цвећар-трговац у",
+      "positionNumber": "87",
+      "positionTitle": "Виши пословођа",
+      "coefficient": "3.00",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0192",
+      "fullName": "РЈ ,,Градско зеленило,, Веселиновић Марија",
+      "positionNumber": "87",
+      "positionTitle": "Виши пословођа",
+      "coefficient": "3.00",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0193",
+      "fullName": "Симеуновић Дејан",
+      "positionNumber": "92",
+      "positionTitle": "Руководилац РЈ “Пијаце“",
+      "coefficient": "4.80",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0194",
+      "fullName": "Глигорић Томислав",
+      "positionNumber": "95",
+      "positionTitle": "Сарадник за наплату потраживања у РЈ „Пијаце“",
+      "coefficient": "3.80",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0195",
+      "fullName": "Миловановић Јована",
+      "positionNumber": "96",
+      "positionTitle": "Самост.сарад. за квалитет и контр. услуга",
+      "coefficient": "3.50",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0196",
+      "fullName": "Стојановић Бобан",
+      "positionNumber": "100",
+      "positionTitle": "Самостални сарадник унутрашње контроле",
+      "coefficient": "3.20",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0197",
+      "fullName": "Трајановски Данијела",
+      "positionNumber": "101",
+      "positionTitle": "Самостални администратор процеса рада",
+      "coefficient": "2.90",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0198",
+      "fullName": "Наумовски Зоран",
+      "positionNumber": "102",
+      "positionTitle": "Шеф одржавања пијачног платоа",
+      "coefficient": "2.80",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0199",
+      "fullName": "Кастратовић Војо",
+      "positionNumber": "103",
+      "positionTitle": "Пословођа процеса одржавања пијачног платоа",
+      "coefficient": "2.50",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0200",
+      "fullName": "Јовановски Стоимен",
+      "positionNumber": "104",
+      "positionTitle": "Самостални бравар",
+      "coefficient": "2.50",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0201",
+      "fullName": "Шкиљо Мара",
+      "positionNumber": "104",
+      "positionTitle": "Самостални бравар",
+      "coefficient": "2.50",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0202",
+      "fullName": "Лазић Нада ,",
+      "positionNumber": "104",
+      "positionTitle": "Самостални бравар",
+      "coefficient": "2.50",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0203",
+      "fullName": "Радуловић Дубравка",
+      "positionNumber": "104",
+      "positionTitle": "Самостални бравар",
+      "coefficient": "2.50",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0204",
+      "fullName": "Бјелетић Јован",
+      "positionNumber": "104",
+      "positionTitle": "Самостални бравар",
+      "coefficient": "2.50",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0205",
+      "fullName": "Стејић Милан",
+      "positionNumber": "104",
+      "positionTitle": "Самостални бравар",
+      "coefficient": "2.50",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0206",
+      "fullName": "Костић Александар",
+      "positionNumber": "104",
+      "positionTitle": "Самостални бравар",
+      "coefficient": "2.50",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0207",
+      "fullName": "Вицановић Видосава",
+      "positionNumber": "104",
+      "positionTitle": "Самостални бравар",
+      "coefficient": "2.50",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0208",
+      "fullName": "Потић Милица",
+      "positionNumber": "104",
+      "positionTitle": "Самостални бравар",
+      "coefficient": "2.50",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0209",
+      "fullName": "Реповић Предраг",
+      "positionNumber": "104",
+      "positionTitle": "Самостални бравар",
+      "coefficient": "2.50",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0210",
+      "fullName": "Борчић Мирко",
+      "positionNumber": "104",
+      "positionTitle": "Самостални бравар",
+      "coefficient": "2.50",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0211",
+      "fullName": "Сања Кодран",
+      "positionNumber": "104",
+      "positionTitle": "Самостални бравар",
+      "coefficient": "2.50",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0212",
+      "fullName": "Јованов Сузана",
+      "positionNumber": "104",
+      "positionTitle": "Самостални бравар",
+      "coefficient": "2.50",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0213",
+      "fullName": "Ђукић Марко",
+      "positionNumber": "104",
+      "positionTitle": "Самостални бравар",
+      "coefficient": "2.50",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0214",
+      "fullName": "Секашан Марин",
+      "positionNumber": "104",
+      "positionTitle": "Самостални бравар",
+      "coefficient": "2.50",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0215",
+      "fullName": "Вујић Данијела,",
+      "positionNumber": "104",
+      "positionTitle": "Самостални бравар",
+      "coefficient": "2.50",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0216",
+      "fullName": "Гамбирожа Гордана",
+      "positionNumber": "104",
+      "positionTitle": "Самостални бравар",
+      "coefficient": "2.50",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0217",
+      "fullName": "Реповић Драгана",
+      "positionNumber": "104",
+      "positionTitle": "Самостални бравар",
+      "coefficient": "2.50",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0218",
+      "fullName": "Филиповић Горан",
+      "positionNumber": "108",
+      "positionTitle": "Предрадник",
+      "coefficient": "1.90",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0219",
+      "fullName": "Ракочевић Жарко",
+      "positionNumber": "112",
+      "positionTitle": "Руководилац РЈ „Гробља“",
+      "coefficient": "4.80",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0220",
+      "fullName": "Глигоријев Драгослав",
+      "positionNumber": "113",
+      "positionTitle": "Организатор за техничке послове и сахрањивање",
+      "coefficient": "4.30",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0221",
+      "fullName": "Којић Радован",
+      "positionNumber": "114",
+      "positionTitle": "Заменик руководиоца РЈ „Гробља“",
+      "coefficient": "3.80",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0222",
+      "fullName": "Ивковић Срђан",
+      "positionNumber": "115",
+      "positionTitle": "Организатор сахрањивања и одржавања",
+      "coefficient": "3.50",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0223",
+      "fullName": "Чворовић Горан,",
+      "positionNumber": "115",
+      "positionTitle": "Организатор сахрањивања и одржавања",
+      "coefficient": "3.50",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0224",
+      "fullName": "Илијев Милан,",
+      "positionNumber": "115",
+      "positionTitle": "Организатор сахрањивања и одржавања",
+      "coefficient": "3.50",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0225",
+      "fullName": "Грубетић Сава,",
+      "positionNumber": "115",
+      "positionTitle": "Организатор сахрањивања и одржавања",
+      "coefficient": "3.50",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0226",
+      "fullName": "Јусуфи Нешит,",
+      "positionNumber": "115",
+      "positionTitle": "Организатор сахрањивања и одржавања",
+      "coefficient": "3.50",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0227",
+      "fullName": "Вујић Небојша,",
+      "positionNumber": "115",
+      "positionTitle": "Организатор сахрањивања и одржавања",
+      "coefficient": "3.50",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0228",
+      "fullName": "Грујица Зоран,",
+      "positionNumber": "115",
+      "positionTitle": "Организатор сахрањивања и одржавања",
+      "coefficient": "3.50",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0229",
+      "fullName": "Брети Јанош,",
+      "positionNumber": "115",
+      "positionTitle": "Организатор сахрањивања и одржавања",
+      "coefficient": "3.50",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0230",
+      "fullName": "Дечермић Мирослав",
+      "positionNumber": "115",
+      "positionTitle": "Организатор сахрањивања и одржавања",
+      "coefficient": "3.50",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0231",
+      "fullName": "Јовановић Горица,",
+      "positionNumber": "115",
+      "positionTitle": "Организатор сахрањивања и одржавања",
+      "coefficient": "3.50",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0232",
+      "fullName": "Кастратовић Споменка",
+      "positionNumber": "115",
+      "positionTitle": "Организатор сахрањивања и одржавања",
+      "coefficient": "3.50",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0233",
+      "fullName": "Младеновска Снежана,",
+      "positionNumber": "115",
+      "positionTitle": "Организатор сахрањивања и одржавања",
+      "coefficient": "3.50",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0234",
+      "fullName": "Николић Ружа",
+      "positionNumber": "115",
+      "positionTitle": "Организатор сахрањивања и одржавања",
+      "coefficient": "3.50",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0235",
+      "fullName": "Хајризај Хајдар,",
+      "positionNumber": "115",
+      "positionTitle": "Организатор сахрањивања и одржавања",
+      "coefficient": "3.50",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0236",
+      "fullName": "Хајризај Мисин,",
+      "positionNumber": "115",
+      "positionTitle": "Организатор сахрањивања и одржавања",
+      "coefficient": "3.50",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0237",
+      "fullName": "Максимов Срећко,",
+      "positionNumber": "115",
+      "positionTitle": "Организатор сахрањивања и одржавања",
+      "coefficient": "3.50",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0238",
+      "fullName": "Милошев Жељко,",
+      "positionNumber": "115",
+      "positionTitle": "Организатор сахрањивања и одржавања",
+      "coefficient": "3.50",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0239",
+      "fullName": "Лакић Душан,",
+      "positionNumber": "115",
+      "positionTitle": "Организатор сахрањивања и одржавања",
+      "coefficient": "3.50",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0240",
+      "fullName": "Словић",
+      "positionNumber": "115",
+      "positionTitle": "Организатор сахрањивања и одржавања",
+      "coefficient": "3.50",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0241",
+      "fullName": "Станко 7.Стојчевски Бобан,",
+      "positionNumber": "115",
+      "positionTitle": "Организатор сахрањивања и одржавања",
+      "coefficient": "3.50",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0242",
+      "fullName": "Хајризај Тафе,",
+      "positionNumber": "115",
+      "positionTitle": "Организатор сахрањивања и одржавања",
+      "coefficient": "3.50",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0243",
+      "fullName": "Обрадовић Предраг,",
+      "positionNumber": "115",
+      "positionTitle": "Организатор сахрањивања и одржавања",
+      "coefficient": "3.50",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0244",
+      "fullName": "Хајризај Истреф,",
+      "positionNumber": "115",
+      "positionTitle": "Организатор сахрањивања и одржавања",
+      "coefficient": "3.50",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0245",
+      "fullName": "Арсић Горан,",
+      "positionNumber": "115",
+      "positionTitle": "Организатор сахрањивања и одржавања",
+      "coefficient": "3.50",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0246",
+      "fullName": "Хајризај",
+      "positionNumber": "115",
+      "positionTitle": "Организатор сахрањивања и одржавања",
+      "coefficient": "3.50",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0247",
+      "fullName": "Хајризај Наим,",
+      "positionNumber": "115",
+      "positionTitle": "Организатор сахрањивања и одржавања",
+      "coefficient": "3.50",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0248",
+      "fullName": "Хајризај Албер,",
+      "positionNumber": "115",
+      "positionTitle": "Организатор сахрањивања и одржавања",
+      "coefficient": "3.50",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0249",
+      "fullName": "Скалушевић Горан,",
+      "positionNumber": "115",
+      "positionTitle": "Организатор сахрањивања и одржавања",
+      "coefficient": "3.50",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0250",
+      "fullName": "Михајловски Владимир,",
+      "positionNumber": "115",
+      "positionTitle": "Организатор сахрањивања и одржавања",
+      "coefficient": "3.50",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0251",
+      "fullName": "Асанов Џемаљ,",
+      "positionNumber": "115",
+      "positionTitle": "Организатор сахрањивања и одржавања",
+      "coefficient": "3.50",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0252",
+      "fullName": "Илић Валадимир",
+      "positionNumber": "115",
+      "positionTitle": "Организатор сахрањивања и одржавања",
+      "coefficient": "3.50",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0253",
+      "fullName": "Јовановић Александра",
+      "positionNumber": "119",
+      "positionTitle": "Референт за наплату потраживања",
+      "coefficient": "2.80",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0254",
+      "fullName": "Казаков Иван",
+      "positionNumber": "120",
+      "positionTitle": "Пословођа одржавања",
+      "coefficient": "2.80",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0255",
+      "fullName": "Јовановић Владимир",
+      "positionNumber": "121",
+      "positionTitle": "Референт контроле квалитета рада и материјала",
+      "coefficient": "2.70",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0256",
+      "fullName": "Николић Радивоје",
+      "positionNumber": "123",
+      "positionTitle": "Домар – ложач",
+      "coefficient": "2.50",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0257",
+      "fullName": "Ковачки Хафнер Бранка",
+      "positionNumber": "124",
+      "positionTitle": "Референт продаје",
+      "coefficient": "2.40",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0258",
+      "fullName": "Режа Милош",
+      "positionNumber": "125",
+      "positionTitle": "Контролор наплате",
+      "coefficient": "2.40",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0259",
+      "fullName": "Стевић Сава",
+      "positionNumber": "126",
+      "positionTitle": "Возач погребних кола",
+      "coefficient": "2.40",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0260",
+      "fullName": "Антић Новица",
+      "positionNumber": "127",
+      "positionTitle": "Возач -руковалац специјалних машина",
+      "coefficient": "2.40",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0261",
+      "fullName": "Влчек Анка",
+      "positionNumber": "129",
+      "positionTitle": "Администратор процеса рада",
+      "coefficient": "2.20",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0262",
+      "fullName": "Станковић Слободан",
+      "positionNumber": "133",
+      "positionTitle": "Радник на припреми погребне опреме",
+      "coefficient": "2.00",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0263",
+      "fullName": "Салиховић Елвис",
+      "positionNumber": "133",
+      "positionTitle": "Радник на припреми погребне опреме",
+      "coefficient": "2.00",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0264",
+      "fullName": "Јовановић Миљан",
+      "positionNumber": "133",
+      "positionTitle": "Радник на припреми погребне опреме",
+      "coefficient": "2.00",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0265",
+      "fullName": "Детки Михајло",
+      "positionNumber": "133",
+      "positionTitle": "Радник на припреми погребне опреме",
+      "coefficient": "2.00",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0266",
+      "fullName": "Цуканић Бранислав",
+      "positionNumber": "133",
+      "positionTitle": "Радник на припреми погребне опреме",
+      "coefficient": "2.00",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0267",
+      "fullName": "Каранфиловски Горан",
+      "positionNumber": "133",
+      "positionTitle": "Радник на припреми погребне опреме",
+      "coefficient": "2.00",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0268",
+      "fullName": "Лазић Сава",
+      "positionNumber": "133",
+      "positionTitle": "Радник на припреми погребне опреме",
+      "coefficient": "2.00",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0269",
+      "fullName": "Јевтић Зоран",
+      "positionNumber": "133",
+      "positionTitle": "Радник на припреми погребне опреме",
+      "coefficient": "2.00",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0270",
+      "fullName": "Ереш Имбро,",
+      "positionNumber": "133",
+      "positionTitle": "Радник на припреми погребне опреме",
+      "coefficient": "2.00",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0271",
+      "fullName": "Кесег Јанош,,",
+      "positionNumber": "133",
+      "positionTitle": "Радник на припреми погребне опреме",
+      "coefficient": "2.00",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0272",
+      "fullName": "Бањаш Богдан,",
+      "positionNumber": "133",
+      "positionTitle": "Радник на припреми погребне опреме",
+      "coefficient": "2.00",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0273",
+      "fullName": "Лазић Дејан",
+      "positionNumber": "133",
+      "positionTitle": "Радник на припреми погребне опреме",
+      "coefficient": "2.00",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0274",
+      "fullName": "Чикош",
+      "positionNumber": "133",
+      "positionTitle": "Радник на припреми погребне опреме",
+      "coefficient": "2.00",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0275",
+      "fullName": "Никола 8. Новаков Петар",
+      "positionNumber": "133",
+      "positionTitle": "Радник на припреми погребне опреме",
+      "coefficient": "2.00",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0276",
+      "fullName": "9. Нистор",
+      "positionNumber": "133",
+      "positionTitle": "Радник на припреми погребне опреме",
+      "coefficient": "2.00",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "temporary"
+    },
+    {
+      "id": "EMP-0277",
+      "fullName": "Грујић Горан",
+      "positionNumber": "133",
+      "positionTitle": "Радник на припреми погребне опреме",
+      "coefficient": "2.00",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0278",
+      "fullName": "Лападат Душан",
+      "positionNumber": "133",
+      "positionTitle": "Радник на припреми погребне опреме",
+      "coefficient": "2.00",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0279",
+      "fullName": "Јовановски Предраг",
+      "positionNumber": "133",
+      "positionTitle": "Радник на припреми погребне опреме",
+      "coefficient": "2.00",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0280",
+      "fullName": "Јовановић Зоран",
+      "positionNumber": "133",
+      "positionTitle": "Радник на припреми погребне опреме",
+      "coefficient": "2.00",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0281",
+      "fullName": "Лазаров Сава,",
+      "positionNumber": "133",
+      "positionTitle": "Радник на припреми погребне опреме",
+      "coefficient": "2.00",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0282",
+      "fullName": "Апро Милојко",
+      "positionNumber": "133",
+      "positionTitle": "Радник на припреми погребне опреме",
+      "coefficient": "2.00",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0283",
+      "fullName": "Пауновић Марко",
+      "positionNumber": "133",
+      "positionTitle": "Радник на припреми погребне опреме",
+      "coefficient": "2.00",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0284",
+      "fullName": "Пап Маћаш,",
+      "positionNumber": "133",
+      "positionTitle": "Радник на припреми погребне опреме",
+      "coefficient": "2.00",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0285",
+      "fullName": "Анђелковић Дејан,",
+      "positionNumber": "133",
+      "positionTitle": "Радник на припреми погребне опреме",
+      "coefficient": "2.00",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0286",
+      "fullName": "Вулетић Анкица",
+      "positionNumber": "133",
+      "positionTitle": "Радник на припреми погребне опреме",
+      "coefficient": "2.00",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0287",
+      "fullName": "Тодоровић Миодраг",
+      "positionNumber": "133",
+      "positionTitle": "Радник на припреми погребне опреме",
+      "coefficient": "2.00",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0288",
+      "fullName": "5. Апро",
+      "positionNumber": "133",
+      "positionTitle": "Радник на припреми погребне опреме",
+      "coefficient": "2.00",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "temporary"
+    },
+    {
+      "id": "EMP-0289",
+      "fullName": "Лековић Славица",
+      "positionNumber": "133",
+      "positionTitle": "Радник на припреми погребне опреме",
+      "coefficient": "2.00",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0290",
+      "fullName": "РАСПОРЕЂЕНИ НА ПРОЈЕКТУ:",
+      "positionNumber": "133",
+      "positionTitle": "Радник на припреми погребне опреме",
+      "coefficient": "2.00",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0291",
+      "fullName": "Мутавџић Татјана",
+      "positionNumber": "133",
+      "positionTitle": "Радник на припреми погребне опреме",
+      "coefficient": "2.00",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    },
+    {
+      "id": "EMP-0292",
+      "fullName": "Урс Милица",
+      "positionNumber": "133",
+      "positionTitle": "Радник на припреми погребне опреме",
+      "coefficient": "2.00",
+      "sector": "СЕКТОР ПРОИЗВОДЊА",
+      "employmentStatus": "permanent"
+    }
+  ],
+  "totalEmployees": 292,
+  "extractionDate": "2025-11-20"
+}

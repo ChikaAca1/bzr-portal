@@ -27,6 +27,7 @@ import { DocumentGenerator } from '../../services/DocumentGenerator';
 import { BlobStorage } from '../../lib/blob-storage';
 import { logBusinessEvent } from '../../lib/logger';
 import { TRPCError } from '@trpc/server';
+import { uploadedDocuments } from '../../db/schema/uploaded-documents';
 
 // =============================================================================
 // Documents Router
@@ -191,4 +192,156 @@ export const documentsRouter = router({
         message: 'Документ успешно генерисан',
       };
     }),
+
+  /**
+   * Get uploaded document by ID
+   *
+   * Returns a single uploaded document with extraction status and results.
+   *
+   * Authorization: User must own the company that owns the document
+   *
+   * Output: Uploaded document details
+   */
+  getUploadedById: protectedProcedure
+    .input(z.object({ documentId: z.number().int().positive() }))
+    .query(async ({ ctx, input }) => {
+      const userId = ctx.userId!;
+
+      // Get document
+      const doc = await db.query.uploadedDocuments.findFirst({
+        where: eq(uploadedDocuments.id, input.documentId),
+      });
+
+      if (!doc) {
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+          message: 'Документ није пронађен.',
+        });
+      }
+
+      // Verify ownership via company
+      const company = await db.query.companies.findFirst({
+        where: eq(companies.id, doc.companyId),
+      });
+
+      if (!company || company.userId !== userId) {
+        throw new TRPCError({
+          code: 'FORBIDDEN',
+          message: 'Немате дозволу за приступ овом документу.',
+        });
+      }
+
+      return {
+        id: doc.id,
+        filename: doc.originalFilename,
+        fileType: doc.fileType,
+        fileSize: doc.fileSize,
+        uploadedAt: doc.uploadedAt,
+        processingStatus: doc.processingStatus,
+        processingError: doc.processingError,
+        extractedData: doc.extractedData,
+        processedAt: doc.processedAt,
+      };
+    }),
+
+  /**
+   * Reset stuck document processing
+   *
+   * Resets a document's processing status from 'processing' to 'pending' or 'failed'.
+   * Useful when AI extraction gets stuck.
+   *
+   * Authorization: User must own the company that owns the document
+   */
+  resetProcessing: protectedProcedure
+    .input(z.object({ documentId: z.number().int().positive() }))
+    .mutation(async ({ ctx, input }) => {
+      const userId = ctx.userId!;
+
+      // Get document
+      const doc = await db.query.uploadedDocuments.findFirst({
+        where: eq(uploadedDocuments.id, input.documentId),
+      });
+
+      if (!doc) {
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+          message: 'Документ није пронађен.',
+        });
+      }
+
+      // Verify ownership via company
+      const company = await db.query.companies.findFirst({
+        where: eq(companies.id, doc.companyId),
+      });
+
+      if (!company || company.userId !== userId) {
+        throw new TRPCError({
+          code: 'FORBIDDEN',
+          message: 'Немате дозволу за ресетовање овог документа.',
+        });
+      }
+
+      // Reset to failed status to stop infinite processing
+      await db
+        .update(uploadedDocuments)
+        .set({
+          processingStatus: 'failed',
+          processingError: 'Обрада ресетована од стране корисника',
+        })
+        .where(eq(uploadedDocuments.id, input.documentId));
+
+      return {
+        success: true,
+        message: 'Обрада документа је ресетована',
+      };
+    }),
+
+  /**
+   * List uploaded documents for current user's company
+   *
+   * Returns list of user-uploaded documents with extraction status.
+   *
+   * Authorization: User must own the company
+   *
+   * Output: Array of uploaded documents
+   */
+  listUploaded: protectedProcedure.query(async ({ ctx }) => {
+    const userId = ctx.userId!;
+
+    // Get user's company
+    const userCompanies = await db
+      .select()
+      .from(companies)
+      .where(eq(companies.userId, userId));
+
+    if (userCompanies.length === 0) {
+      return [];
+    }
+
+    const companyId = userCompanies[0]!.id;
+
+    // Get uploaded documents for this company
+    const documents = await db
+      .select()
+      .from(uploadedDocuments)
+      .where(
+        and(
+          eq(uploadedDocuments.companyId, companyId),
+          eq(uploadedDocuments.isDeleted, false)
+        )
+      )
+      .orderBy(uploadedDocuments.uploadedAt);
+
+    return documents.map((doc) => ({
+      id: doc.id,
+      filename: doc.originalFilename,
+      fileType: doc.fileType,
+      fileSize: doc.fileSize,
+      uploadedAt: doc.uploadedAt,
+      processingStatus: doc.processingStatus,
+      processingError: doc.processingError,
+      extractedData: doc.extractedData,
+      addedToKnowledgeBase: doc.addedToKnowledgeBase,
+    }));
+  }),
 });

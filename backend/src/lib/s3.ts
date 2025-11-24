@@ -51,7 +51,7 @@ export const s3Client = new S3Client({
  * Wasabi bucket name for document storage
  * Folder structure: documents/{company_id}/{document_id}.docx
  */
-export const WASABI_BUCKET_NAME = process.env.WASABI_BUCKET_NAME || 'bzr-portal-documents';
+export const WASABI_BUCKET_NAME = process.env.WASABI_BUCKET || process.env.WASABI_BUCKET_NAME || 'bzr-ai-storage';
 
 /**
  * Pre-signed URL expiration time (1 hour per spec.md FR-052e)

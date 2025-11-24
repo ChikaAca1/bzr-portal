@@ -1,0 +1,10 @@
+{
+  "0": {
+    "json": {
+      "email": "test-render@example.com",
+      "password": "Test1234!",
+      "firstName": "Render",
+      "lastName": "Test"
+    }
+  }
+}

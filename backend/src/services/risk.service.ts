@@ -31,7 +31,7 @@ import {
  */
 
 export class RiskService {
-  constructor(private db: DB, private userId: string) {}
+  constructor(private db: DB, private userId: number) {}
 
   /**
    * Create new risk assessment

@@ -2,6 +2,7 @@
 export * from './hazards';
 export * from './companies';
 export * from './work-positions';
+export * from './workers';
 export * from './risk-assessments';
 export * from './ppe';
 export * from './training';
@@ -10,6 +11,8 @@ export * from './medical-exams';
 // Authentication schemas (Phase 2.5)
 export * from './users';
 export * from './sessions';
+export * from './email-verification-tokens';
+export * from './password-reset-tokens';
 
 // AI Learning & Caching (Phase 3b)
 export * from './ai-cache';
@@ -19,3 +22,6 @@ export * from './contact-form-submissions';
 
 // AI Conversations & Templates (Phase AI)
 export * from './conversations';
+
+// Document Upload & AI Extraction
+export * from './uploaded-documents';

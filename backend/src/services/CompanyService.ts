@@ -15,7 +15,7 @@ import { logInfo, logError } from '../lib/logger';
 // =============================================================================
 
 export interface CreateCompanyInput {
-  userId: string;
+  userId: number;
   name: string;
   pib: string;
   activityCode: string;
@@ -97,7 +97,7 @@ export class CompanyService {
    * @param userId - User ID (for RLS)
    * @returns Company or null
    */
-  static async getById(id: number, userId: string): Promise<Company | null> {
+  static async getById(id: number, userId: number): Promise<Company | null> {
     const company = await db.query.companies.findFirst({
       where: and(
         eq(companies.id, id),
@@ -115,7 +115,7 @@ export class CompanyService {
    * @param userId - User ID (for RLS)
    * @returns Array of companies
    */
-  static async listByUser(userId: string): Promise<Company[]> {
+  static async listByUser(userId: number): Promise<Company[]> {
     const companyList = await db.query.companies.findMany({
       where: and(eq(companies.userId, userId), eq(companies.isDeleted, false)),
       orderBy: (companies, { desc }) => [desc(companies.createdAt)],
@@ -187,7 +187,7 @@ export class CompanyService {
    * @param userId - User ID (for RLS)
    * @throws Error if company not found or unauthorized
    */
-  static async delete(id: number, userId: string): Promise<void> {
+  static async delete(id: number, userId: number): Promise<void> {
     // Verify ownership
     const existing = await this.getById(id, userId);
     if (!existing) {
@@ -222,7 +222,7 @@ export class CompanyService {
    * @param userId - User ID
    * @returns Count of active companies
    */
-  static async countByUser(userId: string): Promise<number> {
+  static async countByUser(userId: number): Promise<number> {
     const result = await db.query.companies.findMany({
       where: and(eq(companies.userId, userId), eq(companies.isDeleted, false)),
     });

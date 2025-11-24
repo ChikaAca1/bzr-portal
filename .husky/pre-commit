@@ -1,5 +1,31 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-# Run backend tests before commit
-cd backend && npm run test -- --run
+echo "🔍 Running pre-commit checks..."
+echo ""
+
+# Backend lint
+echo "📋 Backend: Running ESLint..."
+cd backend && npm run lint || exit 1
+echo "✅ Backend lint passed"
+echo ""
+
+# Backend tests
+echo "🧪 Backend: Running tests..."
+npm run test -- --run || exit 1
+echo "✅ Backend tests passed"
+echo ""
+
+# Frontend lint
+echo "📋 Frontend: Running ESLint..."
+cd ../frontend && npm run lint || exit 1
+echo "✅ Frontend lint passed"
+echo ""
+
+# Frontend type check
+echo "🔍 Frontend: Running TypeScript check..."
+npx tsc --noEmit || exit 1
+echo "✅ Frontend type check passed"
+echo ""
+
+echo "✨ All pre-commit checks passed! Ready to commit."
